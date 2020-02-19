@@ -1,0 +1,113 @@
+<?php
+/**
+ * Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+ * @author PlazaThemes Team <contact@plazathemes.com>
+ */
+ 
+if($this->getConfig('customers_submit'))
+{
+	if($this->getConfig('allow_guest'))
+	{
+		$urlsubmit = $this->getUrl('testimonial/form');
+		$show_submit = true;
+	}
+	else{
+		if($this->checklogin())
+		{
+			$urlsubmit = $this->getUrl('testimonial/form');
+			$show_submit = true;
+		}
+		else{
+			$urlsubmit = $this->getUrl('customer/account/login');
+			$show_submit = false;
+		}
+	}
+}else{
+	$show_submit = false;
+}
+ 
+if($this->getConfig('enable_frontend')):
+if($show_submit):
+?>
+<div class="pt-testimonial-submit">
+	<form action="<?php echo $this->getUrl('testimonial/index/post'); ?>" method="post" id="form-validate" enctype="multipart/form-data" class="form"  data-mage-init='{"validation":{}}'>
+		<fieldset class="fieldset">
+			<input name="store_id" id="store_id" type="hidden" value="<?php echo $this->getStoreId();?>"  />
+			<input name="status" id="status" type="hidden" value="<?php if($this->getConfig('approve_testimonials')) echo '1'; else echo '3'; ?>"  />
+			<div  class="field field-name required">
+				<label for="name" class="label">
+					<span><?php echo __('Your Name');?></span>
+				</label>
+				<div class="input-box">
+					<input name="name" id="name" class="input-text required-entry" type="text" value="<?php //echo $this->getCustomer()->getName();?>"  />
+				</div>
+			</div>
+			<div  class="field field-name-firstname required">
+				<label for="email" class="label">
+					<?php echo __('Your Email'); ?>
+				</label>
+				<div class="input-box">
+					<input name="email" id="email" class="input-text required-entry validate-email" type="text" />
+				</div>
+			</div>
+			<div  class="field field-name-job">
+				<label for="job" class="label">
+					<?php echo __('Your Job'); ?>
+				</label>
+				<div class="input-box">
+					<input name="job" id="job" type="text" class="input-text" />
+				</div>
+			</div>
+			<div  class="field field-name-firstname">
+				<label for="website" class="label">
+					<?php echo __('Your Website'); ?>
+				</label>
+				<div class="input-box">
+					<input name="website" id="website" type="text" class="input-text" />
+				</div>
+			</div>
+			<div  class="field field-name-firstname">
+				<label for="company" class="label">
+					<?php echo __('Your Company');?>
+				</label>
+				<div class="input-box">
+					<input name="company" id="company" type="text" class="input-text" />
+				</div>
+			</div>
+			<div  class="field field-name-firstname">
+				<label for="address" class="label">
+					<?php echo __('Your Address'); ?>
+				</label>
+				<div class="input-box">
+					<input name="address" id="address" type="text" class="input-text"/>
+				</div>
+			</div>
+			<div  class="field field-name-firstname required">
+				<label for="avatar" class="label">
+					<?php echo __('Your Avatar'); ?>
+				</label>
+				<div class="input-box">
+					<input name="avatar" id="avatar" type="file"/>
+				</div>
+			</div>
+			<div  class="field field-name-firstname required">
+				<label for="testimonial" class="label">
+					<?php echo __('Your Testimonial'); ?>
+				</label>
+				<div class="std-input-box">
+					<textarea name="testimonial" id="testimonial" class="required-entry" rows="4" cols="50"></textarea>
+				</div>
+			</div>
+			<div class="actions-toolbar">
+				<div class="primary">
+					<button type="submit" title="<?php echo __('Submit') ?>" class="action submit primary">
+						<span><?php echo __('Submit') ?></span>
+					</button>
+				</div>
+			</div>
+		</fieldset>
+	</form>
+</div>
+<?php endif ?>
+<?php endif ?>

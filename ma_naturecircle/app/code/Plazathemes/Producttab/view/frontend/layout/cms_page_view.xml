@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+	<head>
+		 <!--   <css src="Plazathemes_Producttab::css/producttab.css"/> --->
+		<!--    <css src="Plazathemes_Producttab::css/owl.carousel.css"/>  -->
+	</head>
+    <body>
+        <referenceContainer name="content">
+           <!--  <block class="Plazathemes\Producttab\Block\Producttab" name="producttab" before="categorytop" template="producttab.phtml" /> -->
+        </referenceContainer>
+    </body>
+	
+</page>

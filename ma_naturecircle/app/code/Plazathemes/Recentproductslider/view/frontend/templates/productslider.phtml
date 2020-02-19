@@ -1,0 +1,180 @@
+<?php
+/**
+ * Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+ * @author PlazaThemes Team <contact@plazathemes.com>
+ */
+if($this->getConfig('enable_frontend')):
+	$_imagehelper = $this->helper('Magento\Catalog\Helper\Image');
+	$image = 'category_page_grid';
+	$_productHelper = $this->helper('Magento\Catalog\Helper\Product');
+	$block = $this->getBlockProduct();
+ 
+	$auto = $this->getConfig('auto');
+	if($auto)
+		$auto = 'true';
+	else
+		$auto = 'false';
+	$default = $this->getConfig('default');
+	$desktop = $this->getConfig('desktop');
+	$desktop_small = $this->getConfig('desktop_small');
+	$tablet = $this->getConfig('tablet');
+	$mobile = $this->getConfig('mobile');
+	$qty = $block->getConfig('qty');
+	$showCart = $block->getConfig('addtocart');
+	$showWishlist = $block->getConfig('wishlist');
+	$showCompare = $block->getConfig('compare');
+	$rows = $this->getConfig('rows');
+	$show_next_back = $this->getConfig('show_next_back');
+	$pagination = $this->getConfig('pagination');
+	if($this->getConfig('speed'))
+		$speed = $this->getConfig('speed');
+	else
+		$speed = '3000';
+	if($show_next_back)
+		$show_next_back = 'true';
+	else
+		$show_next_back = 'false';
+	$show_navigation_control = $this->getConfig('show_navigation_control');
+	if($show_navigation_control)
+		$show_navigation_control = 'true';
+	else
+		$show_navigation_control = 'false';
+?>
+<div class="pt-recentproduct-container module-sidebar">
+	
+		<header class='group-title1'><h2><?php echo $this->getConfig('title') ?></h2></header>
+		<div class="owl-container">
+			<ul class="ptowl">
+			<?php
+			$i = 0;
+			 foreach($this->getProducts() as $_product)
+			{
+			if($i%$rows == 0):
+			?>
+				<li class="item">
+			<?php
+			endif;
+					$productImage = $_imagehelper->init($_product, $image)->constrainOnly(FALSE)->keepAspectRatio(TRUE)->keepFrame(FALSE)->resize(400)->getUrl();
+					$templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::DEFAULT_VIEW;
+				?>
+				<div class="item-inner">
+					
+					<div class="image-container">
+						<a href="<?php echo $_product->getProductUrl() ?>" class="product-item-photo">
+							<img src="<?php echo $productImage; ?>" alt=""/>
+						</a>
+						<div class="actions">
+						</div>
+						
+					</div>
+					<div class="des">
+						<div class="product-name">
+							<strong class="product-item-name">	
+								<a href="<?php echo $_product->getProductUrl() ?>"><?php echo $_product->getName() ?></a>
+							</strong>
+						</div>
+						<?php if ($templateType): ?>
+							<?php echo $block->getReviewsSummaryHtml($_product, $templateType,true); ?>
+						<?php endif; ?>
+						<?php
+							echo $block->getProductPrice($_product)
+						?>
+						<div class="actions-second">
+							<?php if($showCart) : ?>
+							<div class="actions-primary">
+								<?php if ($_product->isSaleable()): ?>
+									<?php $postParams = $block->getAddToCartPostParams($_product); ?>
+									<form data-role="tocart-form" action="<?php /* @escapeNotVerified */ echo $postParams['action']; ?>" method="post">
+										<?php echo $block->getBlockHtml('formkey')?>
+										<button type="submit"
+												title="<?php echo $block->escapeHtml(__('Add to Cart')); ?>"
+												class="action tocart primary">
+											<span><?php /* @escapeNotVerified */ echo __('Add to Cart') ?></span>
+										</button>
+									</form>
+								<?php else: ?>
+									<?php if ($_product->getIsSalable()): ?>
+										<div class="stock available"><span><?php /* @escapeNotVerified */ echo __('In stock') ?></span></div>
+									<?php else: ?>
+										<div class="stock unavailable"><span><?php /* @escapeNotVerified */ echo __('Out of stock') ?></span></div>
+									<?php endif; ?>
+								<?php endif; ?>
+							</div>
+							<?php endif; ?>
+							<?php if($showWishlist || $showCompare ) : ?>
+								<div data-role="add-to-links" class="add-to-links">
+									<?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow()): ?>
+										<a href="#"
+										   class="action towishlist"
+										   title="<?php echo $block->escapeHtml(__('Add to Wish List')); ?>"
+										   aria-label="<?php echo $block->escapeHtml(__('Add to Wish List')); ?>"
+										   data-post='<?php /* @escapeNotVerified */ echo $block->getAddToWishlistParams($_product); ?>'
+										   data-action="add-to-wishlist"
+										   role="button">
+											<span><?php /* @escapeNotVerified */ echo __('Add to Wish List') ?></span>
+										</a>
+									<?php endif; ?>
+									<?php
+									$compareHelper = $this->helper('Magento\Catalog\Helper\Product\Compare');
+									?>
+									<a href="#"
+									   class="action tocompare"
+									   title="<?php echo $block->escapeHtml(__('Add to Compare')); ?>"
+									   aria-label="<?php echo $block->escapeHtml(__('Add to Compare')); ?>"
+									   data-post='<?php /* @escapeNotVerified */ echo $compareHelper->getPostDataParams($_product); ?>'
+									   role="button">
+										<span><?php /* @escapeNotVerified */ echo __('Add to Compare') ?></span>
+									</a>
+								</div>
+							<?php endif; ?>
+						</div>
+					</div>
+				</div>
+				
+			<?php if($i%$rows == $rows - 1): ?>
+				</li>
+			<?php
+			endif;
+			$i++;
+			}
+			?>
+			</ul>
+		</div>
+	
+</div>
+<script type="text/javascript">
+	require([
+  "jquery",
+  "owlcarousel/minjs"
+ ], function($,owlCarousel){
+		$(document).ready(function(){
+			$(".pt-recentproduct-container .ptowl").owlCarousel({
+				<?php
+					if(($auto== 'true') && $speed):
+				?>
+				autoPlay : <?php echo $speed; ?>,
+				<?php
+					endif;
+				?>
+				items : <?php echo $default; ?>,
+				itemsDesktop : [1199,<?php echo $desktop; ?>],
+				itemsDesktopSmall : [980,<?php echo $desktop_small; ?>],
+				itemsTablet: [767,<?php echo $tablet; ?>],
+				itemsMobile : [479,<?php echo $mobile; ?>],
+				slideSpeed : <?php echo $pagination; ?>,
+				paginationSpeed : <?php echo $pagination; ?>,
+				rewindSpeed : <?php echo $pagination; ?>,
+				addClassActive: true,
+				navigation : <?php echo $show_next_back; ?>,
+				stopOnHover : true,
+				pagination : <?php echo $show_navigation_control; ?>,
+				addClassActive : true,
+				scrollPerPage:false
+			});
+		});
+	});
+</script>
+<?php
+endif;
+?>

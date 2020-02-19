@@ -1,0 +1,23 @@
+<div class="main-container">
+	<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('static1_home4')->toHtml(); ?>
+	<div class="container-inner">
+		<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('static2_home4')->toHtml(); ?>
+	</div>
+	<?php echo $block->getLayout()->createBlock('Plazathemes\Featureproductslider\Block\Featureproductslider')->setTemplate('Plazathemes_Featureproductslider::featureproductslider.phtml')->toHtml();?>
+	<div class="container-inner">
+		<?php echo $block->getLayout()->createBlock('Plazathemes\Testimonial\Block\Testimonial')->setTemplate('Plazathemes_Testimonial::testimonial.phtml')->toHtml();?>
+	</div>
+	<div class="gruod-pruduct">
+		<div class="container-inner">
+			<?php echo $block->getLayout()->createBlock('Plazathemes\Pricecountdown\Block\Pricecountdown')->setTemplate('Plazathemes_Pricecountdown::saleslider.phtml')->toHtml();?>
+		</div>
+	</div>
+	<div class="container-inner">
+		
+		<?php echo $block->getLayout()->createBlock('Plazathemes\Blog\Block\Sidebar\Recent')->setTemplate('Plazathemes_Blog::sidebar/slider.phtml')->toHtml();?>
+	</div>	
+
+</div>
+
+
+

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+		<css src="css/bootstrap.css"/>
+	    <css src="css/bootstrap-theme.css"/>
+		<css src="css/font-awesome.css" />
+		<css src='css/stroke-gap-icons.css'/>
+		<css src='css/owl.carousel.css' media='all' />
+		<css src="css/animate.css" />
+		<css src="css/magic.css" />
+		<css src="css/styles-l.css" />
+		<css src="css/styles-m.css" />
+		<css src="css/style.css"/>
+		<link src='https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i' rel='stylesheet' type='text/css' src_type="url"/>
+		<link src="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700" rel="stylesheet" type='text/css' src_type="url"/>
+		<link src="https://fonts.googleapis.com/css?family=Playfair+Display:400,700" rel="stylesheet" type='text/css' src_type="url"/>
+		<link src="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type='text/css' src_type="url"/>
+    </head>
+</page>

@@ -1,0 +1,84 @@
+<?php
+/**
+ * Copyright © 2016 PlazaThemes.com. All rights reserved.
+ *
+ * @author PlazaThemes Team <contact@plazathemes.com>
+ */
+?>
+
+<?php
+/**
+ * Product View with Countdown
+ *
+ * @var $block \Plazathemes\Pricecountdown\Block\Pricecountdown
+ * @var $_product \Magento\Catalog\Model\Product
+ */
+?>
+<?php
+    $view_countbox_options = $block->getProductViewCountdownOptions();
+    $use_countdown = $view_countbox_options['enabled'];
+    $insert_direction = $view_countbox_options['insertion'];
+    $parent_element = $view_countbox_options['parent_element'];
+    $children_element = $view_countbox_options['children_element'];
+?>
+<?php if($use_countdown): ?>
+    <?php $_product = $block->getCurrentProduct(); ?>
+    <?php if($_product->getSpecialPrice() != null || $_product->getSpecialPrice() != 0 || $_product->getSpecialPrice() != ""): ?>
+        <?php if($_product->getShowCountdown() == 1): ?>
+            <?php
+                $toDate = $_product->getSpecialToDate();
+                $fromDate = $_product->getSpecialFromDate();
+                $_current_timer = time();
+            ?>
+
+            <script type="text/javascript">
+                //<![CDATA[
+               require([
+  "jquery",
+  "owlcarousel/minjs"
+ ], function($,owlCarousel){
+                    $(document).ready(function() {
+                        var countbox_element = $("<?php echo $parent_element; ?> <?php echo $children_element; ?>");
+                        var countbox_html = "";
+                        countbox_html += "<div class='countbox-<?php echo $_product->getId(); ?> countdown-container'>";
+                        countbox_html += "<span class='day'><?php echo __('D') ?></span>";
+                        countbox_html += "<span class='hour'><?php echo __('H') ?></span>";
+                        countbox_html += "<span class='min'><?php echo __('M') ?></span>";
+                        countbox_html += "<span class='sec'><?php echo __('S') ?></span>";
+                        countbox_html += "</div>";
+                        <?php if($insert_direction == "after"): ?>
+                            countbox_element.after(countbox_html);
+                        <?php else: ?>
+                            countbox_element.before(countbox_html);
+                        <?php endif; ?>
+                    });
+                });
+                //]]>
+            </script>
+
+            <script type="text/javascript">
+                var dthen<?php echo $_product->getId(); ?> = new Date("<?php echo Date("m/d/y", strtotime($toDate)).' 11:59:00 PM'; ?>");
+                var start = "<?php echo Date("m/d/y h:i:s A", $_current_timer); ?>";
+                var start_date = Date.parse(start);
+                var dnow<?php echo $_product->getId(); ?> = new Date(start_date);
+
+                var ddiff;
+                if(CountStepper > 0) {
+                    ddiff= new Date((dnow<?php echo $_product->getId(); ?>)-(dthen<?php echo $_product->getId(); ?>));
+                } else {
+                    ddiff = new Date((dthen<?php echo $_product->getId(); ?>)-(dnow<?php echo $_product->getId(); ?>));
+                }
+
+                <?php if(strtotime($fromDate) <= $_current_timer): ?>
+                    gsecs<?php echo $_product->getId(); ?> = Math.floor(ddiff.valueOf()/1000);
+                <?php else: ?>
+                    gsecs<?php echo $_product->getId(); ?> = -1;
+                <?php endif; ?>
+
+                var iid<?php echo $_product->getId(); ?> = "countbox-<?php echo $_product->getId(); ?>";
+                CountBack_slider(gsecs<?php echo $_product->getId(); ?>,"countbox-<?php echo $_product->getId(); ?>", <?php echo $_product->getId(); ?>);
+            </script>
+        <?php endif; ?>
+    <?php endif; ?>
+<?php endif; ?>
+

@@ -1,0 +1,39 @@
+<div class="pt_categorytop catlist">
+<div class="container">
+	<h2 class="title"><?php echo 'Category Popular'; ?></h2>
+	 
+	<?php
+
+	$catListTop = $block->getCatListTop();
+
+	$i = 0;
+	$last = count($catListTop);
+	foreach ($catListTop as $catTop) {
+		//echo "<pre>"; print_r($catTop->getData()); echo "</pre>"; 
+		$thumb_url = $block -> getThumbUrl($catTop->getThumbPopular());
+		if($i < $last) echo '<div class="catgrid">';
+		else echo '<div class="catgrid last">';
+
+	    	echo '<div class="catlist_level_top">
+						<a href="#">' 
+		                    .'<img src="'.$thumb_url.'" alt="'.$catTop->getName().'" />
+		                </a><h3>'
+		                .$catTop->getName()
+		                .'</h3></div>';
+
+	   
+	    $CatList = $block->getCatByPath((int) $catTop->getId(), $catTop->getPath());
+	    
+	    $j = 0;
+	    echo '<ul>';
+	    foreach ($CatList as $cat) {
+	      if($j >= 5) break;
+	        echo '<li><a href="#">'.$cat->getName().'</a></li>';
+	        $j++;
+	    }
+	    echo '</ul></div>';
+	    $j++; 
+	}
+	?>
+</div>
+</div>

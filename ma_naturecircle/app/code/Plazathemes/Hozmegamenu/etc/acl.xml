@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+ * @author PlazaThemes Team <contact@plazathemes.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+				<resource id="Plazathemes_Hozmegamenu::hozmegamenu" title="Plazathemes" sortOrder="40">
+                    <resource id="Plazathemes_Hozmegamenu::hozmegamenu_hozmegamenu" title="Megamenu" sortOrder="40">
+                        <resource id="Plazathemes_Hozmegamenu::items" title="Manage Megamenu" sortOrder="40" />
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

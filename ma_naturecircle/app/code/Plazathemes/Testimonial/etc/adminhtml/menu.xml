@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+* Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+* @author PlazaThemes Team <contact@plazathemes.com>
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Backend/etc/menu.xsd">
+    <menu>
+ 
+        <add id="Plazathemes_Testimonial::testimonial_testimonial" title="Testimonial" module="Plazathemes_Testimonial" sortOrder="10" parent="Plazathemes_Hozmegamenu::hozmegamenu" resource="Plazathemes_Hozmegamenu::hozmegamenu"/>
+		
+        <add id="Plazathemes_Testimonial::testimonial_testimos" title="Manage Testimonials" module="Plazathemes_Testimonial" sortOrder="10" parent="Plazathemes_Testimonial::testimonial_testimonial" action="testimonialadmin/testimo" resource="Plazathemes_Testimonial::testimonial_testimos"/>
+
+        <add id="Plazathemes_Testimonial::settings" title="Settings" module="Plazathemes_Testimonial" sortOrder="20" parent="Plazathemes_Testimonial::testimonial_testimonial" action="adminhtml/system_config/edit/section/testimonial" resource="Plazathemes_Testimonial::settings"/>
+    </menu>
+</config>

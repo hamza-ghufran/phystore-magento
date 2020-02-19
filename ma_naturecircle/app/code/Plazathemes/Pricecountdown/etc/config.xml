@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 PlazaThemes.com. All rights reserved.
+ *
+ * @author PlazaThemes Team <contact@plazathemes.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <pricecountdown>
+            <general>
+                <enabled>1</enabled>
+            </general>
+            <countdown_slider>
+                <enabled>1</enabled>
+                <use_countdown>1</use_countdown>
+                <title>Sale Products</title>
+                <show_price>1</show_price>
+                <show_add_cart>1</show_add_cart>
+                <show_add_wishlist>1</show_add_wishlist>
+                <show_add_compare>1</show_add_compare>
+                <show_rating>1</show_rating>
+                <show_short_description>1</show_short_description>
+                <short_description_length>100</short_description_length>
+                <quantity>10</quantity>
+                <auto>1</auto>
+                <speed>3000</speed>
+                <item_default>4</item_default>
+                <item_desktop>4</item_desktop>
+                <item_desktop_small>3</item_desktop_small>
+                <item_tablet>2</item_tablet>
+                <item_mobile>1</item_mobile>
+                <row_number>1</row_number>
+                <show_navigation>1</show_navigation>
+                <show_pagination>0</show_pagination>
+            </countdown_slider>
+            <in_product_list>
+                <enabled>1</enabled>
+            </in_product_list>
+            <in_product_view>
+                <enabled>1</enabled>
+                <insertion>after</insertion>
+                <parent_element>.product-info-main</parent_element>
+                <children_element>.product-info-price</children_element>
+            </in_product_view>
+        </pricecountdown>
+    </default>
+</config>

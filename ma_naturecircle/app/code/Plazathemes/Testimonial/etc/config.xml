@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+* Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+* @author PlazaThemes Team <contact@plazathemes.com>
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+	    <testimonial>
+	        <general>
+	            <title>WHAT THEY SAY</title>
+				<des>Testimonials</des>
+	            <enable_frontend>1</enable_frontend>
+	            <auto>0</auto>
+	            <speed>5000</speed>
+	            <pagination>500</pagination>
+	            <qty>5</qty>
+	            <default>1</default>
+	            <desktop>1</desktop>
+	            <desktop_small>1</desktop_small>
+	            <tablet>1</tablet>
+	            <mobile>1</mobile>
+	            <rows>1</rows>
+	            <show_description>1</show_description>
+	            <show_next_back>0</show_next_back>
+	            <show_navigation_control>0</show_navigation_control>
+	            <customers_submit>1</customers_submit>
+	            <allow_guest>1</allow_guest>
+	            <approve_testimonials>1</approve_testimonials>
+	            <per_page>5</per_page>
+	            <footer_link>0</footer_link>
+	        </general>
+	    </testimonial>
+	</default>
+</config>

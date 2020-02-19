@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+* Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+* @author PlazaThemes Team <contact@plazathemes.com>
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+	    <recentproductslider>
+	        <general>
+	            <enable_frontend>1</enable_frontend>
+	            <title>Mostviewed</title>
+	            <auto>0</auto>
+	            <pagination>
+				1000</pagination>
+	            <qty>15</qty>
+	            <rows>4</rows>
+	            <show_next_back>0</show_next_back>
+	            <show_navigation_control>0</show_navigation_control>
+	        </general>
+	    </recentproductslider>
+	</default>
+</config>

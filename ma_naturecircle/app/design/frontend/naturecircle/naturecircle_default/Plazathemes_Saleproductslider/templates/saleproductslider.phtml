@@ -1,0 +1,131 @@
+<?php 
+	$enable = $block->getConfig('enabled');
+	if($enable < 1) return ; 
+	$itemsDefault = $block->getConfig('itemsDefault');
+	$itemsDesktop = $block->getConfig('itemsDesktop');
+	$itemsDesktopSmall = $block->getConfig('itemsDesktopSmall');
+	$itemsTablet = $block->getConfig('itemsTablet');
+	$itemsMobile = $block->getConfig('itemsMobile');
+	$title = $block->getConfig('title');
+	$items = $block->getConfig('items');
+	$speed = $block->getConfig('speed');
+	$qty = $block->getConfig('qty');
+	$showCart = $block->getConfig('addtocart');
+	$showWishlist = $block->getConfig('wishlist');
+	$showCompare = $block->getConfig('compare');
+	$show_navigation = $block->getConfig('navigation');
+	$show_pagination = $block->getConfig('pagination');
+	$auto = $block->getConfig('auto');
+	$rows = $block->getConfig('row');
+?>
+<div class="onsaleproduct_container_slider ">
+	
+		<div class='grud'>
+			<h3><span><?php echo 'Organic'; ?></span><?php echo $title;?> </h3>
+		</div>
+		<div class="row">
+			<div class="owl-container">
+				<div id="sale_product_slider" class="owl-carousel">
+					<?php 
+					$saleItems =  $block -> getSaleProduct()->getItems(); 
+					$imageBlock =  $block->getLayout()->createBlock('Magento\Catalog\Block\Product\Image');
+					$image = 'new_products_content_widget_grid';
+					$type = 'widget-new-grid';
+					$templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::DEFAULT_VIEW;
+					$i=0;
+					foreach($saleItems as $_item) { 
+							$productImage = $block->getImage($_item, $image);
+						?>
+						<?php if($i++%$rows==0) { ?> <div class="product_row"> <?php $count_r = 0; } ?>
+						<div class="item">
+							<div class="item-inner <?php if($count_r == 0) echo 'first'; ?><?php if($count_r == 2) echo 'last'; ?>">
+								<?php $count_r++; ?>
+								<div class="pull-left">
+									<a href="<?php echo $block->getProductUrl($_item) ?>" class="product-item-photo">
+										<?php echo $productImage->toHtml() ?>
+									</a>
+									
+									
+								</div>
+								
+								<div class="media-body">
+									<?php echo $block->getReviewsSummaryHtml($_item, $templateType,true); ?>		
+									<div class="product-name">
+										<strong class="product-item-name">
+											<a title="<?php echo $block->escapeHtml($_item->getName()) ?>"
+											   href="<?php echo $block->getProductUrl($_item) ?>"
+											   class="product-item-link">
+												<?php echo $block->escapeHtml($_item->getName()) ?>
+											</a>
+										</strong>
+									</div>
+
+									 <?php
+										echo $block->getProductPrice($_item);
+									 ?>
+									 
+									 <div class="hover">
+										<?php if ($showCart): ?>
+											<div class="actions-primary">
+												<?php if ($_item->isSaleable()): ?>
+													<?php if ($_item->getTypeInstance()->hasRequiredOptions($_item)): ?>
+														<button class="action tocart primary"
+																data-mage-init='{"redirectUrl":{"url":"<?php echo $block->getAddToCartUrl($_item) ?>"}}'
+																type="button" title="<?php echo __('Add to Cart') ?>">
+															<span><?php echo __('Add to Cart') ?></span>
+														</button>
+													<?php else: ?>
+														<?php
+															$postDataHelper = $this->helper('Magento\Framework\Data\Helper\PostHelper');
+															$postData = $postDataHelper->getPostData($block->getAddToCartUrl($_item), ['product' => $_item->getEntityId()])
+														?>
+														<button class="action tocart primary"
+																data-post='<?php echo $postData; ?>'
+																type="button" title="<?php echo __('Add to Cart') ?>">
+															<span><?php echo __('Add to Cart') ?></span>
+														</button>
+													<?php endif; ?>
+												<?php else: ?>
+													<?php if ($_item->getIsSalable()): ?>
+														<div class="stock available"><span><?php echo __('In stock') ?></span></div>
+													<?php else: ?>
+														<div class="stock unavailable"><span><?php echo __('Out of stock') ?></span></div>
+													<?php endif; ?>
+												<?php endif; ?>
+											</div>
+										<?php endif; ?>
+									</div>
+								</div>	
+							</div>
+							
+						</div>
+						<?php if($i%$rows==0 || $i == count($saleItems)) { ?> </div> <?php }?>
+					<?php 
+					}
+					?>
+				</div>
+			</div>	
+		</div>	
+
+</div>
+<script type="text/javascript">
+require([
+  "jquery",
+  "owlcarousel/minjs"
+ ], function($,owlCarousel){
+	
+   $("#sale_product_slider").owlCarousel({ 
+		autoPlay : <?php if($auto) echo 'true'; else echo 'false'; ?>,
+		slideSpeed : <?php if($speed) echo $speed; else echo '500'; ?>,
+		navigation : <?php if($show_navigation) echo 'true'; else echo 'false'; ?>,
+		stopOnHover : true,
+		pagination : <?php if($show_pagination) echo 'true'; else echo 'false'; ?>,
+		items : <?php if($itemsDefault) echo $itemsDefault; else echo '4'; ?>,
+		itemsDesktop : [1199,<?php if($itemsDesktop) echo $itemsDesktop; else echo '4'; ?>],
+		itemsDesktopSmall : [992,<?php if($itemsDesktopSmall) echo $itemsDesktopSmall; else echo '3'; ?>],
+		itemsTablet: [767,<?php if($itemsTablet) echo $itemsTablet; else echo '2'; ?>],
+		itemsMobile : [479,<?php if($itemsMobile) echo $itemsMobile; else echo '1'; ?>],
+   });
+   
+});
+</script>      

@@ -1,0 +1,206 @@
+<?php
+/**
+ * Copyright © 2016 PlazaThemes.com. All rights reserved.
+ *
+ * @author PlazaThemes Team <contact@plazathemes.com>
+ */
+?>
+
+<?php
+/**
+ * Sale Products with Countdown
+ *
+ * @var $block \Plazathemes\Pricecountdown\Block\Pricecountdown
+ * @var $_product \Magento\Catalog\Model\Product
+ */
+?>
+<?php $slider_options = $block->getSliderOptions(); ?>
+<?php
+    $enable             = $slider_options['enabled'];
+    $use_countdown      = $slider_options['use_countdown'];
+    $title              = $slider_options['title'];
+    $show_price         = $slider_options['show_price'];
+    $show_add_cart      = $slider_options['show_add_cart'];
+    $show_add_wishlist  = $slider_options['show_add_wishlist'];
+    $show_add_compare   = $slider_options['show_add_compare'];
+    $show_rating        = $slider_options['show_rating'];
+    $show_short_des     = $slider_options['show_short_description'];
+    $auto               = $slider_options['auto'];
+    $speed              = $slider_options['speed'];
+    $item_default       = $slider_options['item_default'];
+    $item_desktop       = $slider_options['item_desktop'];
+    $item_desktop_small = $slider_options['item_desktop_small'];
+    $item_tablet        = $slider_options['item_tablet'];
+    $item_mobile        = $slider_options['item_mobile'];
+    $row_number         = $slider_options['row_number'];
+    $show_navigation    = $slider_options['show_navigation'];
+    $show_pagination    = $slider_options['show_pagination'];
+?>
+<?php if($enable): ?>
+    <?php
+        $_productCollection = $block->getSaleProducts();
+        $imageDefine = 'sale_product_thumbnail';
+        $reviewType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+    ?>
+    <div id="sale-products-slider">
+        <h3 class="title"><?php echo $title; ?></h3>
+        <div class="owl-carousel">
+        <?php $count = 0; ?>
+        <?php foreach($_productCollection as $_product): ?>
+            <?php $productImage = $block->getImage($_product, $imageDefine); ?>
+            <?php if($count++ % $row_number == 0 ) { echo '<div class="row_items">'; }  ?>
+            <div class="item product-item-info">
+                <a href="<?php echo $block->getProductUrl($_product) ?>" class="product-item-photo">
+                    <?php echo $productImage->toHtml() ?>
+                </a>
+
+                <strong class="product-item-name">
+                    <a title="<?php echo $block->escapeHtml($_product->getName()) ?>"
+                       href="<?php echo $block->getProductUrl($_product) ?>"
+                       class="product-item-link">
+                        <?php echo $block->escapeHtml($_product->getName()) ?>
+                    </a>
+                </strong>
+
+                <?php if($show_rating): ?>
+                    <?php if($reviewType): ?>
+                        <?php echo $block->getReviewsSummaryHtml($_product, $reviewType) ?>
+                    <?php endif; ?>
+                <?php endif; ?>
+
+                <?php if($show_short_des): ?>
+                    <div class="short-description">
+                        <?php echo $block->getShortString($_product->getDescription()); ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if($show_price): ?>
+                    <?php echo $block->getProductPrice($_product); ?>
+                <?php endif; ?>
+
+                <!-- Price Countdown -->
+                <?php if($use_countdown): ?>
+                    <?php if($_product->getShowCountdown() == 1): ?>
+                        <div class="countbox-<?php echo $_product->getId(); ?> countdown-container">
+                            <div class='datetime'>
+                                <span class='day'><?php echo __('D') ?></span>
+                                <span class='hour'><?php echo __('H') ?></span>
+                                <span class='min'><?php echo __('M') ?></span>
+                                <span class='sec'><?php echo __('S') ?></span>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                <?php endif; ?>
+
+                <?php if($show_add_cart || $show_add_compare || $show_add_wishlist): ?>
+                <div class="product-item-actions">
+                    <?php if ($show_add_cart): ?>
+                        <div class="actions-primary">
+                            <?php if ($_product->isSaleable()): ?>
+                                <?php if ($_product->getTypeInstance()->hasRequiredOptions($_product)): ?>
+                                    <button class="action tocart primary"
+                                            data-mage-init='{"redirectUrl":{"url":"<?php echo $block->getAddToCartUrl($_product) ?>"}}'
+                                            type="button" title="<?php echo __('Add to Cart') ?>">
+                                        <span><?php echo __('Add to Cart') ?></span>
+                                    </button>
+                                <?php else: ?>
+                                    <?php
+                                    $postDataHelper = $this->helper('Magento\Framework\Data\Helper\PostHelper');
+                                    $postData = $postDataHelper->getPostData($block->getAddToCartUrl($_product), ['product' => $_product->getEntityId()])
+                                    ?>
+                                    <button class="action tocart primary"
+                                            data-post='<?php echo $postData; ?>'
+                                            type="button" title="<?php echo __('Add to Cart') ?>">
+                                        <span><?php echo __('Add to Cart') ?></span>
+                                    </button>
+                                <?php endif; ?>
+                            <?php else: ?>
+                                <?php if ($_product->getIsSalable()): ?>
+                                    <div class="stock available"><span><?php echo __('In stock') ?></span></div>
+                                <?php else: ?>
+                                    <div class="stock unavailable"><span><?php echo __('Out of stock') ?></span></div>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if ($show_add_compare || $show_add_wishlist): ?>
+                        <div class="actions-secondary" data-role="add-to-links">
+                            <?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow() && $show_add_wishlist): ?>
+                                <a href="#"
+                                   data-post='<?php echo $block->getAddToWishlistParams($_product); ?>'
+                                   class="action towishlist" data-action="add-to-wishlist"
+                                   title="<?php echo __('Add to Wishlist') ?>">
+                                    <span><?php echo __('Add to Wishlist') ?></span>
+                                </a>
+                            <?php endif; ?>
+                            <?php if ($block->getAddToCompareUrl() && $show_add_compare): ?>
+                                <?php $compareHelper = $this->helper('Magento\Catalog\Helper\Product\Compare');?>
+                                <a href="#" class="action tocompare"
+                                   data-post='<?php echo $compareHelper->getPostDataParams($_product);?>'
+                                   title="<?php echo __('Add to Compare') ?>">
+                                    <span><?php echo __('Add to Compare') ?></span>
+                                </a>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <?php endif; ?>
+            </div>
+            <?php if($count % $row_number == 0 || $count == count($_productCollection)) { echo '</div>'; }  ?>
+        <?php endforeach; ?>
+        </div>
+    </div>
+
+    <!-- Price Countdown -->
+    <?php if($use_countdown): ?>
+        <?php foreach ($_productCollection as $_product): ?>
+            <?php if($_product->getShowCountdown() == 1): ?>
+                <?php
+                    $toDate = $_product->getSpecialToDate();
+                    $fromDate = $_product->getSpecialFromDate();
+                    $_current_timer = time();
+                ?>
+                <script type="text/javascript">
+                    var dthen<?php echo $_product->getId(); ?> = new Date("<?php echo Date("m/d/y", strtotime($toDate)).' 11:59:00 PM'; ?>");
+                    var start = "<?php echo Date("m/d/y h:i:s A", $_current_timer); ?>";
+                    var start_date = Date.parse(start);
+                    var dnow<?php echo $_product->getId(); ?> = new Date(start_date);
+
+                    var ddiff;
+                    if(CountStepper > 0) {
+                        ddiff= new Date((dnow<?php echo $_product->getId(); ?>)-(dthen<?php echo $_product->getId(); ?>));
+                    } else {
+                        ddiff = new Date((dthen<?php echo $_product->getId(); ?>)-(dnow<?php echo $_product->getId(); ?>));
+                    }
+
+                    <?php if(strtotime($fromDate) <= $_current_timer): ?>
+                        gsecs<?php echo $_product->getId(); ?> = Math.floor(ddiff.valueOf()/1000);
+                    <?php else: ?>
+                        gsecs<?php echo $_product->getId(); ?> = -1;
+                    <?php endif; ?>
+
+                    var iid<?php echo $_product->getId(); ?> = "countbox-<?php echo $_product->getId(); ?>";
+                    CountBack_slider(gsecs<?php echo $_product->getId(); ?>,"countbox-<?php echo $_product->getId(); ?>", <?php echo $_product->getId(); ?>);
+                </script>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
+
+    <script type="text/javascript">
+        require(["jquery", "owlcarousel/js"], function($){
+            $("#sale-products-slider .owl-carousel").owlCarousel({
+                autoPlay :          <?php if($auto) echo 'true'; else echo 'false'; ?>,
+                slideSpeed :        <?php echo $speed; ?>,
+                items :             <?php echo $item_default; ?>,
+                itemsDesktop :      [1200,<?php echo $item_desktop; ?>],
+                itemsDesktopSmall : [1000,<?php echo $item_desktop_small; ?>],
+                itemsTablet:        [680,<?php echo $item_tablet; ?>],
+                itemsMobile :       [460,<?php echo $item_mobile; ?>],
+                navigation :        <?php if($show_navigation) echo 'true'; else echo 'false'; ?>,
+                stopOnHover :       true,
+                pagination :        <?php if($show_pagination) echo 'true'; else echo 'false'; ?>
+            });
+        });
+    </script>
+<?php endif; ?>

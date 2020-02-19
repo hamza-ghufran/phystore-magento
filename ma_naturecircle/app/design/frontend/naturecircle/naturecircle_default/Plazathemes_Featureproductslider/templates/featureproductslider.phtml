@@ -1,0 +1,148 @@
+<?php 
+	$enable = $block->getConfig('enabled');
+	if($enable < 1) return ;
+	$items = $block->getConfig('items');
+	$speed = $block->getConfig('speed');
+	$qty = $block->getConfig('qty');
+	$showCart = 1;
+	$showWishlist = 1;
+	$showCompare = 1;
+	$show_navigation = $block->getConfig('navigation');
+	$show_pagination = $block->getConfig('pagination');
+	$auto = $block->getConfig('auto');
+	$rows = 1;
+	
+?>
+
+<div class="featureproduct-slider">
+		<div class='ma-title'>
+			<h3><span><?php echo __('<strong>Our Products</strong>Featured Products'); ?></span></h3>
+		</div>
+		<div class="feature-container">
+				<?php 
+				$newItems =  $block -> getFeaturedProduct()->getItems(); 
+				$imageBlock =  $block->getLayout()->createBlock('Magento\Catalog\Block\Product\Image');
+				$image = 'new_products_content_widget_grid';
+				$type = 'widget-new-grid';
+				$templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::DEFAULT_VIEW;
+				$i = 0;
+				foreach($newItems as $_item) { 
+					$productImage = $block->getImage($_item, $image);
+				?>
+				<?php if($i++%$rows==0) { ?> <div class="products-grid"> <?php } ?>
+						<div class="item-inner">
+							<div class="product-item-info">	
+								<div class=" product-item-images">	
+									<a href="<?php echo $block->getProductUrl($_item) ?>" class="product-item-photo">
+									<?php echo $productImage->toHtml() ?>
+									</a>
+								</div>			
+								<div class="product-item-details">
+									<?php echo $block->getReviewsSummaryHtml($_item, $templateType,true); ?>
+									 <strong class="product name product-item-name">
+										<a title="<?php echo $block->escapeHtml($_item->getName()) ?>"
+										   href="<?php echo $block->getProductUrl($_item) ?>"
+										   class="product-item-link">
+											<?php echo $block->escapeHtml($_item->getName()) ?>
+										</a>
+									</strong>
+									<!--<?php 
+									//if(strlen($_item->getShortDescription()) > 100) 
+										//echo substr($_item->getShortDescription(),0,100).'...';
+									//else
+										//echo $_item->getShortDescription();
+									//?>-->
+									
+									<?php echo $block->getProductPrice($_item); ?>
+									
+									<div class="product-item-inner">
+											<?php if ($showWishlist || $showCompare || $showCart): ?>
+												<div class="product-item-actions">
+													<div class="add-to-cart-primary">
+														<?php if ($showCart): ?>
+
+															<?php if ($_item->isSaleable()): ?>
+																<?php if ($_item->getTypeInstance()->hasRequiredOptions($_item)): ?>
+																	<button class="action tocart primary"
+																			data-mage-init='{"redirectUrl":{"url":"<?php echo $block->getAddToCartUrl($_item) ?>"}}'
+																			type="button" title="<?php echo __('Add to Cart') ?>">
+																		<span><?php echo __('Add to Cart') ?></span>
+																	</button>
+																<?php else: ?>
+																	<?php
+																		$postDataHelper = $this->helper('Magento\Framework\Data\Helper\PostHelper');
+																		$postData = $postDataHelper->getPostData($block->getAddToCartUrl($_item), ['product' => $_item->getEntityId()])
+																	?>
+																	<button class="action tocart primary"
+																			data-post='<?php echo $postData; ?>'
+																			type="button" title="<?php echo __('Add to Cart') ?>">
+																		<span><?php echo __('Add to Cart') ?></span>
+																	</button>
+																<?php endif; ?>
+															<?php else: ?>
+																<?php if ($_item->getIsSalable()): ?>
+																	<div class="stock available"><span><?php echo __('In stock') ?></span></div>
+																<?php else: ?>
+																	<div class="stock unavailable"><span><?php echo __('Out of stock') ?></span></div>
+																<?php endif; ?>
+															<?php endif; ?>
+
+														<?php endif; ?>
+													</div>
+													<div class="add-to-links-secondary">
+														<?php if ($showWishlist || $showCompare): ?>
+
+															<?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow() && $showWishlist): ?>
+																<a href="#"
+																   data-post='<?php echo $block->getAddToWishlistParams($_item); ?>'
+																   class="action wishlist" data-action="add-to-wishlist"
+																   title="<?php echo __('Wishlist') ?>">
+																	<span><?php echo __('Wishlist') ?></span>
+																</a>
+															<?php endif; ?>
+															<?php if ($block->getAddToCompareUrl() && $showCompare): ?>
+																<?php $compareHelper = $this->helper('Magento\Catalog\Helper\Product\Compare');?>
+																<a href="#" class="action compare"
+																   data-post='<?php echo $compareHelper->getPostDataParams($_item);?>'
+																   title="<?php echo __('Compare') ?>">
+																	<span><?php echo __('Compare') ?></span>
+																</a>
+															<?php endif; ?>
+
+														<?php endif; ?>
+													</div>
+												</div>
+											<?php endif; ?>
+									</div>
+									
+								</div>	
+							</div>	
+						</div>
+					<?php if($i%$rows==0 || $i == count($newItems)) { ?> </div> <?php }?>
+				<?php 
+				}
+				?>
+		</div>
+</div>
+<script type="text/javascript">
+require([
+  "jquery",
+  "owlcarousel/minjs"
+ ], function($,owlCarousel){
+	
+   $(".feature-container").owlCarousel( {
+		items : <?php if($items) { echo $items; } else { echo 5; }?>,
+		autoPlay : <?php if($auto) echo 'true'; else echo 'false'; ?>,
+		slideSpeed : <?php if($speed) echo $speed; else echo '500'; ?>,
+		navigation : <?php if($show_navigation) echo 'true'; else echo 'false'; ?>,
+		stopOnHover : true,
+		pagination : <?php if($show_pagination) echo 'true'; else echo 'false'; ?>,
+		items : 3,
+		itemsDesktop : [1199,3],
+		itemsDesktopSmall : [992,2],
+		itemsTablet: [767,2],
+		itemsMobile : [479,1]
+   });
+   
+});
+</script>   

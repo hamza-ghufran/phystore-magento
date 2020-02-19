@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 PlazaThemes.com. All rights reserved.
+ *
+ * @author PlazaThemes Team <contact@plazathemes.com>
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+         <link src="Plazathemes_Pricecountdown::js/countdown.js" /> 
+    </head>
+    <body>
+        <referenceBlock name="category.products.list">
+           <!--  <action method="setEnabledCountdown" ifconfig="pricecountdown/general/enabled">
+                <argument name="value" xsi:type="boolean">true</argument>
+            </action>
+            <action method="setEnabledCountdownInList" ifconfig="pricecountdown/in_product_list/enabled">
+                <argument name="value" xsi:type="boolean">true</argument>
+            </action> -->
+        </referenceBlock>
+    </body>
+</page>

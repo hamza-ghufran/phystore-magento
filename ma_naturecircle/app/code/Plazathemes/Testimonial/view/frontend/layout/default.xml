@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+* Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+* @author PlazaThemes Team <contact@plazathemes.com>
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+		
+    </head>
+	<body>
+	
+		<referenceContainer name="sidebar.additional">
+
+			<!-- <block class="Plazathemes\Testimonial\Block\Testimonial" name="Testimo" template="testimonial.phtml">
+
+			</block> -->
+
+		</referenceContainer>
+        <referenceBlock name="footer_links">
+            <block class="Magento\Framework\View\Element\Html\Link\Current" ifconfig="testimonial/general/footer_link" name="testimonial-link">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Our Testimonials</argument>
+                    <argument name="path" xsi:type="string">testimonial</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

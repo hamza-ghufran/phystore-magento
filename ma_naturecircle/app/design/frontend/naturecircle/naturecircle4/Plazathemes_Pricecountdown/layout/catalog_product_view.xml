@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 PlazaThemes.com. All rights reserved.
+ *
+ * @author PlazaThemes Team <contact@plazathemes.com>
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <link src="Plazathemes_Pricecountdown::js/countdown.js" />
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Plazathemes\Pricecountdown\Block\Pricecountdown" ifconfig="pricecountdown/general/enabled" after="-" name="product.view.countdown" template="productcountdown.phtml" />
+        </referenceContainer>
+    </body>
+</page>

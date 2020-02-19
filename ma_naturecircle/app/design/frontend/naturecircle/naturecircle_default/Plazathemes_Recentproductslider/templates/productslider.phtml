@@ -1,0 +1,155 @@
+<?php
+/**
+ * Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+ * @author PlazaThemes Team <contact@plazathemes.com>
+ */
+if($this->getConfig('enable_frontend')):
+	$_imagehelper = $this->helper('Magento\Catalog\Helper\Image');
+	$image = 'category_page_grid';
+	$_productHelper = $this->helper('Magento\Catalog\Helper\Product');
+	$block = $this->getBlockProduct();
+ 
+	$auto = $this->getConfig('auto');
+	if($auto)
+		$auto = 'true';
+	else
+		$auto = 'false';
+	$default = $this->getConfig('default');
+	$desktop = $this->getConfig('desktop');
+	$desktop_small = $this->getConfig('desktop_small');
+	$tablet = $this->getConfig('tablet');
+	$mobile = $this->getConfig('mobile');
+	$qty = $block->getConfig('qty');
+	$showCart = 1;
+	$showWishlist = 1;
+	$showCompare = 1;
+	$rows = $this->getConfig('rows');
+	$show_next_back = $this->getConfig('show_next_back');
+	$pagination = $this->getConfig('pagination');
+	if($this->getConfig('speed'))
+		$speed = $this->getConfig('speed');
+	else
+		$speed = '3000';
+	if($show_next_back)
+		$show_next_back = 'true';
+	else
+		$show_next_back = 'false';
+	$show_navigation_control = $this->getConfig('show_navigation_control');
+	if($show_navigation_control)
+		$show_navigation_control = 'true';
+	else
+		$show_navigation_control = 'false';
+?>
+<div class="pt-recentproduct-container">
+		<div class="grud">
+			<h3><span><?php echo 'Organic'; ?></span><?php echo $this->getConfig('title') ?></h3>
+		</div>
+		<div class="owl-container">
+			<ul class="ptowl">
+			<?php
+			$i = 0;
+			 foreach($this->getProducts() as $_product)
+			{
+			if($i%$rows == 0):
+			?>
+				<li class="item">
+					<?php
+					endif;
+					$productImage = $_imagehelper->init($_product, $image)->constrainOnly(FALSE)->keepAspectRatio(TRUE)->keepFrame(FALSE)->resize(400)->getUrl();
+					$templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::DEFAULT_VIEW;
+					?>
+					<div class="product-items">
+						<div class="item-inner">
+							<div class="image-container pull-left">
+								<a href="<?php echo $_product->getProductUrl() ?>" class="product-item-photo">
+									<img src="<?php echo $productImage; ?>" alt=""/>
+								</a>
+							</div>
+							<div class="des media-body">
+								<?php echo $block->getReviewsSummaryHtml($_product, $templateType,true); ?>	
+								<div class="product-name">
+									<strong class="product-item-name">	
+										<a href="<?php echo $_product->getProductUrl() ?>"><?php echo $_product->getName() ?></a>
+									</strong>
+								</div>
+								<?php
+									echo $block->getProductPrice($_product)
+								?>
+								
+								<div class="add-to-links-secondary">
+									
+									
+									
+									<?php if($showCart) : ?>
+									<div class="actions-primary">
+										<?php if ($_product->isSaleable()): ?>
+											<?php $postParams = $block->getAddToCartPostParams($_product); ?>
+											<form data-role="tocart-form" action="<?php /* @escapeNotVerified */ echo $postParams['action']; ?>" method="post">
+												<?php echo $block->getBlockHtml('formkey')?>
+												<button type="submit"
+														title="<?php echo $block->escapeHtml(__('Add to Cart')); ?>"
+														class="action tocart primary">
+													<span><?php /* @escapeNotVerified */ echo __('Add to Cart') ?></span>
+												</button>
+											</form>
+										<?php else: ?>
+											<?php if ($_product->getIsSalable()): ?>
+												<div class="stock available"><span><?php /* @escapeNotVerified */ echo __('In stock') ?></span></div>
+											<?php else: ?>
+												<div class="stock unavailable"><span><?php /* @escapeNotVerified */ echo __('Out of stock') ?></span></div>
+											<?php endif; ?>
+										<?php endif; ?>
+									</div>
+									<?php endif; ?>
+									
+								</div>
+							</div>
+						</div>						
+					</div>
+					<?php if($i%$rows == $rows - 1 || $i == count($this->getProducts()) - 1): ?>
+				</li>
+			<?php
+			endif;
+			$i++;
+			}
+			?>
+			</ul>
+		</div>
+	
+</div>
+<script type="text/javascript">
+	require([
+  "jquery",
+  "owlcarousel/minjs"
+ ], function($,owlCarousel){
+		$(document).ready(function(){
+			$(".pt-recentproduct-container .ptowl").owlCarousel({
+				<?php
+					if(($auto== 'true') && $speed):
+				?>
+				autoPlay : <?php echo $speed; ?>,
+				<?php
+					endif;
+				?>
+				slideSpeed : <?php echo $pagination; ?>,
+				paginationSpeed : <?php echo $pagination; ?>,
+				rewindSpeed : <?php echo $pagination; ?>,
+				addClassActive: true,
+				navigation : <?php echo $show_next_back; ?>,
+				stopOnHover : true,
+				pagination : <?php echo $show_navigation_control; ?>,
+				addClassActive : true,
+				scrollPerPage:false,
+				items : 1,
+				itemsDesktop : [1199,1],
+				itemsDesktopSmall : [992,1],
+				itemsTablet: [767,2],
+				itemsMobile : [479,1]
+			});
+		});
+	});
+</script>
+<?php
+endif;
+?>

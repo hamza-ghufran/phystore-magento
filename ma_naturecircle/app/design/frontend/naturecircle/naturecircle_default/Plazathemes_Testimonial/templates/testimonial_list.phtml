@@ -1,0 +1,67 @@
+<?php
+/**
+ * Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+ * @author PlazaThemes Team <contact@plazathemes.com>
+ */
+ 
+	if($this->getConfig('customers_submit'))
+	{
+		if($this->getConfig('allow_guest'))
+			$urlsubmit = $this->getUrl('testimonial/form');
+		else{
+			if($this->checklogin())
+				$urlsubmit = $this->getUrl('testimonial/form');
+			else
+				$urlsubmit = $this->getUrl('customer/account/login');
+		}
+		$show_submit = true;
+	}else{
+		$show_submit = false;
+	}	
+?>
+<?php if($show_submit): ?>
+<a class="action submit primary" data-toggle="modal" href="<?php echo $urlsubmit; ?>">
+	<span><?php echo __('Add New Testimonial') ?></span>
+</a>
+<?php  endif;?>
+<?php  
+$mediaUrl = $this->getMediabaseUrl();
+$_testimonialrecords = $this->getCollection(); 
+if($_testimonialrecords && count($_testimonialrecords))
+{
+?>
+<div class="pt-testimonial-item">
+   <ul class="testimonial-item">
+	<?php
+		foreach ($_testimonialrecords as $tetimonial) 
+		{
+	?>
+			<li>
+
+				<div class="testimonial-image pull-left">
+					<?php $path = $tetimonial->getData('avatar'); ?>
+					<img src="<?php echo $mediaUrl . $tetimonial->getData('avatar');?>" alt="<?php echo __($tetimonial->getData('name')); ?>" width="100" height="100" />
+				</div>
+				<div class="media-body">
+					<h3 class="testimonial-name"><?php echo __($tetimonial->getData('name')); ?></h3>
+					<div class="testimonial-email"><?php echo __($tetimonial->getData('email')); ?></div>
+					<div class="testimonial-website"><?php echo __($tetimonial->getData('website')); ?></div>
+					<div class="testimonial-job"><?php echo __($tetimonial->getData('job')); ?></div>
+					<div class="testimonial-address"><?php echo __($tetimonial->getData('address')); ?></div>
+					<div class="testimonial-testimonial"><?php echo __($tetimonial->getData('testimonial')); ?></div>
+					<div class="testimonial-created-time"><?php echo __(date('F d, Y', strtotime($tetimonial['created_time']))); ?></div>
+				</div>
+			</li>
+		
+	<?php
+		}
+	?>
+	</ul>
+	<?php 
+}
+?>
+</div>
+<?php if ($block->getPagerHtml()): ?>
+        <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+<?php endif ?>

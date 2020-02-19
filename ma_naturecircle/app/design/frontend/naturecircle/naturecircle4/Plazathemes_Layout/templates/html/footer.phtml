@@ -1,0 +1,54 @@
+<div class="footer-container">
+	
+	<?php //echo $block->getLayout()->createBlock('Plazathemes\Brandslider\Block\Brandslider')->setTemplate('Plazathemes_Brandslider::brandslider.phtml')->toHtml();?>
+	<div class="footer-newsletter">
+		<div class="container-inner">
+			<?php echo $block->getLayout()->createBlock('Magento\Newsletter\Block\Subscribe')->setTemplate('Magento_Newsletter::subscribe.phtml')->toHtml();?>
+			<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('link_follow')->toHtml();?>
+			<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('static1_footer')->toHtml();?>
+		</div>
+	</div>
+	<div class="footer-top">
+		<div class="container-inner">
+			<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('footer_top_home4')->toHtml();?>
+		</div>
+	</div>
+	<div class="footer-bottom">
+		<div class="container-inner">
+			<div class="row">
+				<div class="col-md-4">
+					<?php echo $this->getChildHtml('copyright')?>
+				</div>
+				
+				<div class="col-md-4">
+					<?php echo $this->getChildHtml("store_switcher"); ?>
+				</div>
+				<div class="col-md-4">
+					<div class="footer_payment">
+						<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('footer_payment')->toHtml();?>
+					</div>	
+				</div>
+			</div>
+		</div>
+		<div id="back_top">
+			<a href="#back-top"><span>>top</span></a>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+			
+	require(["jquery"], function($){
+
+	   $(window).scroll(function() {
+			if($(this).scrollTop() > 300) {
+				$('#back_top').fadeIn();   
+			} else {
+				$('#back_top').fadeOut();
+			}
+		});
+		   $('#back_top').click(function() {
+			$('body,html').animate({scrollTop:0},500);
+		}); 
+	   
+	});
+</script>

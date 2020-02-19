@@ -1,0 +1,80 @@
+<?php if($this->getConfig('enabled')): 
+	$qty = $this->getConfig('items_show');
+?>
+<div class="pt_categorytop catlist ">
+	<div class="gruod-title">
+		<h2 class="title"><span><?php echo 'Organic farmfood'; ?></span></h2>
+		<div class="text">
+			<?php /* @escapeNotVerified */ echo __('Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui '); ?>
+		</div>
+	</div>	
+	<div class="cat_top">
+		<div class="row">
+			<div class="slide">
+				<?php
+				$catListTop = $block->getCatListTop();
+				$i = 0;
+				$rows = 1;
+				$last = count($catListTop);
+				foreach ($catListTop as $catTop) {
+					//echo "<pre>"; print_r($catTop->getData()); echo "</pre>"; 
+					$thumb_url = $block -> getThumbUrl($catTop->getThumbPopular());
+					?>
+					<?php if($i++%$rows==0) { ?> <div class="catgrid"> <?php } ?>
+					<?php
+					$link = $block->getCategoryLink($catTop);
+							echo '<div class="catlist_level_top item">
+										<div class="catlist-content">
+										<div class="cat-images"><a href="'.$link.'">' 
+											.'<img src="'.$thumb_url.'" alt="'.$catTop->getName().'" />
+										</a></div>
+										<div class="top"><h3>'.$catTop->getName().'</h3>';
+										$CatList = $block->getCatByPath((int) $catTop->getId(), $catTop->getPath());
+										$j = 0;
+										echo '<span class="count_cat">( '.count($CatList).' ';
+										echo __('items');
+										echo ' )</span>';
+										echo '
+										</div>
+										
+										
+										</div>
+								</div>';
+									
+					?>
+					<?php if($i%$rows==0 || $i == count($catListTop)) { ?> </div> <?php }?>
+					<?php
+					$j++; 
+					if($qty == $i)
+						break;
+				}
+				?>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+require([
+  "jquery",
+  "owlcarousel/minjs"
+ ], function($,owlCarousel){
+	$(".pt_categorytop .slide").owlCarousel({
+	    items : 5,
+		autoPlay :false,
+		slideSpeed : 500,
+		navigation : true,
+		stopOnHover : true,
+		pagination : false,
+		itemsDesktop : [1199,4],
+		itemsDesktopSmall : [992,3],
+		itemsTablet: [767,2],
+		itemsMobile : [479,1]
+	});
+	
+});
+ 
+
+</script> 
+<?php endif; ?>

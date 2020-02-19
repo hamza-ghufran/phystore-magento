@@ -1,0 +1,40 @@
+<div class="main-container">
+	<?php echo $block->getLayout()->createBlock('Plazathemes\Bannerslider\Block\Bannerslider')->setTemplate('Plazathemes_Bannerslider::bannerslider.phtml')->toHtml();?>
+	<div class="container-inner">
+	<?php echo $block->getLayout()->createBlock('Plazathemes\Categorytop\Block\Categorytop')->setTemplate('Plazathemes_Categorytop::categorytop.phtml')->toHtml();?>
+	</div>
+	
+	<div class="time-home">
+		<div class="container-inner">
+			<?php echo $block->getLayout()->createBlock('Plazathemes\Pricecountdown\Block\Pricecountdown')->setTemplate('Plazathemes_Pricecountdown::saleslider.phtml')->toHtml();?>
+			
+		</div>
+	</div>
+
+	<div class="container-inner">
+		<?php echo $block->getLayout()->createBlock('Plazathemes\Testimonial\Block\Testimonial')->setTemplate('Plazathemes_Testimonial::testimonial.phtml')->toHtml();?>
+	</div>
+	
+	<div class="gruod-pruduct">
+		<div class="container-inner">
+			<div class="row">
+				<div class="col-sm-4">
+					<?php echo $block->getLayout()->createBlock('Plazathemes\Bestsellerproduct\Block\Bestsellerproduct')->setTemplate('Plazathemes_Bestsellerproduct::bestsellerproduct.phtml')->toHtml();?>
+				</div>
+				<div class="col-sm-4">
+					<?php echo $block->getLayout()->createBlock('Plazathemes\Recentproductslider\Block\Products')->setTemplate('Plazathemes_Recentproductslider::productslider.phtml')->toHtml();?>
+				</div>
+				<div class="col-sm-4">
+					<?php echo $block->getLayout()->createBlock('Plazathemes\Newproductslider\Block\Newproductslider')->setTemplate('Plazathemes_Newproductslider::newproductslider.phtml')->toHtml();?>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-inner">
+		
+		<?php echo $block->getLayout()->createBlock('Plazathemes\Blog\Block\Sidebar\Recent')->setTemplate('Plazathemes_Blog::sidebar/slider.phtml')->toHtml();?>
+	</div>	
+
+</div>
+
+

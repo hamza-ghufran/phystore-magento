@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+* Copyright © 2015 PlazaThemes.com. All rights reserved.
+
+* @author PlazaThemes Team <contact@plazathemes.com>
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+		<!-- <css src='Plazathemes_Recentproductslider::css/owl.carousel.css' media='all'/> -->
+        <!-- <link src='Plazathemes_Recentproductslider::js/owl.carousel.js' /> -->
+    </head>
+	<body>
+
+	<referenceContainer name="main.content">
+
+			<!-- <block class="Plazathemes\Recentproductslider\Block\Products" name="Recentproductslider" after="form.subscribe" template="productslider.phtml">
+
+			</block> -->
+
+		</referenceContainer>
+
+	</body>
+</page>
