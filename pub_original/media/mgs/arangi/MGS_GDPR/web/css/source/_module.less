@@ -1,0 +1,36 @@
+/*-------------------------------General style GDPR------------------------------------------------*/
+
+& when (@media-common = true) {
+	.message.global.cookie.mgs-gdpr-cookie-notice {
+	  box-shadow: 0px 2px 38px 0px rgba(133, 133, 133, 0.25) !important;
+	  border-radius: 20px !important;
+	  position: relative;
+		&.hidden-cookie {
+			.lib-transform(translateX(-100%));
+		}
+	}
+
+	.message.global.cookie.mgs-gdpr-cookie-notice .close-gdpr {
+	  font-size: 16px;
+	  position: absolute;
+	  right: 15px;
+	  top: 15px;
+	  cursor: pointer;
+	}
+
+	.hidden-cookie {
+	  transform: translateX(-100px);
+	  opacity: 0;
+	  transition: .5s;
+	}
+
+	@media(min-width: 320px) and (max-width: 767px) {
+	  .message.global.cookie.mgs-gdpr-cookie-notice {
+	    width: 100% !important;
+	   bottom: 0 !important;
+	   left: 0 !important;
+	  }
+	}
+	
+}
+/*-------------------------------End style GDPR----------------------------------------------------*/

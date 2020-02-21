@@ -1,0 +1,366 @@
+<static_block>
+	<item>
+		<title><![CDATA[about]]></title>
+		<identifier><![CDATA[about]]></identifier>
+		<content><![CDATA[<div class="about">
+<h3 class="about__title">About</h3>
+<p class="about__content">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.</p>
+</div>]]></content>
+	</item>
+	<item>
+		<title><![CDATA[contact]]></title>
+		<identifier><![CDATA[contact]]></identifier>
+		<content><![CDATA[<div class="contact">
+<h3 class="contact__title">Contact</h3>
+<div class="contact__item contact__phone"><span class="contact__item-icon"></span>
+<div class="contact__item-content">
+<p>+ 01 - 909 - 980 - 0032</p>
+<p>+ 01 - 909 - 980 - 0033</p>
+</div>
+</div>
+<div class="contact__item contact__email"><span class="contact__item-icon"></span>
+<div class="contact__item-content">
+<p>Info@company.com</p>
+<p>Support@arangi.com</p>
+</div>
+</div>
+<div class="contact__item contact__address"><span class="contact__item-icon"></span>
+<div class="contact__item-content">
+<p>16122 Collins Street Victoria 8007 Australia</p>
+<p>16122 Collins Street AHDJ 807 Australia</p>
+</div>
+</div>
+</div>]]></content>
+	</item>
+	<item>
+		<title><![CDATA[social]]></title>
+		<identifier><![CDATA[social]]></identifier>
+		<content><![CDATA[<div class="social">
+<h3 class="social__title">We are social</h3>
+<ul class="social__link">
+<li><a href="#">Facebook </a></li>
+<li><a href="#">Twitter</a></li>
+<li><a href="#">Google</a></li>
+<li><a href="#">Pinterest</a></li>
+<li><a href="#">Dribble </a></li>
+<li><a href="#">Behance</a></li>
+</ul>
+</div>]]></content>
+	</item>
+	<item>
+		<title><![CDATA[Top Sale]]></title>
+		<identifier><![CDATA[topsale]]></identifier>
+		<content><![CDATA[{{block class="MGS\ThemeSettings\Block\TopSale\Sale" template="MGS_ThemeSettings::TopSale/Sale.phtml" number_show="4" item_page="3" use_slider="1" attribute="topsale"}}]]></content>
+	</item>
+	<item>
+		<title><![CDATA[Arangi Footer 1 Block Instagram]]></title>
+		<identifier><![CDATA[arangi_footer_1_block_instagram]]></identifier>
+		<content><![CDATA[<div class="title">
+<h2 class="h1">Instagrams</h2>
+<span class="label-name sail-font">Arangi</span></div>
+{{block class="MGS\Fbuilder\Block\Social\Instagram" limit="6" resolution="low_resolution" link="1" perrow="6" perrow_tablet="3" perrow_mobile="3" use_slider="0" like="1" comment="1" template="widget/socials/instagram.phtml"}}]]></content>
+	</item>
+	<item>
+		<title><![CDATA[Arangi footer 1 block shops]]></title>
+		<identifier><![CDATA[arangi_footer_1_block_1]]></identifier>
+		<content><![CDATA[<h4 class="title-block">Shops</h4>
+<ul class="list-link-footer">
+<li class="item"><a href="#" title="link">Organic skin care</a></li>
+<li class="item"><a href="#" title="link">Mineral makeup</a></li>
+<li class="item"><a href="#" title="link">Organic body care</a></li>
+<li class="item"><a href="#" title="link">Organic shampoo</a></li>
+<li class="item"><a href="#" title="link">Organic sunscreens</a></li>
+</ul>]]></content>
+	</item>
+	<item>
+		<title><![CDATA[Arangi footer 1 block infomations]]></title>
+		<identifier><![CDATA[arangi_footer_1_block_2]]></identifier>
+		<content><![CDATA[<h4 class="title-block">Infomations</h4>
+<ul class="list-link-footer">
+<li class="item"><a href="#" title="link">About us</a></li>
+<li class="item"><a href="#" title="link">Customer Service </a></li>
+<li class="item"><a href="#" title="link">New Collection</a></li>
+<li class="item"><a href="#" title="link">Best Sellers</a></li>
+<li class="item"><a href="#" title="link">Orivacy policy</a></li>
+</ul>]]></content>
+	</item>
+	<item>
+		<title><![CDATA[Arangi footer 1 block user area]]></title>
+		<identifier><![CDATA[arangi_footer_1_block_3]]></identifier>
+		<content><![CDATA[<h4 class="title-block">User area</h4>
+<ul class="list-link-footer">
+<li class="item"><a title="link" href="#">My account</a></li>
+<li class="item"><a title="link" href="#">My cart </a></li>
+<li class="item"><a title="link" href="#">Login</a></li>
+<li class="item"><a title="link" href="#">Wishlist</a></li>
+<li class="item"><a title="link" href="#">Checkout</a></li>
+</ul>]]></content>
+	</item>
+	<item>
+		<title><![CDATA[Arangi footer 1 block guide help]]></title>
+		<identifier><![CDATA[arangi_footer_1_block_4]]></identifier>
+		<content><![CDATA[<h4 class="title-block">Guide & Help </h4>
+<ul class="list-link-footer">
+<li class="item"><a href="#" title="link">Getting Started</a></li>
+<li class="item"><a href="#" title="link">FAQs</a></li>
+<li class="item"><a href="#" title="link">Buying Guide</a></li>
+<li class="item"><a href="#" title="link">Order Returns</a></li>
+<li class="item"><a href="#" title="link">Afiliate Program</a></li>
+</ul>]]></content>
+	</item>
+	<item>
+		<title><![CDATA[Arangi footer 1 block contact info]]></title>
+		<identifier><![CDATA[arangi_footer_1_block_contact_info]]></identifier>
+		<content><![CDATA[<h4 class="title-block">Contact Info</h4>
+<ul class="list-contact-info">
+<li class="item phone-number"><span class="label"><i class="icon-cell-phone"></i></span><a title="link" href="#">+01-909-980-0032</a></li>
+<li class="item"><span class="label">Address: </span><a title="link" href="#">16122 Collins Street Victoria 8007 Australia</a></li>
+<li class="item"><span class="label">Email: </span><a title="link" href="#">info@company.com</a></li>
+<li class="item"><span class="label">Working days/hours: </span>Mon - Sun/ 9:00AM - 8:00PM</li>
+</ul>]]></content>
+	</item>
+	<item>
+		<title><![CDATA[Arangi footer 1 block payment]]></title>
+		<identifier><![CDATA[arangi_footer_1_block_payment]]></identifier>
+		<content><![CDATA[<img style="margin-bottom: -7px;" src="{{media url="wysiwyg/payment.png"}}" alt="" />]]></content>
+	</item>
+	<item>
+		<title><![CDATA[Arangi footer 2 block contact info]]></title>
+		<identifier><![CDATA[arangi_footer_2_block_contact_info]]></identifier>
+		<content><![CDATA[<h4 class="title-block">Contact Info</h4>
+<ul class="list-contact-info">
+<li class="item"><span class="label location"></span><a title="link" href="#">16122 Collins Street Victoria 8007 Australia</a></li>
+<li class="item"><span class="label phone"></span><a title="link" href="#">+01-909-980-0032</a></li>
+<li class="item"><span class="label email"> </span><a title="link" href="#">info@company.com</a></li>
+<li class="item"><span class="label time-work"></span>Mon - Sun/ 9:00AM - 8:00PM</li>
+</ul>]]></content>
+	</item>
+	<item>
+		<title><![CDATA[Arangi footer 2 block instagram]]></title>
+		<identifier><![CDATA[arangi_footer_2_block_instagram]]></identifier>
+		<content><![CDATA[<h4 class="title-block">Instagram</h4>
+{{block class="MGS\Fbuilder\Block\Social\Instagram" limit="8" resolution="low_resolution" link="1" perrow="4" perrow_tablet="8" perrow_mobile="4" use_slider="0" like="0" comment="0" template="widget/socials/instagram.phtml"}}]]></content>
+	</item>
+	<item>
+		<title><![CDATA[Arangi footer 3 block contact info ]]></title>
+		<identifier><![CDATA[arangi_footer_3_block_contact_info]]></identifier>
+		<content><![CDATA[<h4 class="title-block"><img src="{{media url="wysiwyg/logo-footer.png"}}" alt="" /></h4>
+<ul class="list-contact-info">
+<li class="item"><span class="label">Address: </span><a title="link" href="#">16122 Collins Street Victoria 8007 Australia</a></li>
+<li class="item"><span class="label">Email: </span><a title="link" href="#">info@company.com</a></li>
+<li class="item"><span class="label">Phone: </span><a title="link" href="#">+01-909-980-0032</a></li>
+</ul>]]></content>
+	</item>
+	<item>
+		<title><![CDATA[Arangi footer 3 block products]]></title>
+		<identifier><![CDATA[arangi_footer_3_block_products]]></identifier>
+		<content><![CDATA[<h4 class="title-block">Products</h4>
+<ul class="list-link-footer">
+<li class="item"><a href="#" title="link">Sheep placenta</a></li>
+<li class="item"><a href="#" title="link">Jelly</a></li>
+<li class="item"><a href="#" title="link">Omega</a></li>
+<li class="item"><a href="#" title="link">Bone Support</a></li>
+<li class="item"><a href="#" title="link">Vitamins</a></li>
+</ul>]]></content>
+	</item>
+	<item>
+		<title><![CDATA[Vertical Menu Header 3]]></title>
+		<identifier><![CDATA[vertical_menu_header3]]></identifier>
+		<content><![CDATA[<p>{{block class="MGS\Mmegamenu\Block\Vertical" menu_id="2" template="MGS_Mmegamenu::vertical.phtml"}}</p>]]></content>
+	</item>
+	<item>
+		<title><![CDATA[New Product]]></title>
+		<identifier><![CDATA[newproduct]]></identifier>
+		<content><![CDATA[<p>{{block class="MGS\Fbuilder\Block\Products\NewProducts" block_type="new" limit="7" category_ids="4,5,6,7" use_slider="0" hide_name="0" hide_review="0" hide_price="0" hide_addcart="0" hide_addwishlist="0" hide_addcompare="0" numbercol="1" percol="1" template="products/list.phtml"}}</p>]]></content>
+	</item>
+	<item>
+		<title><![CDATA[Tags]]></title>
+		<identifier><![CDATA[tags]]></identifier>
+		<content><![CDATA[<div class="tag-block">
+<h3 class="tag-title">Tags</h3>
+<a class="tag-item" href="#">Apple</a> 
+<a class="tag-item" href="#">Beauty</a>
+ <a class="tag-item" href="#">Cherry</a> 
+<a class="tag-item" href="#">Food</a> 
+<a class="tag-item" href="#">Travel</a>
+</div>]]></content>
+	</item>
+	<item>
+		<title><![CDATA[Header3 Middle Right]]></title>
+		<identifier><![CDATA[header3_middle_right]]></identifier>
+		<content><![CDATA[<div class="header3-middle-right"><span class="header3-middle-right-icon"></span>
+<div class="header3-middle-right-content">
+<p>info line</p>
+<p>0102-900-12-09</p>
+</div>
+</div>]]></content>
+	</item>
+	<item>
+		<title><![CDATA[Arangi Social Link 1]]></title>
+		<identifier><![CDATA[arangi_social_link_1]]></identifier>
+		<content><![CDATA[<button class="btn-show-social"><span class="ti-angle-right"></span></button>
+<ul class="social-links">
+<li><a href="#"><i class="ti-pinterest-alt"></i></a></li>
+<li><a href="#"><i class="ti-instagram"></i></a></li>
+<li><a href="#"><i class="ti-twitter-alt"></i></a></li>
+<li><a href="#"><i class="ti-facebook"></i></a></li>
+</ul>]]></content>
+	</item>
+	<item>
+		<title><![CDATA[Arangi Social Link 2]]></title>
+		<identifier><![CDATA[arangi_social_link_2]]></identifier>
+		<content><![CDATA[<ul class="social-links">
+<li><a class="facebook" href="#"><i class="ti-facebook"></i></a></li>
+<li><a class="twitter" href="#"><i class=" ti-twitter-alt"></i></a></li>
+<li><a class="instagram" href="#"><i class="ti-instagram"></i></a></li>
+</ul>]]></content>
+	</item>
+	<item>
+		<title><![CDATA[Arangi Footer  1 Block Newsletter]]></title>
+		<identifier><![CDATA[arangi_footer_1_block_newsletter]]></identifier>
+		<content><![CDATA[<div class="newsletter-home line">
+<div class="block col-des-4">
+<div class="block-title title">
+<h2 class="main-title">Our Newsletter</h2>
+</div>
+<p class="sub-title">Don't miss the any update</p>
+</div>
+<div class="col-des-8 newsletter-main">
+<div class=" newsletter-content">{{block class="Magento\Newsletter\Block\Subscribe" template="Magento_Newsletter::subscribe.phtml"}}
+<div class="newsletter-social">{{block class="Magento\\Cms\\Block\\Block" block_id="arangi_social_link_1"}}</div>
+</div>
+</div>
+</div>]]></content>
+	</item>
+	<item>
+		<title><![CDATA[Product detail static block custom]]></title>
+		<identifier><![CDATA[product_detail_static_block]]></identifier>
+		<content><![CDATA[<div class="extra-link">
+<h3>Delivery &amp; Return</h3>
+</div>
+<div id="extra-product-block" class="extra-block" style="display: none;">
+<div class="block-left delivery-returns-content">
+<h3 class="title ">Write a comment</h3>
+<ul class="list-content">
+<li>All orders shipped with UPS Express.</li>
+<li>Always free shipping for orders over US $250.</li>
+<li>All orders are shipped with a UPS tracking number.</li>
+</ul>
+<h3 class="title ">Returns</h3>
+<ul class="list-content">
+<li>Items returned within 14 days of their original shipment date in same as new condition will be eligible for a full refund or store credit.</li>
+<li>Refunds will be charged back to the original form of payment used for purchase.</li>
+<li>Customer is responsible for shipping charges when making returns and shipping/handling fees of original purchase is non-refundable.</li>
+<li>All sale items are final purchases.</li>
+</ul>
+</div>
+<div class="block-right delivery-returns-content">
+<h3>Give us a shout if you have any other <br /> questions and/or concerns.</h3>
+<ul class="list-info-contact">
+<li class="info-phone"><i class="ti-mobile"></i>
+<div class="info-content"><a href="tel:+01-909-980-0032">+01-909-980-0032</a><a href="tel:+01-909-980-0033">+01-909-980-0033</a></div>
+</li>
+<li class="info-mail"><i class="ti-email"></i>
+<div class="info-content"><a href="mailto:info@company.com">info@company.com</a><a href="mailto:Support@arangi.com">Support@arangi.com</a></div>
+</li>
+<li class="info-address"><i class="ti-home"></i>
+<div class="info-content">
+<p>16122 Collins Street Victoria 8007 Australia</p>
+<p>16122 Collins Street AHDJ 807 Australia</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+]]></content>
+	</item>
+	<item>
+		<title><![CDATA[Size Guide]]></title>
+		<identifier><![CDATA[size-guide-custom-block]]></identifier>
+		<content><![CDATA[<div  style=" text-align: center;">
+<h4>Size guide</h4>
+<p><img src="{{media url="wysiwyg/sizecharts.png"}}" alt="" /></p>
+<p><img src="{{media url="wysiwyg/care-icon.png"}}" alt="" /></p>
+<p class="margin-top20">LT01: 70% wool, 15% polyester, 10% polyamide, 5% acrylic 900 Grms/mt</p>
+</div>]]></content>
+	</item>
+	<item>
+		<title><![CDATA[Contact Form]]></title>
+		<identifier><![CDATA[contact_form]]></identifier>
+		<content><![CDATA[<div class="form-title">
+<div class="title">
+<h2>Welcome to Arangi.</h2>
+<img src="{{media url="wysiwyg/form.png"}}" alt="" /></div>
+<p class="sort-description">Plan is free as long as you want with 1 item</p>
+</div>]]></content>
+	</item>
+	<item>
+		<title><![CDATA[Contact Info]]></title>
+		<identifier><![CDATA[contact_info]]></identifier>
+		<content><![CDATA[<div class="form-title">
+<div class="title">
+<h2>Welcome to Arangi.</h2>
+<img src="{{media url="wysiwyg/form.png"}}" alt="" /></div>
+<p class="sort-description">Any question please contact</p>
+</div>
+<div class="info-content">
+<div class="block-content">
+<div class="block-content-icon"><img src="{{media url="wysiwyg/phone.png"}}" alt="" /></div>
+<div class="content">
+<p>+ 01 - 909 - 980 - 0032</p>
+<p>+ 01 - 909 - 980 - 0033</p>
+</div>
+</div>
+<div class="block-content">
+<div class="block-content-icon"><img src="{{media url="wysiwyg/email.png"}}" alt="" /></div>
+<div class="content">
+<p>Info@company.com</p>
+<p>Support@arangi.com</p>
+</div>
+</div>
+<div class="block-content">
+<div class="block-content-icon"><img src="{{media url="wysiwyg/address.png"}}" alt="" /></div>
+<div class="content">
+<p>16122 Collins Street Victoria 8007 Australia</p>
+<p>16122 Collins Street AHDJ 807 Australia</p>
+</div>
+</div>
+</div>]]></content>
+	</item>
+	<item>
+		<title><![CDATA[Instagram for sidebar]]></title>
+		<identifier><![CDATA[instagram-sidebar-blog-page]]></identifier>
+		<content><![CDATA[<h3 class="title-block">Instagram</h3>
+<p>{{block class="MGS\Fbuilder\Block\Social\Instagram" limit="3" resolution="low_resolution" link="1" perrow="3" perrow_tablet="3" perrow_mobile="3" use_slider="0" like="0" comment="0" template="widget/socials/instagram.phtml"}}</p>]]></content>
+	</item>
+	<item>
+		<title><![CDATA[Page Login Register Content]]></title>
+		<identifier><![CDATA[page_login_register_content]]></identifier>
+		<content><![CDATA[<p>By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.</p>]]></content>
+	</item>
+	<item>
+		<title><![CDATA[Arangi Top Header 4]]></title>
+		<identifier><![CDATA[arangi_top_header_4]]></identifier>
+		<content><![CDATA[<div class="frame">
+<div class="line">
+<div class="col-des-6 col-tb-6 ">
+<ul class="list-top-menu">
+<li class="item"><a href="#" title="#">About</a></li>
+<li class="item"><a href="#"  title="#">Shipping &amp; Payment</a></li>
+<li class="item"><a  href="#" title="#">Blogs</a></li>
+<li class="item"><a href="#"  title="#">Content</a></li>
+</ul>
+</div>
+<div class="col-des-6 col-tb-6 ">
+<ul class="list-link-social">
+<li class="item"><span class="label">T</span><a href="#"  title="#">01029001209</a></li>
+<li class="item"><a href="#"  title="#"><i class="social-icon ti-facebook"></i></a></li>
+<li class="item"><a  href="#" title="#"><i class="social-icon ti-youtube"></i></a></li>
+<li class="item"><a  href="#" title="#"><i class="social-icon ti-instagram"></i></a></li>
+<li class="item"><a href="#"  title="#"><i class="social-icon ti-pinterest"></i></a></li>
+</ul>
+</div>
+</div>
+</div>]]></content>
+	</item>
+</static_block>

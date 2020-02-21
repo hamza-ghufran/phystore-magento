@@ -1,0 +1,184 @@
+
+<?php $builderHelper = $this->helper('MGS\Fbuilder\Helper\Data'); ?>
+<?php $blogHelper = $this->helper('MGS\Blog\Helper\Data'); ?>
+<?php $posts = $this->getPostCollection() ?>
+<?php $categoryId = (int)$this->getRequest()->getParam('category_id', false); ?>
+<div class="content-block latest-post-grid-block grid-item-v2">
+	<?php if (count($posts)>0): ?>
+		<?php $blockId = rand() . time(); ?>
+		<?php $useSlider = $this->getUseSlider(); ?>
+		<?php $items = $perRowDefault = $this->getPerrow(); ?>
+		<?php $perRowTablet = $this->getPerrowTablet(); ?>
+		<?php $perRowMobile = $this->getPerrowMobile(); ?>
+		<?php if($useSlider && $this->hasData('number_row') && $this->getNumberRow()>1): ?>
+			<?php $slideMultiRow = true; ?>
+			<?php $slideBy = 1 ?>
+			<?php $columnCount = $perRowDefault * $this->getNumberRow(); ?>
+		<?php else: ?>
+			<?php $slideBy = $this->getSlideBy() ?>
+			<?php $slideMultiRow = false; ?>
+		<?php endif ?>
+		
+	
+		<div class="block widget mgs-post blog-container">
+			<div class="blog-grid blog-post-item">
+				<div id="post-layout-<?= $blockId; ?>" class="items<?php if($useSlider): ?> owl-carousel mgs-owl-carousel mgs-carousel-<?= $settingMode ?> nav-type-<?= $navType ?> nav-position-<?= $navPosition ?> <?php if($this->getHideNav() && ((($items==1) && ($navPosition!='middle-outside')) || (($items>1) && ($navPosition=='middle-inside')))): ?> autohide-nav<?php endif ?> dot-position-<?= $this->getPaginationPosition()?><?php else: ?> line ?><?php endif ?>">
+					<?php $i=0; $j=0; foreach ($posts as $_post): $i++; ?>
+						<?php if($slideMultiRow): ?>
+							<?php if ($j++ % $columnCount == 0): ?>
+							<div class="line">
+							<?php endif ?>
+						<?php endif ?>
+							<div class="item blog-item <?php if($slideMultiRow || !$this->hasData('number_row')): ?>col<?php endif ?>">
+								<div class="post-images post-item">
+									<?php if(!$this->getHideThumbnail()): ?>
+										<?php
+											$themeSettingConfig = $this->helper('MGS\ThemeSettings\Helper\Config');
+											$lazyLoad = $themeSettingConfig->getStoreConfig('themesettings/general/lazy_load');
+										?>
+										<?php if($blogHelper->getImageThumbnailPost($_post) != ""): ?>
+											<div class="thumbnail-post">
+												<?php if($_post->getThumbType() == "video" && $_post->getVideoThumbId() != ""): ?>
+													<?php if($lazyLoad): ?>
+														<a class="parent_lazy post-thumbnail--image popup-video" href="<?= $blogHelper->getVideoThumbUrl($_post); ?>" title="<?= strip_tags($_post->getTitle()) ?>" style="background-image:url('<?= $_post->getThumbnailUrl();?>');">
+															<img class="lazy" src="<?= $themeSettingConfig->getImageLazyLoad() ?>" data-src="<?= $_post->getThumbnailUrl() ?>" alt="<?= strip_tags($_post->getTitle()) ?>"/>
+														</a>
+														<div class="blog-list-video">
+															<?php if($_post->getThumbType() == "video" && $_post->getVideoThumbId() != ""): ?>
+																<a class="btn btn-primary popup-video" href="<?= $blogHelper->getVideoThumbUrl($_post); ?>"></a>
+															<?php endif ?>
+														</div>	
+													<?php else: ?>
+														<a href="<?= $_post->getPostUrlWithNoCategory(); ?>" title="<?= strip_tags($_post->getTitle()) ?>" style="background-image:url('<?= $_post->getThumbnailUrl();?>');">
+															<img src="<?= $_post->getThumbnailUrl() ?>" alt="<?= strip_tags($_post->getTitle()) ?>"/>
+														</a>
+														<div class="blog-list-video">
+															<?php if($_post->getThumbType() == "video" && $_post->getVideoThumbId() != ""): ?>
+																<a class="btn btn-primary popup-video" href="<?= $blogHelper->getVideoThumbUrl($_post); ?>"></a>
+															<?php endif ?>
+														</div>	
+													<?php endif ?>
+													<?php else: ?>
+													<a class="parent_lazy post-thumbnail--image" href="<?= $_post->getPostUrlWithNoCategory(); ?>" title="<?= strip_tags($_post->getTitle()) ?>" style="background-image:url('<?= $_post->getThumbnailUrl();?>');">
+														<img class="lazy" src="<?= $themeSettingConfig->getImageLazyLoad() ?>" data-src="<?= $_post->getThumbnailUrl() ?>" alt="<?= strip_tags($_post->getTitle()) ?>"/>
+													</a>
+												<?php endif ?>
+											</div>
+										<?php endif ?>	
+									<?php endif ?>
+									<div class="post-metas">
+										<div class="post-item-inner-top">
+											<div class="view-category">
+												<div class="meta-category-name">
+													<?php $categoryItem = $block->getParentCategory($_post->getPostId()); ?>
+													<?php if($categoryItem): ?>
+														<span class="category-links entry-meta">
+															<?php $i=0; foreach ($categoryItem as $category): $i++; ?>
+																<?php if($i > 1): ?><span>, </span><?php endif ?><a href="<?php echo $block->getCategoryUrl($category->getUrlKey()); ?>"><?php echo $category->getTitle(); ?></a>
+															<?php endforeach ?>
+														</span>
+													<?php else: ?>
+														<div class="post-create-name">
+															<?= __('<span class="color-theme">%1</span>', $_post->getUser()) ?>
+														</div>
+													<?php endif ?>
+												</div>
+											</div>
+											<a class="link-item" href="<?= $_post->getPostUrlWithNoCategory(); ?>" title="<?= $_post->getTitle(); ?>"><?= $_post->getTitle() ?> </a>	
+											<div class="post-item-inner-top__transform">
+												<div class="short-content-post"><?= $_post->getShortContent() ?></div>
+											</div>
+																			
+										</div>
+										
+										<div class="post-item-inner-bottom">
+											<div class="action-read">
+												<a href="<?= $_post->getPostUrlWithNoCategory(); ?>" class="read-more btn btn-primary btn-md">
+													<span>+ Read more</span>
+												</a>
+											</div>
+											<div class="meta-date">
+												<div class="date-post">
+													<span class="ti-calendar"></span>
+													<span class="color-date"><?= $block->formatDate($_post->getCreatedAt(), \IntlDateFormatter::MEDIUM, false);?></span>
+												</div>
+												<div class="count-comment-post">
+													<span class="ti-comment"></span>
+													<?php if(($_post->getCommentCount() < 10) && ($_post->getCommentCount() > 0) ): ?>
+														<span class="color-count-comment">0<?= $_post->getCommentCount(); ?> comments </span>
+													<?php else: ?>
+														<span class="color-count-comment"><?= $_post->getCommentCount(); ?> comments </span>
+													<?php endif; ?>
+												</div>
+											</div>
+										</div>
+									</div>	
+								</div>
+							</div>	
+						<?php if($slideMultiRow): ?>
+							<?php if ($j % $columnCount == 0 || $j == count($posts)): ?>
+							</div>
+							<?php endif ?>
+						<?php endif ?>
+						
+					<?php endforeach; ?>
+				</div>
+			</div>
+		</div>
+		<?php if($useSlider): ?>
+			<?php $autoPlay = $this->getAutoplay() ? 'true' : 'false'; ?>
+			<?php $stopAuto = $this->getStopAuto() ? 'true' : 'false'; ?>
+			<?php $nav = $this->getNavigation() ? 'true' : 'false'; ?>
+			<?php $dot = $this->getPagination() ? 'true' : 'false'; ?>
+			<?php $rtl = $this->getRtl() ? 'true' : 'false'; ?>
+			<?php $loop = $this->getLoop() ? 'true' : 'false'; ?>
+			<?php $slideBy = $slideBy ? $slideBy : 1; ?>
+			
+			<script type="text/javascript">
+				require([
+					'jquery',
+					'mgsowlcarousel'
+				], function ($) {
+					var owlpost<?= $blockId ?> = $('#post-layout-<?= $blockId; ?>').owlCarousel({
+						<?php if($slideMultiRow): ?>
+							items: 1,
+						<?php else: ?>
+							items: <?= $perRowDefault; ?>,
+						<?php endif ?>
+						autoplay: <?= $autoPlay ?>,
+						autoplayHoverPause: <?= $stopAuto ?>,
+						nav: <?= $nav ?>,
+						dots: <?= $dot ?>,
+						slideBy: <?= $slideBy ?>,
+						rtl: false,
+						loop: <?= $loop; ?>,
+						<?php if(!$slideMultiRow):?>margin: <?= $this->getSlideMargin() ?>,<?php endif ?>
+						<?php if($navPosition=='top-left' || $navPosition=='top-right'): ?>
+							onInitialized: function(){
+								$("#post-layout-<?= $blockId; ?> .owl-nav").attr('style', 'top:<?= $this->getNavTop() ?>px');
+							},
+						<?php endif ?>
+						<?php if(!$slideMultiRow): ?>
+						responsive:{
+							0:{
+								items:<?= $perRowMobile; ?>,
+								nav: false,
+							},
+							571:{
+								items:<?= $perRowTablet; ?>
+							},
+							1200:{
+								items:<?= $perRowDefault; ?>
+							}
+						},
+						<?php endif ?>
+						navText: <?= $navHtml ?>,
+						autoHeight:true
+					});
+				});
+			</script>
+		<?php endif ?>
+	<?php else: ?>
+		<div class="message info empty"><div><?= /* @escapeNotVerified */ __('We can\'t find post matching the selection.') ?></div></div>
+	<?php endif ?>
+</div>

@@ -1,0 +1,217 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+use Magento\Framework\App\Action\Action;
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @var $block \Magento\Catalog\Block\Product\ListProduct
+ */
+?>
+<?php $themeHelperImage = $this->helper('MGS\ThemeSettings\Helper\Image'); ?>
+<?php
+$_productCollection = $block->getLoadedProductCollection();
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$themeSettingConfig = $this->helper('MGS\ThemeSettings\Helper\Config');
+$activeTitle = $themeSettingConfig->getStoreConfig('themesettings/page_title/title_toolbar');
+$showFilter = $themeSettingConfig->getStoreConfig('mgs_ajaxnavigation/general/always_show');
+$activeBreadcrumb = $themeSettingConfig->getStoreConfig('themesettings/page_title/breadcrumb_category');
+$moveBreadcrumb = $themeSettingConfig->getStoreConfig('themesettings/page_title/breadcrumb_toolbar');
+$_imagehelper = $this->helper('Magento\Catalog\Helper\Image');
+$hoverChange = $themeSettingConfig->getStoreConfig('themesettings/catalog/hover_change');
+?>
+<?php if (!$_productCollection->count()): ?>
+	<div class="category-product-actions <?php if($activeTitle): ?> have-title<?php if(!$activeBreadcrumb && $moveBreadcrumb): ?> show-breadcrumbs<?php endif ?><?php endif ?>">
+		<div class="filter-wrapper">
+			<?= $this->getChildHtml('category.title.page'); ?>
+		</div>
+	</div>
+	<div id="current-filter-place">
+		<?= $this->getLayout()->createBlock(\Magento\LayeredNavigation\Block\Navigation\State::class)->toHtml(); ?> 
+	</div>
+    <div class="message info empty">
+		<div><?php /* @escapeNotVerified */ echo __('We can\'t find products matching the selection.') ?></div>
+	</div>
+<?php else: ?>
+   
+	<div class="category-product-actions <?php if($activeTitle): ?> have-title<?php if(!$activeBreadcrumb && $moveBreadcrumb): ?> show-breadcrumbs<?php endif ?><?php endif ?><?php if($showFilter): ?> always_show<?php endif ?>">
+		<div class="filter-wrapper">
+			<?= $this->getChildHtml('category.title.page'); ?>
+			
+			<?= $block->getToolbarHtml() ?>
+		</div>
+	</div>
+    
+    <?php
+		if ($block->getMode() == 'grid') {
+			$viewMode = 'grid';
+			$image = 'category_page_grid';
+			$showDescription = false;
+			$templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+		} else {
+			$viewMode = 'list';
+			$image = 'category_page_list';
+			$showDescription = true;
+			$templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIEW;
+		}
+		/**
+		 * Position for actions regarding image size changing in vde if needed
+		 */
+		$pos = $block->getPositioned();
+    ?>
+    <div class="products wrapper mgs-products <?php /* @escapeNotVerified */ echo $viewMode; ?> products-<?php /* @escapeNotVerified */ echo $viewMode; ?>">
+		<?= $block->getAdditionalHtml() ?>    
+        <?php $iterator = 1; ?>
+        <div class="products list items product-items">
+            <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
+            <?php foreach ($_productCollection as $_product): ?>
+                <?php /* @escapeNotVerified */ echo($iterator++ == 1) ? '<li class="item product product-item">' : '</li><li class="item product product-item">' ?>
+                <div class="product-item-info" data-container="product-grid">
+                    <?php
+						$productImage = $block->getImage($_product, $image);
+						if ($pos != null) {
+							$position = ' style="left:' . $productImage->getWidth() . 'px;'
+								. 'top:' . $productImage->getHeight() . 'px;"';
+						}
+						$productImageFirst = $productImage = $_imagehelper->init($_product, $image)->getUrl();
+						if($hoverChange){
+							$productImageHoverFirst = $productImageHover = $_imagehelper->init($_product,'product_base_image')->getUrl();
+						}
+                    ?>
+                    <?php // Product Image ?>
+					<div class="product-top">
+						<a href="<?php /* @escapeNotVerified */ echo $_product->getProductUrl() ?>" class="product photo product-item-photo" tabindex="-1">
+							<?php $imgAlt = $block->stripTags($_product->getName(), null, true); ?>
+							<span class="product-image-container">
+								<span class="parent_lazy product-image-wrapper lazy_loaded" style="padding-bottom: <?php /* @escapeNotVerified */ echo ($themeHelperImage->getRatio() * 100); ?>%;">
+									<img src="<?php echo $productImageFirst ?>" alt="<?php echo $imgAlt; ?>" class="img-fluid product-image-photo lazy " data-src="<?php echo $productImage ?>"/>
+									<?php if($hoverChange):?>
+										<?php if(basename($_product->getData('thumbnail')) !=  'no_selection'): ?>
+											<?php if(basename($_product->getData('thumbnail')) != basename($_product->getData('small_image'))): ?>
+												<img src="<?php echo $productImageHoverFirst ?>" alt="<?php echo $imgAlt ?>" class="img-fluid img-hover-show lazy" data-src="<?php echo $productImageHover ?>"/>
+											<?php endif ?>
+										<?php endif ?>
+									<?php endif ?>
+								</span>
+							</span>
+						</a>
+						<div class="product-item-inner">
+                            <div class="product actions product-item-actions"<?= strpos($pos, $viewMode . '-actions') ? $position : ''; ?>>
+                                <div class="actions-primary"<?= strpos($pos, $viewMode . '-primary') ? $position : ''; ?>>
+                                    <?php if ($_product->isSaleable()): ?>
+                                        <?php $postParams = $block->getAddToCartPostParams($_product); ?>
+                                        <form data-role="tocart-form" action="<?php /* @escapeNotVerified */ echo $postParams['action']; ?>" method="post">
+                                            <input type="hidden" name="product" value="<?php /* @escapeNotVerified */ echo $postParams['data']['product']; ?>">
+                                            <input type="hidden" name="<?php /* @escapeNotVerified */ echo Action::PARAM_NAME_URL_ENCODED; ?>" value="<?php /* @escapeNotVerified */ echo $postParams['data'][Action::PARAM_NAME_URL_ENCODED]; ?>">
+                                            <?= $block->getBlockHtml('formkey')?>
+                                            <button type="submit"
+                                                    title="<?= $block->escapeHtml(__('Add to Cart')); ?>"
+                                                    class="action tocart primary">
+                                                <span><?php /* @escapeNotVerified */ echo __('+ Add to Cart') ?></span>
+                                            </button>
+                                        </form>
+                                    <?php else: ?>
+                                        <?php if ($_product->getIsSalable()): ?>
+                                            <div class="stock available"><span><?php /* @escapeNotVerified */ echo __('In stock') ?></span></div>
+                                        <?php else: ?>
+                                            <div class="stock unavailable"><span><?php /* @escapeNotVerified */ echo __('Out of stock') ?></span></div>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                </div>
+                                <div data-role="add-to-links" class="actions-secondary"<?= strpos($pos, $viewMode . '-secondary') ? $position : ''; ?>>
+                                    <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
+                                        <?= $addToBlock->setProduct($_product)->getChildHtml(); ?>
+                                    <?php endif; ?>
+								</div>
+                            </div>
+                        </div>
+					</div>
+                    <div class="product details product-item-details">
+                        <?php
+                            $_productNameStripped = $block->stripTags($_product->getName(), null, true);
+                        ?>
+                        <strong class="product name product-item-name">
+                            <a class="product-item-link"
+                               href="<?php /* @escapeNotVerified */ echo $_product->getProductUrl() ?>">
+                                <?php /* @escapeNotVerified */ echo $_helper->productAttribute($_product, $_product->getName(), 'name'); ?>
+                            </a>
+                        </strong>
+                        <?= $block->getReviewsSummaryHtml($_product, $templateType); ?>
+                        <?php /* @escapeNotVerified */ echo $block->getProductPrice($_product) ?>
+                        <?= $block->getProductDetailsHtml($_product); ?>
+						<?php if ($showDescription):?>
+							<div class="product description product-item-description">
+								<?php /* @escapeNotVerified */ echo $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?>
+								
+							</div>
+							<div class="product-item-inner">
+								<div class="product actions product-item-actions"<?= strpos($pos, $viewMode . '-actions') ? $position : ''; ?>>
+									<div class="actions-primary"<?= strpos($pos, $viewMode . '-primary') ? $position : ''; ?>>
+										<?php if ($_product->isSaleable()): ?>
+											<?php $postParams = $block->getAddToCartPostParams($_product); ?>
+											<form data-role="tocart-form" action="<?php /* @escapeNotVerified */ echo $postParams['action']; ?>" method="post">
+												<input type="hidden" name="product" value="<?php /* @escapeNotVerified */ echo $postParams['data']['product']; ?>">
+												<input type="hidden" name="<?php /* @escapeNotVerified */ echo Action::PARAM_NAME_URL_ENCODED; ?>" value="<?php /* @escapeNotVerified */ echo $postParams['data'][Action::PARAM_NAME_URL_ENCODED]; ?>">
+												<?= $block->getBlockHtml('formkey')?>
+												<button type="submit"
+														title="<?= $block->escapeHtml(__('Add to Cart')); ?>"
+														class="action tocart primary">
+													<span><?php /* @escapeNotVerified */ echo __('+ Add to Cart') ?></span>
+												</button>
+											</form>
+										<?php else: ?>
+											<?php if ($_product->getIsSalable()): ?>
+												<div class="stock available"><span><?php /* @escapeNotVerified */ echo __('In stock') ?></span></div>
+											<?php else: ?>
+												<div class="stock unavailable"><span><?php /* @escapeNotVerified */ echo __('Out of stock') ?></span></div>
+											<?php endif; ?>
+										<?php endif; ?>
+									</div>
+									<div data-role="add-to-links" class="actions-secondary"<?= strpos($pos, $viewMode . '-secondary') ? $position : ''; ?>>
+										<?php if ($addToBlock = $block->getChildBlock('addto')): ?>
+											<?= $addToBlock->setProduct($_product)->getChildHtml(); ?>
+										<?php endif; ?>
+									</div>
+								</div>
+							</div>
+						<?php endif; ?>
+                    </div>
+                </div>
+                <?=($iterator == count($_productCollection)+1) ? '</li>' : '' ?>
+            <?php endforeach; ?>
+        </div>
+        <div class="bottom-toolbar">
+             <?= $block->getToolbarHtml() ?>
+        </div>
+    </div>
+    <?php if (!$block->isRedirectToCartEnabled()) : ?>
+        <script type="text/x-magento-init">
+        {
+            "[data-role=tocart-form], .form.map.checkout": {
+                "catalogAddToCart": {}
+            }
+        }
+        </script>
+    <?php endif; ?>
+<?php endif; ?>
+
+
+<script type="text/javascript">
+    require([
+        'jquery'
+    ], function(jQuery){
+        (function($) {
+            $('.action-filter').click(function(){
+                $(this).toggleClass('active');
+                $('.filter-content').slideToggle();
+            });
+        })(jQuery);
+    });
+</script>

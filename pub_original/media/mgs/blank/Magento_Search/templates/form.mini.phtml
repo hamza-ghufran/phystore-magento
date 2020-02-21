@@ -1,0 +1,63 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+?>
+<?php
+/** @var $block \Magento\Framework\View\Element\Template */
+/** @var $helper \Magento\Search\Helper\Data */
+$helper = $this->helper('Magento\Search\Helper\Data');
+$themeSettingConfig = $this->helper('MGS\ThemeSettings\Helper\Config');
+if($themeSettingConfig->getStoreConfig('instantsearch/general/result') == 0){
+    $action = $block->getBaseUrl().'/instantsearch/result/';
+}else{
+    $action = $helper->getResultUrl();
+}
+?>
+<div class="block block-search">
+    <div class="label">
+      <span>What are you Looking for?</span>
+      <span class="cancel"></span>
+    </div>
+    <div class="block block-title theme-header-icon"><strong><?php /* @escapeNotVerified */ echo __('Search'); ?></strong></div>
+    <div class="block block-content">
+        <form class="form minisearch" id="search_mini_form" action="<?php /* @escapeNotVerified */ echo $action ?>" method="get">
+            <div class="field search">
+                <label class="label" for="search" data-role="minisearch-label">
+                    <span><?php /* @escapeNotVerified */ echo __('Search'); ?></span>
+                </label>
+                <div class="control">
+                    <input id="search"
+                           data-mage-init='{"quickSearch":{
+                                "formSelector":"#search_mini_form",
+                                "url":"<?php /* @escapeNotVerified */ echo $block->getUrl('search/ajax/suggest', ['_secure' => $block->getRequest()->isSecure()]); ?>",
+                                "destinationSelector":"#search_autocomplete"}
+                           }'
+                           type="text"
+                           name="<?php /* @escapeNotVerified */ echo $helper->getQueryParamName() ?>"
+                           value="<?php /* @escapeNotVerified */ echo $helper->getEscapedQueryText() ?>"
+                           placeholder="<?php /* @escapeNotVerified */ echo __('SEARCH PRODUCT...'); ?>"
+                           class="input-text"
+                           maxlength="<?php /* @escapeNotVerified */ echo $helper->getMaxQueryLength();?>"
+                           role="combobox"
+                           aria-haspopup="false"
+                           aria-expanded="false"
+                           aria-autocomplete="both"
+                           autocomplete="off"/>
+                    <div id="search_autocomplete" class="search-autocomplete"></div>
+                    <?= $block->getChildHtml() ?>
+                </div>
+            </div>
+            <div class="actions">
+                <button type="submit"
+                        title="<?= $block->escapeHtml(__('Search')) ?>"
+                        class="action search">
+                    <span></span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

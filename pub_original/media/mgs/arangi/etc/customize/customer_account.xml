@@ -1,0 +1,69 @@
+<settings>
+	<section>
+		<name>themesettings</name>
+		<group>
+			<name>customer</name>
+			<title>Customer Navigation</title>
+			<icon>pe-7s-users</icon>
+			<fields>
+				<item>
+					<name>account_dashboard</name>
+					<type>boolean</type>
+					<label>Disabled Account Dashboard Link</label>
+				</item>
+				<item>
+					<name>account_information</name>
+					<type>boolean</type>
+					<label>Disabled Account Information Link</label>
+				</item>
+				<item>
+					<name>address_book</name>
+					<type>boolean</type>
+					<label>Disabled Address Book Link</label>
+				</item>
+				<item>
+					<name>gdpr</name>
+					<type>boolean</type>
+					<label>Disabled GDPR Link</label>
+				</item>
+				<item>
+					<name>downloadable</name>
+					<type>boolean</type>
+					<label>Disabled My Downloadable Products Link</label>
+				</item>
+				<item>
+					<name>orders</name>
+					<type>boolean</type>
+					<label>Disabled My Orders Link</label>
+				</item>
+				
+				<item>
+					<name>wishlist</name>
+					<type>boolean</type>
+					<label>Disabled My Wish List Link</label>
+				</item>
+				<item>
+					<name>newsletter</name>
+					<type>boolean</type>
+					<label>Disabled Newsletter Subscriptions Link</label>
+				</item>
+				<item>
+					<name>creditcart</name>
+					<type>boolean</type>
+					<label>Disabled Stored Payment Method Link</label>
+				</item>
+				<item>
+					<name>billing_agreements</name>
+					<type>boolean</type>
+					<label>Disabled Billing Agreements Link</label>
+				</item>
+				<item>
+					<name>reviews</name>
+					<type>boolean</type>
+					<label>Disabled My Product Reviews Link</label>
+				</item>
+				
+			</fields>
+		</group>
+	</section>
+</settings>

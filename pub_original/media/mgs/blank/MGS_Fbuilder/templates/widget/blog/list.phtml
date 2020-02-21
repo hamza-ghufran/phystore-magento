@@ -1,0 +1,120 @@
+<?php $builderHelper = $this->helper('MGS\Fbuilder\Helper\Data'); ?>
+<?php $blogHelper = $this->helper('MGS\Blog\Helper\Data'); ?>
+<?php $posts = $this->getPostCollection() ?>
+<div class="content-block latest-post-list-block">
+	<?php if (count($posts)>0): ?>
+		<?php $blockId = rand() . time(); ?>
+		<?php $useSlider = $this->getUseSlider(); ?>
+		<?php $numberCol = $this->getNumbercol(); ?>
+		<?php $numberOfCol = $this->getPercol(); ?>
+		<?php $onRow = $numberCol * $numberOfCol; ?>
+		<div class="block widget blog-post-list">
+			<div class="block-content line">
+			
+				<?php if($useSlider): ?>
+				<div class="owl-carousel mgs-owl-carousel" id="post-list-carousel-<?= $blockId; ?>">
+				<?php endif ?>
+				
+					<?php $i=0; foreach($posts as $_post): $i++; ?>
+							<div class="list-product-col">
+								<div class="post-item">
+									<?php if(!$this->getHideThumbnail()): ?>
+										<?php if($blogHelper->getImageThumbnailPost($_post) != ""): ?>
+											<div class="thumbnail-post">
+												<?php if($_post->getThumbType() == "video" && $_post->getVideoThumbId() != ""): ?>
+													<a class=" post-thumbnail--image popup-video" href="<?= $blogHelper->getVideoThumbUrl($_post); ?>" title="<?= strip_tags($_post->getTitle()) ?>" style="background-image:url('<?= $_post->getThumbnailUrl();?>');"><img src="<?= $_post->getThumbnailUrl() ?>" alt="<?= strip_tags($_post->getTitle()) ?>"/></a>
+													<div class="blog-list-video">
+													<?php if($_post->getThumbType() == "video" && $_post->getVideoThumbId() != ""): ?>
+															<a class="btn popup-video" href="<?= $blogHelper->getVideoThumbUrl($_post); ?>"></a>
+														<?php endif ?>
+													</div>
+													<?php else: ?>
+													<a href="<?= $_post->getPostUrlWithNoCategory(); ?>" title="<?= strip_tags($_post->getTitle()) ?>" style="background-image:url('<?= $_post->getThumbnailUrl();?>');"><img src="<?= $_post->getThumbnailUrl() ?>" alt="<?= strip_tags($_post->getTitle()) ?>"/></a>
+												<?php endif ?>
+											</div>
+										<?php endif ?>
+									<?php endif ?>
+									<div class="post-item-detail">
+										<div class="post-content">
+											<h3 class="title-blog">
+												<a href="<?= $_post->getPostUrlWithNoCategory(); ?>" title="<?= strip_tags($_post->getTitle()); ?>"><?= $_post->getTitle() ?></a>
+											</h3>
+											<?php if(!$this->getHideCreate()): ?>
+												<div class="post-create-date">
+													<?= __('<span class="color-theme">%1</span><span class="color-date"> %2</span>', $_post->getUser(), date('M d, Y', strtotime($_post->getCreatedAt()))) ?>
+												</div>
+												<div class="read-more">
+													<a class="action default" href="<?= $_post->getPostUrlWithNoCategory();?>"><?= __('Read more') ?></a>
+												</div>
+											<?php endif ?>
+										</div>
+										<?php if(!$this->getHideDescription()): ?>
+											<div class="short-content">
+												<?= $blogHelper->truncateString(strip_tags($_post->getShortContent()), $this->getCharacterCount()); ?>
+											</div>
+										<?php endif ?>
+									</div>
+								</div>
+								
+							</div>
+
+						<?php // Clearfix ?>
+							<?php if(!$useSlider && ($i % $onRow == 0)): ?>
+								<div class="clearfix visible-lg visible-md"></div>
+							<?php endif ?>
+							
+							<?php if(!$useSlider && ($i % (2 * $numberOfCol) == 0)): ?>
+								<div class="clearfix visible-sm"></div>
+							<?php endif ?>
+						<?php // End Clearfix ?>
+					<?php endforeach ?>
+				
+				<?php if($useSlider): ?>
+				</div>
+				<?php endif ?>
+				
+			</div>
+		</div>
+		<?php if($useSlider): ?>
+			<?php $autoPlay = $this->getAutoplay() ? 'true' : 'false'; ?>
+			<?php $stopAuto = $this->getStopAuto() ? 'true' : 'false'; ?>
+			<?php $nav = $this->getNavigation() ? 'true' : 'false'; ?>
+			<?php $dot = $this->getPagination() ? 'true' : 'false'; ?>
+			<?php $rtl = $this->getRtl() ? 'true' : 'false'; ?>
+			<?php $loop = $this->getLoop() ? 'true' : 'false'; ?>
+			<script type="text/javascript">
+				require([
+					'jquery',
+					'mgsowlcarousel'
+				], function ($) {
+					$('#post-list-carousel-<?= $blockId; ?>').owlCarousel({
+						items: <?= $numberCol ?>,
+						autoplay: <?= $autoPlay ?>,
+						autoplayHoverPause: <?= $stopAuto ?>,
+						nav: <?= $nav ?>,
+						dots: <?= $dot ?>,
+						navText: ["<span class='slider-nav nav-prev'></span>","<span class='slider-nav nav-next'></span>"],
+						autoHeight:true,
+						slideBy: 1,
+						rtl: <?= $rtl; ?>,
+						loop: <?= $loop; ?>,
+						responsive:{
+							0:{
+								items:1,
+								nav: false,
+							},
+							768:{
+								items:2
+							},
+							992:{
+								items:<?= $numberCol; ?>
+							}
+						}
+					});
+				});
+			</script>
+		<?php endif ?>
+	<?php else: ?>
+		<div class="message info empty"><div><?= /* @escapeNotVerified */ __('We can\'t find post matching the selection.') ?></div></div>
+	<?php endif ?>
+</div>

@@ -1,0 +1,90 @@
+& when (@media-common = false) {
+    @media (min-width: 1200px) {
+        .header3 {
+            .switcher-language-currency {
+                &::after {
+                    background: #f2b5d4;
+			        bottom: 0;
+			        content: '';
+			        left: 0;
+			        position: absolute;
+			        right: -275%;
+			        top: 0;
+			        z-index: 1;
+                }
+                .setting-site {
+                    .setting-site-content {
+                        .customer-web-config {
+                            align-items: center;
+                            display: flex;
+                            height: 70px;
+                            .switcher {
+                                padding-left: 5px;
+                                .img-flag {
+                                    height: 20px;
+                                    width: 26px;
+                                }
+								.action.switcher-trigger {
+                                    color: #fff;
+                                    display: flex;
+                                    font-family: 'Raleway';
+                                    font-size: 14px;
+                                    font-weight: 600;
+                                    strong {
+                                        display: flex;
+                                        img {
+                                            padding-right: 7px;
+                                        }
+                                    }
+                                    &::after {
+                                        content: "\e64b";
+                                        font-family: 'themify';
+                                        font-size: 11px;
+                                        padding-left: 10px;
+                                    }
+                                }
+                                .switcher-options {
+                                    .switcher-dropdown {
+                                        li {
+                                            a {
+                                                align-items: center;
+                                                display: flex;
+                                                img {
+                                                    padding-right: 7px;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+								+ .switcher {
+									margin-left: 10px;
+								}
+								.switcher-options > ul.dropdown.switcher-dropdown {
+									display: none;
+								}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+& when (@media-common = true) {
+    .header1 {
+        .menu-mobile {
+            .menu-mobile-content {
+                .menu-mobile-control {
+                    .menu-mobile-control-right {
+                        .switcher-language {
+                            ul.dropdown {
+                                min-width: 1px;
+                            }
+                        } 
+                    }
+                }
+            }
+        }
+    }
+}

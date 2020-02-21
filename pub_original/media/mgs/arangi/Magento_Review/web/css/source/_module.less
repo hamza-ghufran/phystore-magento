@@ -1,0 +1,75 @@
+/*--------------------------------------Style general------------------------------------------------*/
+
+& when (@media-common = true) {
+	.account.review-customer-index {
+		.reviews {
+			.table-reviews {
+				position: relative;
+				tbody {
+					tr {
+						border-bottom: 1px solid #80808038;
+					}
+				}
+			}
+		}
+
+		.products-reviews-toolbar {
+			display: none;
+		}
+
+		.actions-toolbar {
+			margin-bottom: 25px;
+		}
+	}
+
+}
+/*--------------------------------------End style general--------------------------------------------*/
+
+/*--------------------------------------Style desktop------------------------------------------------*/
+
+& when (@media-common = false) {
+	.account.review-customer-index {
+		.table-reviews {
+			tr {
+				th {
+					width: auto !important;
+    				text-transform: uppercase;
+        			color: #333;
+				}
+
+				.col {
+					width: auto !important;
+				}
+
+				.actions {
+					a {
+						border: 1px solid #333;
+        				display: inline-block;
+        				span {
+        					display: inline-block;
+        					padding: 5px 10px;
+        				}
+					}
+				}
+			}
+
+			tbody {
+				tr {
+					td {
+						    padding: 20px 0 !important;
+        					vertical-align: initial !important;
+					}
+				}
+			}
+
+			thead {
+				tr {
+					> th {
+							padding-left: 0 !important;
+					}
+				}
+			}
+		}
+	}
+}
+/*--------------------------------------End style desktop--------------------------------------------*/

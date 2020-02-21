@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <move element="category.cms" destination="content" before="-"/>
+		
+		<referenceBlock name="page.main.title">
+			<action method="setTemplate">
+				<argument name="template" xsi:type="string">Magento_Catalog::category/html/title.phtml</argument>
+			</action>
+		</referenceBlock>
+		
+		<referenceBlock name="category.products.list">
+			<block class="Magento\Catalog\Block\Category\View" name="category.title.page" template="Magento_Catalog::category/title.phtml" ifconfig="themesettings/page_title/title_toolbar"/>
+		</referenceBlock>
+	</body>
+</page>

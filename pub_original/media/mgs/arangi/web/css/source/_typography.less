@@ -1,0 +1,105 @@
+& when (@media-common = true) {
+	.lib-font-face(
+        @family-name: @theme-icon-font-family-name,
+        @font-path: '@{baseDir}fonts/themify',
+        @font-weight: normal,
+        @font-style: normal
+    );
+	
+	html {
+		font-size: 16px;
+	}
+	body {
+		color: @theme-text-color;
+		font-weight: @theme-text-font-weight;
+		font-style: @theme-text-font-style;
+		line-height: @theme-text-font-line-height;
+		font-size: @theme-font-size;
+	}
+	
+	a {
+		color: @theme-link-color;
+		text-decoration: @theme-link-text-decoration;
+		.lib-transition(all 300ms);
+		&:hover,
+		&:focus {
+			color: @theme-link-color__hover;
+			text-decoration: @theme-link-text-decoration__hover;
+		}
+		&.link-underline {
+			text-decoration: underline;
+		}
+	}
+	
+	h1, h2, h3, h4, h5, h6,
+	.h1, .h2, .h3, .h4, .h5, .h6 {
+		color: @theme-heading-color;
+		font-weight: @theme-heading-font-weight;
+	}
+	
+	h1, .h1 {
+		font-size: @theme-heading-h1-size;
+	}
+	
+	h2, .h2 {
+		font-size: @theme-heading-h2-size;
+	}
+	
+	h3, .h3 {
+		font-size: @theme-heading-h3-size;
+	}
+	
+	h4, .h4 {
+		font-size: @theme-heading-h4-size;
+	}
+	
+	h5, .h5 {
+		font-size: @theme-heading-h5-size;
+	}
+	
+	h6, .h6 {
+		font-size: @theme-heading-h6-size;
+	}
+	
+	ul,
+	ol {
+		list-style-type: none;
+		margin: 0;
+		padding-left: 0;
+		font-size: 1rem;
+		li + li {
+			margin: 19px 0 0;
+		}
+		&.list-item-1 {
+			li {
+				position: relative;
+				a {
+					&:before {
+						content: "";
+						height: 1px;
+						width: 0;
+						background: @theme-link-color__hover;
+						top: 10px;
+						left: 0;
+						position: absolute;
+						.lib-transition(all 300ms);
+					}
+					&:hover {
+						padding-left: 20px;
+						&:before {
+							width: 12px;
+						}
+					}
+				}
+			}
+		}
+		&.list-item-2 {
+			list-style-type: disc;
+			padding-left: 16px;
+		}
+		&.list-item-3 {
+			list-style: decimal;
+			padding-left: 16px;
+		}
+	}
+}

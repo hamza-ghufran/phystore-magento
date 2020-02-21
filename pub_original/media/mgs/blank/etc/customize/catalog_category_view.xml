@@ -1,0 +1,162 @@
+<settings>
+	<section>
+		<name>themesettings</name>
+		<group>
+			<name>category</name>
+			<title>Category Page</title>
+			<icon>pe-7s-cash</icon>
+			<fields>
+				<item>
+					<name>layout</name>
+					<type>select</type>
+					<label>Default Page Layout</label>
+					<option>MGS\ThemeSettings\Model\Config\Source\PageLayout</option>
+				</item>
+				<item>
+					<name>catalog_frontend_list_mode</name>
+					<custom><![CDATA[catalog/frontend/list_mode]]></custom>
+					<type>select</type>
+					<label>List Mode</label>
+					<option>Magento\Catalog\Model\Config\Source\ListMode</option>
+				</item>
+				<item>
+					<name>catalog_frontend_show_swatches_in_product_list</name>
+					<custom><![CDATA[catalog/frontend/show_swatches_in_product_list]]></custom>
+					<label>Show Swatches in Product List</label>
+					<type>boolean</type>
+				</item>
+			</fields>
+			<fields>
+				<label>Products per Page</label>
+				<item>
+					<name>catalog_frontend_list_allow_all</name>
+					<custom><![CDATA[catalog/frontend/list_allow_all]]></custom>
+					<label>Allow All Products per Page</label>
+					<type>boolean</type>
+				</item>
+				<item>
+					<name>catalog_frontend_grid_per_page_values</name>
+					<custom><![CDATA[catalog/frontend/grid_per_page_values]]></custom>
+					<type>text</type>
+					<label>On Grid Allowed Values</label>
+				</item>
+				<item>
+					<name>catalog_frontend_grid_per_page</name>
+					<custom><![CDATA[catalog/frontend/grid_per_page]]></custom>
+					<type>text</type>
+					<label>On Grid Default Value</label>
+				</item>
+				<item>
+					<name>catalog_frontend_list_per_page_values</name>
+					<custom><![CDATA[catalog/frontend/list_per_page_values]]></custom>
+					<type>text</type>
+					<label>On List Allowed Values</label>
+				</item>
+				<item>
+					<name>catalog_frontend_list_per_page</name>
+					<custom><![CDATA[catalog/frontend/list_per_page]]></custom>
+					<type>text</type>
+					<label>On List Default Value</label>
+				</item>
+			</fields>
+			<fields>
+				<label>Products per Row</label>
+				<item>
+					<name>product_per_row</name>
+					<type>select</type>
+					<label>On Desktop</label>
+					<option>MGS\ThemeSettings\Model\Config\Source\Perrow</option>
+				</item>
+				<item>
+					<name>product_per_row_tablet</name>
+					<type>select</type>
+					<label>On Tablet</label>
+					<option>MGS\ThemeSettings\Model\Config\Source\Perrow</option>
+				</item>
+				<item>
+					<name>product_per_row_mobile</name>
+					<type>select</type>
+					<label>On Mobile</label>
+					<option>MGS\ThemeSettings\Model\Config\Source\Perrow</option>
+				</item>
+			</fields>
+			<fields>
+				<label>Block's possition</label>
+				<item>
+					<name>image</name>
+					<type>select</type>
+					<label>Category Image</label>
+					<option>MGS\ThemeSettings\Model\Config\Source\Position</option>
+				</item>
+				<item>
+					<name>description</name>
+					<type>select</type>
+					<label>Category Description</label>
+					<option>MGS\ThemeSettings\Model\Config\Source\Position</option>
+				</item>
+				<item>
+					<name>cms</name>
+					<type>select</type>
+					<label>CMS Block</label>
+					<option>MGS\ThemeSettings\Model\Config\Source\Position</option>
+				</item>
+			</fields>
+			<fields>
+				<label>MGS Layered Navigation</label>
+				<item>
+					<name>mgs_ajaxnavigation_general_enable</name>
+					<custom><![CDATA[mgs_ajaxnavigation/general/enable]]></custom>
+					<label>Use Ajax</label>
+					<type>boolean</type>
+				</item>
+				<item>
+					<name>mgs_ajaxnavigation_general_range_price</name>
+					<custom><![CDATA[mgs_ajaxnavigation/general/range_price]]></custom>
+					<label>Use Range Price Slide</label>
+					<type>boolean</type>
+				</item>
+				<item>
+					<name>mgs_ajaxnavigation_general_shopping_by</name>
+					<custom><![CDATA[mgs_ajaxnavigation/general/shopping_by]]></custom>
+					<label>Remove Shopping by</label>
+					<type>boolean</type>
+				</item>
+				<item>
+					<name>mgs_ajaxnavigation_general_always_show</name>
+					<custom><![CDATA[mgs_ajaxnavigation/general/always_show]]></custom>
+					<label>Show Filter Content (1 Column)</label>
+					<type>boolean</type>
+				</item>
+			</fields>
+		</group>
+		
+		<group>
+			<name>category_landing</name>
+			<title>Category Landing Page</title>
+			<icon>pe-7s-note2</icon>
+			<fields>
+				<label>Items per Row</label>
+				<item>
+					<name>product_per_row</name>
+					<type>select</type>
+					<label>On Desktop</label>
+					<option>MGS\ThemeSettings\Model\Config\Source\Perrow</option>
+				</item>
+				<item>
+					<name>product_per_row_tablet</name>
+					<type>select</type>
+					<label>On Tablet</label>
+					<option>MGS\ThemeSettings\Model\Config\Source\Perrow</option>
+				</item>
+				<item>
+					<name>product_per_row_mobile</name>
+					<type>select</type>
+					<label>On Mobile</label>
+					<option>MGS\ThemeSettings\Model\Config\Source\Perrow</option>
+				</item>
+			</fields>
+			
+		</group>
+		
+	</section>
+</settings>

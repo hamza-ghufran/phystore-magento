@@ -1,0 +1,30 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+/** @var $block Magento\Wishlist\Block\Catalog\Product\ProductList\Item\AddTo\Wishlist */
+?>
+
+<?php 
+  $themeSettingConfig = $this->helper('MGS\ThemeSettings\Helper\Config'); 
+  $hideAddWishlist = $themeSettingConfig->getStoreConfig('themesettings/catalog/wishlist_button');
+?>
+<?php if($hideAddWishlist == 0): ?>
+
+  <?php if ($block->getWishlistHelper()->isAllow()): ?>
+      <a href="#"
+         class="action towishlist"
+         title="<?= $block->escapeHtml(__('Add to Wish List')); ?>"
+         aria-label="<?= $block->escapeHtml(__('Save')); ?>"
+         data-post='<?php /* @escapeNotVerified */ echo $block->getAddToWishlistParams($block->getProduct()); ?>'
+         data-action="add-to-wishlist"
+         role="button">
+          <span class="ti-heart">
+          	<span><?php /* @escapeNotVerified */ echo __('Add to Wish List') ?></span>
+          </span>
+      </a>
+  <?php endif; ?>
+<?php endif; ?>

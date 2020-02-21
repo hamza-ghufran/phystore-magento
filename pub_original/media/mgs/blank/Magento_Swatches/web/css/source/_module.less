@@ -1,0 +1,235 @@
+@primary-color: #f68872;
+
+& when (@media-common = true) {
+	div[class*="swatch-opt-"]{
+		margin-top: 9px;
+	}
+	
+	.clearfix:after {
+		content: " ";
+		visibility: hidden;
+		display: block;
+		height: 0;
+		clear: both;
+	}
+	
+	.swatch {
+		&-attribute {
+			&-label {
+				font-weight: bold;
+				position: relative;
+				&.required {
+					padding-right: 10px;
+				}
+				&[data-required="1"]:after {
+					content: '*';
+					color: red;
+					position: absolute;
+					right: -11px;
+					top: -2px;
+					font-weight: bold;
+					font-size: 1em;
+				}
+			}
+			&-selected-option {
+				color: #646464;
+				padding-left: 17px;
+			}
+		}
+		&-option {
+			padding: 1px 2px;
+			min-width: 20px;
+			max-width: 90px;
+			height: 20px;
+			float: left;
+			margin: 0 10px 10px 0;
+			text-align: center;
+			cursor: pointer;
+			position: relative;
+			border: 1px solid #fff;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			border-radius: 10px;
+			&.selected {
+				border: 1px solid #9e9e9e;
+			}
+			&:not(.disabled):hover {
+				border: 1px solid #eeeeee;
+				color: #333;
+			}
+			&.image.selected,
+			&.image:not(.disabled):hover {
+				border: 1px solid #fdcf6b;
+			}
+			&.text {
+				border: 1px solid #eeeeee;
+				background-color: #eeeeee;
+				color: #666666;
+				font-size: 12px;
+				font-weight: 400;
+				line-height: 18px;
+				padding: 0 3px;
+				min-width: 20px;
+				&:not(.disabled):hover,
+				&.selected {
+					border: 1px solid #9e9e9e;
+					background-color: #fff;
+				}
+			}
+			&.disabled {
+				cursor: default;
+				&:after {
+					content: '';
+					position: absolute;
+					left: 0;
+					right: 0;
+					top:0;
+					bottom: 0;
+					background: -moz-linear-gradient(to left top,  rgba(255,255,255,0) 0%, rgba(255,255,255,0) 42%, rgba(255,255,255,1) 43%, rgba(255,255,255,1) 46%, rgba(255,82,22,1) 47%, rgba(255,82,22,1) 53%, rgba(255,255,255,1) 54%, rgba(255,255,255,1) 57%, rgba(255,255,255,0) 58%, rgba(255,255,255,0) 100%);
+					background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(42%,rgba(255,255,255,0)), color-stop(43%,rgba(255,255,255,1)), color-stop(46%,rgba(255,255,255,1)), color-stop(47%,rgba(255,82,22,1)), color-stop(53%,rgba(255,82,22,1)), color-stop(54%,rgba(255,255,255,1)), color-stop(57%,rgba(255,255,255,1)), color-stop(58%,rgba(255,255,255,0)), color-stop(100%,rgba(255,255,255,0)));
+					background: -webkit-linear-gradient(to left top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0) 42%,rgba(255,255,255,1) 43%,rgba(255,255,255,1) 46%,rgba(255,82,22,1) 47%,rgba(255,82,22,1) 53%,rgba(255,255,255,1) 54%,rgba(255,255,255,1) 57%,rgba(255,255,255,0) 58%,rgba(255,255,255,0) 100%);
+					background: -o-linear-gradient(to left top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0) 42%,rgba(255,255,255,1) 43%,rgba(255,255,255,1) 46%,rgba(255,82,22,1) 47%,rgba(255,82,22,1) 53%,rgba(255,255,255,1) 54%,rgba(255,255,255,1) 57%,rgba(255,255,255,0) 58%,rgba(255,255,255,0) 100%);
+					background: -ms-linear-gradient(to left top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0) 42%,rgba(255,255,255,1) 43%,rgba(255,255,255,1) 46%,rgba(255,82,22,1) 47%,rgba(255,82,22,1) 53%,rgba(255,255,255,1) 54%,rgba(255,255,255,1) 57%,rgba(255,255,255,0) 58%,rgba(255,255,255,0) 100%);
+					background: linear-gradient(to left top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0) 42%,rgba(255,255,255,1) 43%,rgba(255,255,255,1) 46%,rgba(255,82,22,1) 47%,rgba(255,82,22,1) 53%,rgba(255,255,255,1) 54%,rgba(255,255,255,1) 57%,rgba(255,255,255,0) 58%,rgba(255,255,255,0) 100%);
+					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#00ffffff',GradientType=1 );
+				}
+			}
+			&-tooltip {
+				max-width: 140px;
+				position: absolute;
+				display: none;
+				z-index: 999;
+				text-align: center;
+				border-radius: 3px;
+				border: 1px solid #222;
+				background-color: #222;
+				color: #fff;
+				line-height: 1;
+				padding: 3px 8px;
+				font-size: 12px;
+				margin-left: -5px;
+				.image {
+					display: none !important;
+				}
+				.corner {
+					left: 0 !important;
+					position: relative;
+					bottom: 0;
+					height: 1px;
+					right: 0;
+					&:after {
+						content: "";
+						display: block;
+						height: 0px;
+						width: 0px;
+						border-left: 4px solid transparent;
+						border-right: 4px solid transparent;
+						border-bottom: 4px solid transparent;
+						border-top: 4px solid #222222;
+						position: absolute;
+						top: 100%;
+						margin-top: 4px;
+						left: 50%;
+						margin-left: -3px;
+					}
+				}
+				&-layered {
+					width: 140px;
+					position: absolute;
+					background: #fff;
+					color: rgb(148, 148, 148);
+					border: 1px solid #adadad;
+					display: none;
+					z-index: 999;
+					left: -47px;
+					&:hover > .swatch-option-tooltip-layered {
+						display: block;
+					}
+					.image {
+						display: none !important;
+					}
+					.corner {
+						left: 0 !important;
+						position: relative;
+						bottom: 0;
+						height: 1px;
+						right: 0;
+						&:after {
+							content: "";
+							display: block;
+							height: 0px;
+							width: 0px;
+							border-left: 4px solid transparent;
+							border-right: 4px solid transparent;
+							border-bottom: 4px solid transparent;
+							border-top: 4px solid #222222;
+							position: absolute;
+							top: 100%;
+							margin-top: 4px;
+							left: 50%;
+							margin-left: -3px;
+						}
+					}
+				}
+			}
+			&-link-layered {
+				position: relative;
+				margin: 0 !important;
+				padding: 0 !important;
+			}
+			&-disabled {
+				cursor: default;
+				border: 0;
+				&:after {
+					content: '';
+					position: absolute;
+					width: 42px;
+					height: 2px;
+					background: red;
+					transform: rotate(-30deg);
+					-o-transform: rotate(-30deg);
+					-moz-transform: rotate(-30deg);
+					-ms-transform: rotate(-30deg);
+					-webkit-transform: rotate(-30deg);
+					z-index: 995;
+					left: -4px;
+					top: 10px;
+				}
+			}
+			&-loading {
+				content: url("../images/loader-2.gif");
+			}
+		}
+		&-opt {
+			margin: 20px 0;
+			&-listing {
+				margin-bottom: 10px;
+			}
+		}
+		&-more {
+			display: inline-block;
+			margin: 2px 0;
+			text-decoration: none !important;
+			position: static;
+			z-index: 1;
+		}
+		&-visual-tooltip-layered {
+			height: 160px;
+			top: -170px;
+		}
+		&-textual-tooltip-layered {
+			height: 30px;
+			top: -40px;
+		}
+		&-attribute-options .swatch-option-tooltip-layered .title {
+			width: 100%;
+			height: 20px;
+			position: absolute;
+			bottom: -5px;
+			left: 0;
+			color: rgb(40, 40, 40);
+			text-align: center;
+			margin-bottom: 10px;
+		}
+	}
+}

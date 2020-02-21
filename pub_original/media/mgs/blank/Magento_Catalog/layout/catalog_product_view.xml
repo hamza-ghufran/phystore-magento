@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<body>
+		<referenceContainer name="content">
+			<block class="Magento\Catalog\Block\Product\View" name="product.info.content.wrapper" template="product/view/content-wrapper.phtml" before="-">
+				<container name="product.info.main.clearfix" htmlTag="div" htmlClass="product-info-clearfix"/>
+			</block>
+		</referenceContainer>
+
+		<referenceContainer name="product.info.main">
+			<block class="Magento\Catalog\Block\Product\View\Description" name="product.info.overview.copy" template="product/view/attribute.phtml" group="detailed_info">
+				<arguments>
+					<argument name="at_call" xsi:type="string">getShortDescription</argument>
+					<argument name="at_code" xsi:type="string">short_description</argument>
+					<argument name="css_class" xsi:type="string">overview</argument>
+					<argument name="at_label" translate="true" xsi:type="string">none</argument>
+					<argument name="title" translate="true" xsi:type="string">Overview</argument>
+					<argument name="add_attribute" xsi:type="string">itemprop="description"</argument>
+				</arguments>
+			</block>
+		</referenceContainer>
+
+		<move element="product.info.media" destination="product.info.main.clearfix" before="-"/>
+		<move element="product.info.main" destination="product.info.main.clearfix" after="product.info.media"/>
+
+		<move element="page.main.title" destination="product.info.main" before="-"/>
+		<move element="product.info.sku" destination="product.info.main" after="page.main.title"/>
+
+		<move element="product.info.review" destination="product.info.main" before="page.main.title"/>
+
+		<move element="product.info.overview" destination="product.info.main" after="product.info.price"/>
+
+		<move element="product.info.overview.copy" destination="product.info.main" before="product.info.price"/>
+
+	</body>
+</page>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="checkout" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+		<referenceContainer name="before.body.end">
+			<block class="Magento\Framework\View\Element\Template" name="checkout.footers.copyright" template="Magento_Theme::html/checkout_footer.phtml">
+				<block class="Magento\Theme\Block\Html\Footer" name="checkout.copyright" template="Magento_Theme::html/copyright.phtml"/>
+			</block>
+		</referenceContainer>
+    </body>
+</page>

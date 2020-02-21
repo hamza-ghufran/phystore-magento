@@ -1,0 +1,28 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Category view template
+ *
+ * @var $block \Magento\Catalog\Block\Category\View
+ */
+?>
+
+<?php $category = $this->getCurrentCategory(); ?>
+<?php $themeSettingConfig = $this->helper('MGS\ThemeSettings\Helper\Config'); ?>
+
+<div class="category-page-title">
+	<h1 class="category-title"><?= $category->getName();?></h1>
+	<?php $activeBreadcrumb = $themeSettingConfig->getStoreConfig('themesettings/page_title/breadcrumb_category'); ?>
+	<?php $moveBreadcrumb = $themeSettingConfig->getStoreConfig('themesettings/page_title/breadcrumb_toolbar'); ?>
+	<?php if(!$activeBreadcrumb && $moveBreadcrumb): ?>
+		<?= $this->getLayout()->getBlock('breadcrumbs')->toHtml(); ?>
+	<?php endif ?>
+</div>

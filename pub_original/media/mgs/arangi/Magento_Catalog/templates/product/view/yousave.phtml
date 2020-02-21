@@ -1,0 +1,15 @@
+<?php $_product = $block->getProduct(); ?>
+<?php 
+$themeSettingConfig = $this->helper('MGS\ThemeSettings\Helper\Config');
+$percent = 0 - $themeSettingConfig->getPercent($_product);
+$configPercent = $themeSettingConfig->getConfigPercent();
+?>                      
+<?php if ($percent != 0 && $configPercent == 0): ?>                   
+	<div class="yousave">
+		<span class="discount-percent">
+			<?php echo $percent; ?>
+			<span class="percent">%</span>
+		</span>
+	</div>
+<?php endif; ?>
+

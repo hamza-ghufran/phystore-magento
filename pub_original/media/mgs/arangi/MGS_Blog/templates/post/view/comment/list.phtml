@@ -1,0 +1,70 @@
+<?php
+$helper = $this->helper('MGS\Blog\Helper\Data');
+$post = $block->getCurrentPost();
+$collection = $block->getCollection();
+?>
+<?php if (count($collection)): ?>
+    <div class="comment-list">
+        <div class="comment-list-container">
+            <?php foreach ($collection as $comment): ?>
+                <div class="item">
+				    <div class="posted-on">
+					     <span class="sub-title"><?= __('%1', $block->formatDate($comment->getCreatedAt(), \IntlDateFormatter::MEDIUM, false)); ?></span>
+					</div>
+                    <div class="infor-comment">
+                    	<div class="content-comment">“ <?= $comment->getContent(); ?> ”</div>
+                    	<span>_</span>
+                    	<span class="name"><?= $comment->getName(); ?>&nbsp;&nbsp;</span>
+                	</div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+		<div class="blog-load-more-comment">
+			<a href="javascript:void(0);" onclick="loadmoreComment()"><?= __('Load More Comment') ?>...</a>
+		</div>
+		<div class="blog-post-comment-list-toolbar toolbar"><?= $block->getPagerHtml(); ?></div>
+    </div>
+<?php endif; ?>
+<script type="text/javascript">
+		require([
+			'jquery',
+			'jquery/ui'
+		], function(jQuery){
+			(function($) {
+				$(document).ready(function(){
+					var urlTest = $(".blog-post-comment-list-toolbar .pages .pages-item-next a").attr('href');
+					if(!urlTest){
+						$('.blog-load-more-comment').hide();
+					}
+				});
+			})(jQuery);
+		});	
+		function loadmoreComment(){
+			require([
+				'jquery',
+				'jquery/ui'
+			], function(jQuery){
+				(function($) {
+					var url = $(".blog-post-comment-list-toolbar .pages .pages-item-next a").attr('href');
+					$(".blog-load-more-comment a").addClass('loading-style');
+					if(url){
+						$.ajax(url, {
+							success: function(data) {
+								$('.comment-list-container').append($(data).find('.comment-list-container > *'));
+								$('.blog-post-comment-list-toolbar').replaceWith($(data).find('.blog-post-comment-list-toolbar'));
+								url = $(data).find(".blog-post-comment-list-toolbar .pages .pages-item-next a").attr('href');
+								if(!url) {
+									$('.blog-load-more-comment').hide();
+								}else{
+									$('.blog-load-more-comment').replaceWith($(data).find('.blog-load-more-comment'));
+								}
+								$(".blog-load-more-comment a").removeClass('loading-style');
+							}
+						});
+					}else {
+						$('.blog-load-more-comment').hide();
+					}
+				})(jQuery);
+			});		
+		}
+</script>

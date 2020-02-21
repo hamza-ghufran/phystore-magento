@@ -1,0 +1,122 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Send to friend form
+ *
+ * @var $block \Magento\SendFriend\Block\Send
+ */
+?>
+<script id="add-recipient-tmpl" type="text/x-magento-template">
+	<div class="actions-toolbar">
+		<div class="secondary">
+			<button type="button" id="btn-remove<%- data._index_ %>" class="action btn btn-secondary remove"
+			   title="<?php /* @escapeNotVerified */ echo $block->escapeJsQuote(__('Remove Recipent')) ?>">
+			   <span class="btn-close"><?php /* @escapeNotVerified */ echo $block->escapeJsQuote(__('')) ?></span>
+			</button>
+		</div>
+	</div>
+	<div class="fieldset invite">
+		<div class="field name required col">
+			<div class="control">
+				<input name="recipients[name][<%- data._index_ %>]" type="text" title="<?php /* @escapeNotVerified */ echo __('Name') ?>" class="input-text"
+					   id="recipients-name<%- data._index_ %>" data-validate="{required:true}" placeholder="Full Name"/>
+			</div>
+		</div>
+		<div class="field email required col">
+			<div class="control">
+				<input name="recipients[email][<%- data._index_ %>]" title="<?php /* @escapeNotVerified */ echo __('Email') ?>"
+					   id="recipients-email<%- data._index_ %>" type="email" class="input-text"
+					   data-validate="{required:true, 'validate-email':true}" placeholder="Email" />
+			</div>
+		</div>
+	</div>
+</script>
+
+<form action="<?php /* @escapeNotVerified */ echo $block->getSendUrl() ?>" method="post" id="product-sendtofriend-form"
+      data-mage-init='{
+        "rowBuilder":{
+            "rowTemplate":"#add-recipient-tmpl",
+            "rowContainer":"#recipients-options",
+            "rowParentElem":"<div></div>",
+            "remEventSelector":"button",
+            "btnRemoveSelector":".action.remove",
+            "maxRows":"<?php /* @escapeNotVerified */ echo $block->getMaxRecipients() ?>",
+            "maxRowsMsg":"#max-recipient-message",
+            "addRowBtn":"#add-recipient-button",
+            "additionalRowClass":"additional"},
+        "validation":{}}'
+      class="form send friend" data-hasRequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>">
+    <div class="fieldset sender" id="sender_options">
+        <?php echo $block->getBlockHtml('formkey')?>
+		<div class="content-heading text-center mg-bottom-60 ">
+			<h3 class="title"><span><?php /* @escapeNotVerified */ echo __('Sender') ?></span></h3>
+		</div>
+		<div class="flex-info">
+			<div class="field sender required col mg-bottom-30">
+				<div class="control">
+					<input name="sender[name]" value="<?php echo $block->escapeHtml($block->getUserName()) ?>"
+						   title="<?php /* @escapeNotVerified */ echo __('Name') ?>" id="sender-name" type="text" class="input-text"
+						   data-validate="{required:true}" placeholder="Full Name" />
+				</div>
+			</div>
+
+			<div class="field email required col mg-bottom-30">
+				<div class="control">
+					<input name="sender[email]" value="<?php echo $block->escapeHtml($block->getEmail()) ?>"
+						   title="<?php /* @escapeNotVerified */ echo __('Email') ?>" id="sender-email" type="email" class="input-text"
+						   data-validate="{required:true, 'validate-email':true}" placeholder="Email"/>
+				</div>
+			</div>
+		</div>
+        <div class="field text required">
+            <div class="control">
+                <textarea name="sender[message]" class="input-text" id="sender-message" cols="3" rows="3"
+                          data-validate="{required:true}" placeholder="Messages" ><?php echo $block->escapeHtml($block->getMessage()) ?></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="fieldset recipients mg-top-60">
+        <?php echo $block->getBlockHtml('formkey')?>
+		<div class="content-heading text-center mg-bottom-60">
+			<h3 class="title"><span><?php /* @escapeNotVerified */ echo __('Invite') ?></span></h3>
+		</div>
+		<div class="fieldset-invite">
+			<div id="recipients-options"></div>
+			<?php if ($block->getMaxRecipients()): ?>
+				<div id="max-recipient-message" style="display: none;" class="message notice limit" role="alert">
+					<span><?php /* @escapeNotVerified */ echo __('Maximum %1 email addresses allowed.', $block->getMaxRecipients()) ?></span>
+				</div>
+			<?php endif; ?>
+			<div class="actions-toolbar mg-top-30">
+				<div class="secondary">
+				<?php if (1 < $block->getMaxRecipients()): ?>
+					<button type="button" id="add-recipient-button" class="action btn btn-secondary add">
+						<span><?php /* @escapeNotVerified */ echo __('Add Invite') ?></span></button>
+				<?php endif; ?>
+				</div>
+			</div>
+		</div>
+    </div>
+    <div class="actions-toolbar dis-border">
+        <a class="action btn btn-default back" href="#" role="back"><span><?php /* @escapeNotVerified */ echo __('Back') ?></span></a>
+		<button type="submit"
+				class="action submit btn btn-primary"<?php if (!$block->canSend()): ?> disabled="disabled"<?php endif ?>>
+			<span><?php /* @escapeNotVerified */ echo __('Send Email') ?></span>
+		</button>
+    </div>
+</form>
+
+<script type="text/x-magento-init">
+    {
+        "a[role='back']": {
+            "Magento_SendFriend/back-event": {}
+        }
+    }
+</script>

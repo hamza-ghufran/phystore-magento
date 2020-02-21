@@ -1,0 +1,23 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+
+<?php $_product = $block->getProduct(); ?>
+<div class="bundle-status">
+	<?= $block->getChildHtml('', true); ?>
+	<?php if ($_product->getIsSalable()): ?>
+		<p class="available stock" title="<?php /* @escapeNotVerified */ echo __('Availability') ?>">
+			<span><?php /* @escapeNotVerified */ echo __('In stock') ?></span>
+		</p>
+	<?php else: ?>
+		<p class="unavailable stock" title="<?php /* @escapeNotVerified */ echo __('Availability') ?>">
+			<span><?php /* @escapeNotVerified */ echo __('Out of stock') ?></span>
+		</p>
+	<?php endif; ?>
+</div>

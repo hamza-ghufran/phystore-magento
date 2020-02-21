@@ -1,0 +1,308 @@
+<?php
+$helper = $this->helper('MGS\Blog\Helper\Data');
+$post = $block->getCurrentPost();
+$collection = $block->getCollection();
+$showAction = $this->getConfig('general_settings/show_action');
+$categoryId = (int)$this->getRequest()->getParam('category_id', false);
+$themeSettingConfig = $this->helper('MGS\ThemeSettings\Helper\Config'); 
+$rtl = $themeSettingConfig->getStoreConfig('themesettings/general/rtl_theme') ? 'true' : 'false';
+?>
+<div class="block-blog-view">
+	<div class="blog-view blog-post-item">
+		
+		<div class="post-item">
+			<div class="add-margin-left-right view-category">
+				<div class="meta-name">
+					<?php $categoryItem = $block->getParentCategories($post->getPostId()); ?>
+					<?php if($categoryItem): ?>
+						<span class="category-links entry-meta">
+							<?php $i=0; foreach ($categoryItem as $category): $i++; ?>
+								<?php if($i > 1): ?><span>, </span><?php endif ?><a href="<?= $category->getCategoryUrl(); ?>"><h6><?= $category->getTitle(); ?></h6></a>
+							<?php endforeach ?>
+						</span>
+					<?php endif ?>
+				</div>
+				<div class="post-metas">
+					<div class="meta-date">
+						<h6>
+							<?= __('%1', $block->formatDate($post->getUpdatedAt(), \IntlDateFormatter::MEDIUM, false)); ?>
+						</h6>
+					</div>
+				</div>
+				<div class="count-comment-post">
+					<?php if(($post->getCommentCount() < 10) && ($post->getCommentCount() > 0) ): ?>
+					    <h6 class="color-count-comment">0<?= $post->getCommentCount(); ?> comments </h6>
+					<?php else: ?>
+						<h6 class="color-count-comment"><?= $post->getCommentCount(); ?> comments </h6>
+					<?php endif; ?>
+				</div>
+			</div>
+			<?php if ($post->getContent()): ?>
+				<div class="add-margin-left-right post-content">
+					<div class="post-short-description">
+						<div class="short-highlight">
+						<?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); ?>
+						<?= $objectManager->get('\Magento\Cms\Model\Template\FilterProvider')->getBlockFilter()->filter($post->getShortContent()); ?>
+					    </div>
+					</div>
+				</div>
+			<?php endif; ?>
+			
+			<div class="post-images">
+				<?php if ($helper->getGalleryImage($post)): ?>
+					<div class="gallery-image-carousel owl-carousel">
+						<?php foreach($helper->getGalleryImage($post) as $_img): ?>
+							<a class="gallery_image" href="<?= $_img; ?>" 
+								style="background-image: url('<?= $_img; ?>')">
+								<img src="<?= $_img; ?>" alt="" class="img-fluid"/>
+							</a>
+						<?php endforeach ?>
+					</div>
+					<script type="text/javascript">
+						require([
+							'jquery',
+							'mgsowlcarousel'
+							], function($){			
+								$(document).ready(function(){
+									$(".gallery-image-carousel").owlCarousel({
+										items: 10,
+										loop: true,
+										nav: true,
+										dots: false,
+										autoplayTimeout: 5000,
+										rtl: false,
+										autoplay: false,
+										autoplayHoverPause: true,
+										margin: 0,
+										autoHeight:true,
+										responsive:{
+											0:{
+												items: 1
+											},
+											576:{
+												items: 2
+											},
+											767:{
+												items: 2
+											},
+											992:{
+												items: 2						
+											}
+										}
+									});
+								});  	
+							});		
+						
+						require([
+							'jquery',
+							'magnificPopup'
+						], function(jQuery){
+							(function($) {
+								$(document).ready(function() {
+									$('.gallery-image-carousel').magnificPopup({
+										delegate: '.owl-item:not(.cloned) a',
+										type: 'image',
+										tLoading: 'Loading image #%curr%...',
+										mainClass: 'mfp-img-gallery',
+										fixedContentPos: true,
+										gallery: {
+											enabled: true,
+											navigateByImgClick: true,
+											preload: [0,1]
+										},
+										image: {
+											tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+											titleSrc: function(item) {
+											return item.el.attr('title');
+											}
+										}
+									});
+								});
+							})(jQuery);
+						});
+					</script>
+				<?php endif ?>
+				<?php if($helper->getImagePost($post) != ""): ?>
+					<div class="post-thumbnail">
+						<?php if($post->getImageType() == "video" && $post->getVideoBigId() != ""): ?>
+							<a class="post-thumbnail--image popup-video" href="<?= $helper->getVideoThumbUrl($post); ?>" title="<?= $post->getTitle(); ?>">
+								<img class="img-fluid" src="<?= $helper->getImagePost($post); ?>" alt="<?= $post->getTitle(); ?>"/>
+							</a>
+							<div class="blog-list-video">
+								<?php if($post->getImageType() == "video" && $post->getVideoBigId() != ""): ?>
+									<a class="btn btn-primary popup-video" href="<?= $helper->getVideoThumbUrl($post); ?>"></a>
+								<?php endif ?>
+							</div>
+							<?php else: ?>
+								<a class="post-thumbnail--image" href="<?= $post->getPostUrlWithNoCategory(); ?>" title="<?= $post->getTitle(); ?>">
+									<img class="img-fluid" src="<?= $helper->getImagePost($post); ?>" alt="<?= $post->getTitle(); ?>"/>
+								</a>
+						<?php endif ?>
+					</div>
+				<?php endif ?>
+			</div>
+		</div>	
+	    <div class="add-margin-left-right content-description">
+			<?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); ?>
+			<?= $objectManager->get('\Magento\Cms\Model\Template\FilterProvider')->getBlockFilter()->filter($post->getContent()); ?>
+		</div>
+		<div class="add-margin-left-right tags-name-author">
+			<div class="view-tags">
+				<?php $tags = $block->getTags(); ?>
+	            <?php if (count($tags)): ?>
+	                <div class="block block-blog-tags">
+	                    <div class="block-content">
+							<ul class="tag-cloud">
+								<?php foreach ($tags as $tag => $count): ?>
+									<li class="tag tag-item">
+										<a title="<?= $tag; ?>" href="<?= $helper->getTagUrl($tag); ?>"><?= $tag; ?></a>
+									</li>
+								<?php endforeach; ?>
+							</ul>
+	                    </div>
+	                </div>
+	            <?php endif; ?>
+			</div>
+			<div class="flex">
+				<div class="meta-author ">
+					<h5>
+						<?= __('%1', $post->getUser()); ?>
+					</h5>
+				</div>
+				<div class="sharethis">
+					<span><?= $block->getChildHtml('sharethis.html');?></span>
+				</div>
+			</div>
+			
+		</div>
+		<?php if($showAction): ?>
+			<div class="post-actions">
+				<?php $prevPostModel = $this->getModelPrevPost($post->getId()); ?>
+				<?php if($post->getId() != $prevPostModel->getId()): ?>
+				<div class="post-prev-infor">
+				    <?php if($prevPostModel->getImageType() == "video" && $prevPostModel->getVideoBigId() != ""): ?>
+						<a class="post-thumbnail--image popup-video" href="<?= $helper->getVideoThumbUrl($prevPostModel); ?>" title="<?= $prevPostModel->getTitle(); ?>" style="background-image:url('<?= $prevPostModel->getThumbnailUrl(); ?>');">
+							<img class="img-fluid" src="<?= $prevPostModel->getThumbnailUrl(); ?>" alt="<?= $prevPostModel->getTitle(); ?>"/>
+						</a>
+						<div class="blog-list-video">
+							<?php if($prevPostModel->getImageType() == "video" && $prevPostModel->getVideoBigId() != ""): ?>
+								<a class="btn btn-primary popup-video" href="<?= $helper->getVideoThumbUrl($prevPostModel); ?>"></a>
+							<?php endif ?>
+						</div>
+						<?php else: ?>
+							<a class="post-thumbnail--image" href="<?= $prevPostModel->getPostUrlWithNoCategory(); ?>" title="<?= $prevPostModel->getTitle(); ?>" style="background-image:url('<?= $prevPostModel->getThumbnailUrl(); ?>');" >
+								<img class="img-fluid" src="<?= $prevPostModel->getThumbnailUrl(); ?>" alt="<?= $prevPostModel->getTitle(); ?>"/>
+							</a>
+					<?php endif ?>
+					<div class="infor-post">
+						<div class="post-author"><?= $prevPostModel->getUser(); ?></div>
+						<div class="post-name"><h5><a href="<?= $prevPostModel->getPostUrlWithNoCategory(); ?>"><?= $prevPostModel->getTitle() ?></a></h5>
+						</div>
+						<div class="prev-action action"><h6><a href="<?= $prevPostModel->getPostUrlWithNoCategory(); ?>"><i class="fa fa-caret-left" aria-hidden="true"></i><?= __('Previous'); ?></a></h6></div>
+					</div>
+					
+				</div>
+				<?php endif ?>
+				<?php $nextPostModel = $this->getModelNextPost($post->getId()); ?>
+				<?php if($post->getId() != $nextPostModel->getId()): ?>
+				<div class="post-next-infor">
+				    <?php if($nextPostModel->getImageType() == "video" && $nextPostModel->getVideoBigId() != ""): ?>
+						<a class="post-thumbnail--image popup-video" href="<?= $helper->getVideoThumbUrl($nextPostModel); ?>" title="<?= $nextPostModel->getTitle(); ?>" style="background-image:url('<?= $nextPostModel->getThumbnailUrl(); ?>');">
+							<img class="img-fluid" src="<?= $nextPostModel->getThumbnailUrl(); ?>" alt="<?= $nextPostModel->getTitle(); ?>"/>
+						</a>
+						<div class="blog-list-video">
+							<?php if($nextPostModel->getImageType() == "video" && $nextPostModel->getVideoBigId() != ""): ?>
+								<a class="btn btn-primary popup-video" href="<?= $helper->getVideoThumbUrl($nextPostModel); ?>"></a>
+							<?php endif ?>
+						</div>
+						<?php else: ?>
+							<a class="post-thumbnail--image" href="<?= $nextPostModel->getPostUrlWithNoCategory(); ?>" title="<?= $nextPostModel->getTitle(); ?>" style="background-image:url('<?= $nextPostModel->getThumbnailUrl(); ?>');" >
+								<img class="img-fluid" src="<?= $nextPostModel->getThumbnailUrl(); ?>" alt="<?= $nextPostModel->getTitle(); ?>"/>
+							</a>
+					<?php endif ?>
+					<div class="infor-post">
+						<div class="post-author"><?= $nextPostModel->getUser(); ?></div>
+						<div class="post-name"><h5><a href="<?= $nextPostModel->getPostUrlWithNoCategory(); ?>"><?= $nextPostModel->getTitle() ?></a></h5></div>
+						<div class="next-action action"><h6><a href="<?= $nextPostModel->getPostUrlWithNoCategory(); ?>"><?= __('Next'); ?><i class="fa fa-caret-right" aria-hidden="true"></i></a></h6></div>
+					</div>
+					
+				</div>
+				<?php endif ?>
+			</div>
+		<?php endif ?>
+	</div>
+</div>
+	
+<?php $relatedPosts = $block->getRelatedPosts($post->getId()); ?>
+<?php if($relatedPosts): ?>
+	<div class="block-related-post-list">
+		<div class="related-post-list blog-grid ">
+			<div class="related-title text-center">
+				<h3 class="title"><?= __('Related Posts')?></h3>
+			</div>
+			<div class="clear-padding-owl">
+				<div class="item related-images line owl-carousel">
+					<?php foreach($relatedPosts as $_post): ?>
+						<div class="post-images post-item ">
+							<div class="thumbnail-post pd-left-15 pd-right-15">
+								<a class="post-thumbnail--image full-width" href="<?= $_post->getPostUrlWithNoCategory(); ?>" style="background-image:url('<?= $_post->getThumbnailUrl();?>');" title="<?= $_post->getTitle(); ?>">
+									<img class="img-fluid" src="<?= $_post->getThumbnailUrl(); ?>" alt="<?= $_post->getTitle(); ?>"/>
+								</a>
+								<div class="post-create-date">
+									<?= __('<span>%1</span></br><span class="date"> %2</span>', date('d', strtotime($post->getCreatedAt())), date('M', strtotime($post->getCreatedAt()))) ?>
+								</div>
+							</div>
+							<div class="post-item-info">
+								<div class="short-detail">
+									<div class="post-user"><?= $_post->getUser(); ?></div>
+									<div class="title">
+										<h5><a class="link-item" href="<?= $_post->getPostUrlWithNoCategory(); ?>" title="<?= $_post->getTitle(); ?>"><?= $_post->getTitle(); ?></a></h5>
+									</div>
+
+								</div>
+							</div>						
+							<script type="text/javascript">
+								require([
+									'jquery',
+									'mgsowlcarousel'
+									], function($){			
+										$(document).ready(function(){
+											$(".related-images").owlCarousel({
+												items: 4,
+												loop: false,
+												margin:20,
+												nav: false,
+												dots: false,
+												autoplayTimeout: 5000,
+												rtl: <?= $rtl ?>,
+												autoplay: true,
+												autoplayHoverPause: true,
+												responsive:{
+													0:{
+														items: 1
+													},
+													576:{
+														items: 1
+													},
+													767:{
+														items: 2
+													},
+													992:{
+														items: 3						
+													}
+												}
+											});
+										});  	
+									});		
+							</script>
+						</div>
+					<?php endforeach ?>
+				</div>
+			</div>
+		</div>
+	</div>
+		
+<?php endif ?>
+<div class="block-comment-post">
+	<?= $block->getChildHtml('post_view_comment'); ?>
+</div>

@@ -1,0 +1,56 @@
+<?php $attribute = NULL ?>
+<?php if($this->getData('attribute')!=''): ?>
+	<?php $attribute = $this->getData('attribute') ?>
+<?php endif ?>
+<?php $_productCollection = $this->getProductByCategories($this->getCategoryIds(), $attribute) ?>
+<?php $blockType = $this->getData('block_type'); ?>
+<?php $_helper = $this->helper('Magento\Catalog\Helper\Output'); ?>
+
+<div class="content-block <?= $blockType ?>-product-cat-block product-ultra-grid">
+	<?php // Block Content  ?>
+	<?php if (count($_productCollection)): ?>
+		<?php $i = 0; foreach($_productCollection as $_product): $i++ ?>
+		<?php if($i % 4 == 1): ?><div class="line"><?php endif ?>
+			<?php switch ($i % 4) {
+				case 0:
+					$classCol = "col-des-3 col-tb-6 order-tb-2 col-mb-12";
+					$class = "banner-url odd-banner";
+					break;
+				case 1:
+					$classCol = "col-des-3 col-tb-6 order-tb-2 col-mb-12";
+					$class = "banner-url odd-banner";
+					break;
+				case 2:
+					$classCol = "col-des-7 col-tb-12 order-tb-1 col-mb-12";
+					$class = "banner-url even-banner right-banner";
+					break;
+				default:
+					$classCol = "col-des-7 col-tb-12 order-tb-4 col-mb-12";
+					$class = "banner-url even-banner";
+			}
+			?>
+			<?php 
+				$image = 'product_page_main_image';
+				$productImage = $block->getImage($_product, $image); 
+				$hidePrice = $this->getBlockData('hide_price');
+			?>
+			<div class="<?= $classCol ?>">
+				<a class="<?= $class ?>" href="<?= $_product->getProductUrl() ?>">
+					<?= $productImage->toHtml() ?>
+					<div class="banner-content"> 
+						<strong class="product name product-item-name">
+								<?= $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
+						</strong>
+						<?php if($hidePrice!=1): ?>
+							<?= $block->getProductPrice($_product) ?>
+						<?php endif ?> 
+						<span class="btn btn-default"><?= __('SHOP NOW'); ?></span>
+					</div> 
+				</a>
+			</div>
+		<?php if($i % 4 == 0 || $i == count($_productCollection)): ?></div><?php endif ?>
+		<?php endforeach ?>
+	<?php else: ?>
+		<div class="message info empty"><div><?= /* @escapeNotVerified */ __('We can\'t find products matching the selection.') ?></div></div>
+	<?php endif ?>
+</div>

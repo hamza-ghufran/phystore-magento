@@ -1,0 +1,103 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**  @var $block \Magento\Checkout\Block\Cart */
+?>
+<?php $mergedCells = ($this->helper('Magento\Tax\Helper\Data')->displayCartBothPrices() ? 2 : 1); ?>
+<?= $block->getChildHtml('form_before') ?>
+<form action="<?php /* @escapeNotVerified */ echo $block->getUrl('checkout/cart/updatePost') ?>"
+          method="post"
+          id="form-validate"
+          data-mage-init='{"validation":{}}'
+          class="form form-cart">
+    <?= $block->getBlockHtml('formkey'); ?>
+    <div class="cart table-wrapper<?= $mergedCells == 2 ? ' detailed' : ''; ?>">
+        <table id="shopping-cart-table"
+               class="cart items data table"
+               data-mage-init='{"shoppingCart":{"emptyCartButton": "action.clear",
+               "updateCartActionContainer": "#update_cart_action_container"}}'>
+            <caption role="heading" aria-level="2" class="table-caption"><?php /* @escapeNotVerified */ echo __('Shopping Cart Items') ?></caption>
+            <thead>
+                <tr>
+                    <th class="col item" scope="col"><span><?php /* @escapeNotVerified */ echo __('Product') ?></span></th>
+                    <th class="col price" scope="col"><span><?php /* @escapeNotVerified */ echo __('Price') ?></span></th>
+                    <th class="col qty" scope="col"><span><?php /* @escapeNotVerified */ echo __('Quantity') ?></span></th>
+                    <th class="col subtotal" scope="col"><span><?php /* @escapeNotVerified */ echo __('Total') ?></span></th>
+                    <th class="col actions" scope="col"><span></span></th>
+                </tr>
+            </thead>
+            <?php foreach ($block->getItems() as $_item): ?>
+                <?= $block->getItemHtml($_item) ?>
+            <?php endforeach ?>
+        </table>
+    </div>
+    <div class="cart main actions line">
+        <?php if ($block->getContinueShoppingUrl()): ?>
+            <div class="col-des-7 col-tb-6 col-mb-12">
+                <a class="action"
+                   href="<?= $block->escapeUrl($block->getContinueShoppingUrl()) ?>"
+                   title="<?= $block->escapeHtml(__('Continue Shopping')); ?>">
+                    <span><?php /* @escapeNotVerified */ echo __('Continue Shopping') ?></span>
+                </a>
+            </div>
+        <?php endif; ?>
+        <div class="col-des-5 col-tb-6 col-mb-12 actions-update">
+            <button type="submit"
+                    name="update_cart_action"
+                    data-cart-empty=""
+                    value="empty_cart"
+                    title="<?= $block->escapeHtml(__('Clear Shopping Cart')); ?>"
+                    class="action clear" id="empty_cart_button">
+                <span><?php /* @escapeNotVerified */ echo __('Clear Shopping Cart'); ?></span>
+            </button>
+            <button type="submit"
+                    name="update_cart_action"
+                    data-cart-item-update=""
+                    value="update_qty"
+                    title="<?= $block->escapeHtml(__('Update Cart')); ?>"
+                    class="action update">
+                <span><?php /* @escapeNotVerified */ echo __('Update Cart'); ?></span>
+            </button>
+        </div>
+        <input type="hidden" value="" id="update_cart_action_container" data-cart-item-update=""/>
+    </div>
+</form>
+<?= $block->getChildHtml('checkout.cart.order.actions') ?>
+<?= $block->getChildHtml('shopping.cart.table.after'); ?>
+<script type="text/javascript">
+    function plusQty(qtyInput){
+        require([
+        'jquery'
+        ], function(jQuery){
+            (function($) {
+                    qty = $('#'+qtyInput).attr('value');
+                    qty = parseInt(qty);
+                    qty++;
+                    $('#'+qtyInput).val(qty);
+            })(jQuery);
+        });
+        
+    }
+    function minusQty(qtyInput){
+        require([
+        'jquery'
+        ], function(jQuery){
+            (function($) {
+                    qty = $('#'+qtyInput).attr('value');
+                    qty = parseInt(qty);
+                    
+                    if(qty>1){
+                        qty--;
+                        $('#'+qtyInput).val(qty);
+                    }
+            })(jQuery);
+        });
+    }
+</script>
+
+

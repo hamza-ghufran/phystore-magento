@@ -1,0 +1,142 @@
+<?php 
+    $helper = $this->helper('MGS\Blog\Helper\Data'); 
+    $themeSettingConfig = $this->helper('MGS\ThemeSettings\Helper\Config');
+    $helperSearch = $this->helper('Magento\Search\Helper\Data');
+?>
+<div class="content-sidebar">
+<?php if ($block->getConfig('general_settings/enabled')): ?>
+    <?php if ($block->getConfig('sidebar_settings/enabled')): ?>
+
+        <?php if($themeSettingConfig->getStoreConfig('instantsearch/general/result') == 0): ?>
+            <?php $action = $block->getBaseUrl().'/instantsearch/blog/result'; ?>
+            <div class="block block-blog-search">
+                <form class="form minisearch" id="search_mini_form" action="<?php /* @escapeNotVerified */ echo $action ?>" method="get">
+                    <div class="field search">
+                        <div class="control">
+                            <input id="search"
+                                   data-mage-init='{"quickSearch":{
+                                        "formSelector":"#search_mini_form",
+                                        "url":"<?php /* @escapeNotVerified */ echo $block->getUrl('search/ajax/suggest', ['_secure' => $block->getRequest()->isSecure()]); ?>",
+                                        "destinationSelector":"#search_autocomplete"}
+                                   }'
+                                   type="text"
+                                   name="<?php /* @escapeNotVerified */ echo $helperSearch->getQueryParamName() ?>"
+                                   value="<?php /* @escapeNotVerified */ echo $helperSearch->getEscapedQueryText() ?>"
+                                   placeholder="<?php /* @escapeNotVerified */ echo __('Search'); ?>"
+                                   class="input-text"
+                                   maxlength="<?php /* @escapeNotVerified */ echo $helperSearch->getMaxQueryLength();?>"
+                                   role="combobox"
+                                   aria-haspopup="false"
+                                   aria-expanded="false"
+                                   aria-autocomplete="both"
+                                   autocomplete="off"/>
+                            <div id="search_autocomplete" class="search-autocomplete"></div>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <div title="<?= $block->escapeHtml(__('Search')) ?>" class="action search">
+                            <span class="ti-search"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($block->getConfig('sidebar_settings/show_categories')): ?>
+            <?php $categories = $block->getCategories(); ?>
+            <?php if (count($categories)): ?>
+                <div class="block block-blog-categories">
+                    <div class="block-title">
+                        <h3 class="title"><?= __('Categories') ?></h3>
+                    </div>
+                    <div class="block-content">
+                        <ul>
+                            <?php foreach ($categories as $category): ?>
+                                <li class="category-item">
+                                    <a class="category-item-name" title="<?= $category->getTitle(); ?>"
+                                       href="<?= $category->getCategoryUrl(); ?>">
+                                        <?= $category->getTitle(); ?>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                </div>
+            <?php endif; ?>
+        <?php endif; ?>
+
+        <?php if ($block->getConfig('sidebar_settings/show_recent_posts')): ?>
+            <?php $collection = $block->getCollection(); ?>
+            <?php if ($collection->count()): ?>
+                <div class="block block-blog-posts">
+                    <div class="block-title">
+                        <h3 class="title"><?= __('Featured Posts') ?></h3>
+                    </div>
+                    <div class="block-content">
+                        <ul class="post-list">
+                            <?php foreach ($collection as $post): ?>
+                                <li class="item">
+                                    <div class="post-thumbnail">
+                                        <?php if($post->getThumbType() == "video" && $post->getVideoThumbId() != ""): ?>
+                                            <a class="popup-video post-thumbnail--image" href="<?= $helper->getVideoThumbUrl($post); ?>" title="<?= $post->getTitle(); ?>" style="background-image:url('<?= $post->getThumbnailUrl(); ?>');">
+                                                <img class="img-fluid" src="<?= $helper->getImageThumbnailPost($post); ?>" alt="<?= $post->getTitle(); ?>"/>
+                                            </a>
+                                            <div class="blog-list-video">
+                                                <?php if($post->getThumbType() == "video" && $post->getVideoThumbId() != ""): ?>
+                                                    <a class="btn btn-primary popup-video" href="<?= $helper->getVideoThumbUrl($post); ?>"></a>
+                                                <?php endif ?>
+                                            </div> 
+                                            <div class="post-date">
+                                                <span class="color-date"><?= $block->formatDate($post->getCreatedAt(), \IntlDateFormatter::MEDIUM, false); ?></span>
+                                            </div> 
+                                        <?php else: ?>
+                                            <a class="post-thumbnail--image"  href="<?= $post->getPostUrlWithNoCategory(); ?>" title="<?= $post->getTitle(); ?>" style="background-image:url('<?= $post->getThumbnailUrl(); ?>');" >
+                                                <img class="img-fluid" src="<?= $helper->getImageThumbnailPost($post); ?>" alt="<?= $post->getTitle(); ?>"/>
+                                            </a>
+                                            <div class="post-create-date">
+                                                <?= __('<span>%1</span></br><span class="date"> %2</span>', date('d', strtotime($post->getCreatedAt())), date('M', strtotime($post->getCreatedAt()))) ?>
+                                            </div>
+                                        <?php endif ?>
+                                    </div>
+									<div class="blog-content list-content">
+										<div class="short-detail">
+                                            <div class="post-user"><span><?= $post->getUser(); ?></span></div>
+											<div class="title">
+												<h5><a href="<?= $post->getPostUrlWithNoCategory(); ?>" title="<?= $post->getTitle(); ?>"><?= $post->getTitle() ?> </a></h5>
+											</div>
+										</div>
+									</div>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                </div>
+            <?php endif; ?>
+        <?php endif; ?>
+		
+        <?php if ($block->getConfig('sidebar_settings/show_tags')): ?>
+            <?php $tags = $block->getTags(); ?>
+            <?php if (count($tags)): ?>
+                <div class="block block-blog-tags">
+                    <div class="block-title">
+                        <h3 class="title"><?= __('Tags') ?></h3>
+                    </div>
+                    <div class="block-content">
+						<ul class="tag-cloud">
+                            <?php $numberTag = $block->getConfig('sidebar_settings/number_of_tags');
+                                  $dem = 0;
+                            ?>
+							<?php foreach ($tags as $tag => $count): ?>
+                                <?php $dem++; ?>
+								<li>
+									<a title="<?= $tag; ?>" href="<?= $helper->getTagUrl($tag); ?>"><?= $tag; ?></a>
+								</li>
+                                <?php if($dem == $numberTag) break; ?>
+							<?php endforeach; ?>
+						</ul>
+                    </div>
+                </div>
+            <?php endif; ?>
+        <?php endif; ?>
+    <?php endif; ?>
+<?php endif; ?>

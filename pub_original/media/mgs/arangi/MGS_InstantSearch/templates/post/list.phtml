@@ -1,0 +1,74 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @var $block \MGS\InstantSearch\Block\Blog\ListBlog
+ */
+?>
+<?php
+$_postCollection = $block->getLoadedPostCollection();
+?>
+<?php if (!$_postCollection->count()): ?>
+	<div class="message info empty"><div><?php /* @escapeNotVerified */ echo __('We can\'t find posts matching the selection.') ?></div></div>
+<?php else: ?>
+	<?php
+        $viewMode = 'grid';
+        $showDescription = true;
+    ?>
+	<div class="content-block post-grid-result">
+		<div class="blog-container">
+			<div class="posts wrapper <?php /* @escapeNotVerified */ echo $viewMode; ?> posts-<?php /* @escapeNotVerified */ echo $viewMode; ?> blog-grid blog-post-item">
+				<div class="block block-title title-blog text-center">
+					<h4><?= __('Blogs') ?></h4>
+				</div>
+				<?php $iterator = 1; ?>
+				<div class="top-toolbar"><?= $block->getToolbarHtml() ?></div>
+				<ol class="line row-3 row-tablet-2 row-mobile-1">
+					<?php /** @var $_post \MGS\Blog\Model\Post */ ?>
+					<?php foreach ($_postCollection as $_post): ?>
+						<?php /* @escapeNotVerified */ echo($iterator++ == 1) ? '<li class="col item blog-item">' : '</li><li class="col item blog-item">' ?>
+							<div class="post-images post-item" data-container="post-grid">
+								<?php // Post Image ?>
+								<div class="thumbnail-post">
+									<a href="<?php /* @escapeNotVerified */ echo $_post->getPostUrlWithNoCategory() ?>" class="post-thumbnail--image" style="background-image:url('<?= $block->getImageThumbnailPost($_post); ?>');" tabindex="-1" title="<?= $_post->getTitle(); ?>">	                    	
+										<img class="post-image-photo" src="<?= $block->getImageThumbnailPost($_post); ?>" alt="<?php /* @escapeNotVerified */ echo $_post->getTitle() ?>"/>
+									</a>
+									<div class="post-create-date">
+										<?= __('<span>%1</span></br><span class="date"> %2</span>', date('d', strtotime($_post->getCreatedAt())), date('M', strtotime($_post->getCreatedAt()))) ?>
+									</div>
+								</div>
+								<div class="post-item-detail">
+									<div class="post-content">
+										<?php if(!$this->getHideCreate()): ?>
+											<div class="post-create-name">
+												<?= __('<span class="color-theme">%1</span>', $_post->getUser()) ?>
+											</div>
+										<?php endif ?>
+										<h4 class="title-blog">
+											<a href="<?= $_post->getPostUrlWithNoCategory(); ?>" title="<?= strip_tags($_post->getTitle()); ?>"><?= $_post->getTitle() ?></a>
+										</h4>
+										<?php if(!$this->getHideDescription()): ?>
+											<div class="short-content">
+												<?php echo $_post->getShortContent(); ?>
+											</div>
+										<?php endif ?>
+										<div class="read-more">
+											<a class="action default" href="<?= $_post->getPostUrlWithNoCategory();?>"><?= __('Read more') ?></a>
+										</div>
+									</div>
+								</div>
+							</div>
+						<?=($iterator == count($_postCollection)+1) ? '</li>' : '' ?>
+					<?php endforeach; ?>
+				</ol>
+				<div class="bottom-toolbar"><?= $block->getToolbarHtml() ?></div>
+			</div>
+		</div>
+	</div>
+<?php endif; ?>

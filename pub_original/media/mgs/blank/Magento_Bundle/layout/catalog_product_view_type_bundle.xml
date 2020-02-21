@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+		<referenceBlock name="bundle.summary">
+			<block class="Magento\Catalog\Block\Product\View" name="bundle.summary.stock" template="Magento_Bundle::catalog/product/view/stock.phtml" before="-"/>
+		</referenceBlock>
+		
+		<move element="product.price.render.bundle.customization" destination="bundle.summary.stock"/>
+		<move element="product.info.addto.bundle" destination="product.info.addtocart.bundle"/>
+    </body>
+</page>

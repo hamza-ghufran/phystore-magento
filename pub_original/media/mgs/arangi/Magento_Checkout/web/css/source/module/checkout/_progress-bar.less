@@ -1,0 +1,180 @@
+// /**
+//  * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Variables
+//  _____________________________________________
+
+@checkout-progress-bar__font-size: 18px;
+@checkout-progress-bar__font-weight: @font-weight__light;
+@checkout-progress-bar__margin: @indent__base;
+
+@checkout-progress-bar-item__background-color: @color-gray-middle1;
+@checkout-progress-bar-item__border-radius: 6px;
+@checkout-progress-bar-item__color: @primary__color;
+@checkout-progress-bar-item__margin: @indent__s;
+@checkout-progress-bar-item__width: 185px;
+@checkout-progress-bar-item__active__background-color: @color-orange-red1;
+@checkout-progress-bar-item__complete__color: @link__color;
+
+@checkout-progress-bar-item-element__height: @checkout-progress-bar-item-element__width;
+@checkout-progress-bar-item-element__width: 38px;
+
+@checkout-progress-bar-item-element-inner__background-color: @page__background-color;
+@checkout-progress-bar-item-element-inner__color: @checkout-progress-bar-item__color;
+@checkout-progress-bar-item-element-inner__height: @checkout-progress-bar-item-element-inner__width;
+@checkout-progress-bar-item-element-inner__width: @checkout-progress-bar-item-element__width - (@checkout-progress-bar-item-element-outer-radius__width * 2);
+@checkout-progress-bar-item-element-inner__active__content: @icon-checkmark;
+@checkout-progress-bar-item-element-inner__active__font-size: 28px;
+@checkout-progress-bar-item-element-inner__active__line-height: 1;
+
+@checkout-progress-bar-item-element-outer-radius__width: 6px;
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+
+    //
+    //  Checkout Progress Bar
+    //  ---------------------------------------------
+
+    .opc-progress-bar {
+        &:extend(.abs-reset-list all);
+        .lib-css(margin, 0 0 @checkout-progress-bar__margin);
+        counter-reset: i;
+        font-size: 0;
+    }
+
+    .opc-progress-bar-item {
+        .lib-css(margin, 0 0 @checkout-progress-bar-item__margin);
+        display: inline-block;
+        position: relative;
+        vertical-align: top;
+        width: 50%;
+		text-align:center;
+        &:before { // Horizontal line
+			.lib-css(background, @checkout-progress-bar-item__background-color);
+            content: '';
+            height: 2px;
+            left: 0;
+            position: absolute;
+			bottom: -10px;
+            width: 100%;
+			@media(max-width:767px) {
+				top: 0;
+				bottom:0;
+			}
+        }
+
+        &:first-child {
+            &:before {
+                .lib-css(border-radius, @checkout-progress-bar-item__border-radius 0 0 @checkout-progress-bar-item__border-radius);
+            }
+        }
+
+        &:last-child {
+            &:before {
+                .lib-css(border-radius, 0 @checkout-progress-bar-item__border-radius @checkout-progress-bar-item__border-radius 0);
+            }
+        }
+
+        > span {
+			display: inline-block;
+			padding-top: 45px;
+			width: 100%;
+			font-weight: 700;
+			font-size: 14px;
+			text-transform: uppercase;
+			letter-spacing: 0.08em;
+			font-family: 'Raleway';
+			@media (max-width: 767px) {
+				text-transform:capitalize;
+				padding-top:30px;
+			}
+			&:after { // Item element inner
+                content: counter(i);
+                counter-increment: i;
+				position: absolute;
+				left: 5px;
+				font-size: 13px;
+				font-weight: 700;
+				bottom: 0;
+				color:#333333;
+				background:#d7d7d7;
+				text-align: center;
+				width: 25px;
+				height: 25px;
+				border-radius: 50%;
+				left: 0;
+				.lib-flex();
+				.justify-content-center();
+				.lib-align-items-center();
+				@media (max-width: 767px) {
+					left: 50%;
+					top: -13px;
+					.lib-transform(translateX(-50%));
+				}
+            }
+        }
+		&._active, &._complete {
+			&:before {
+				background: @theme-primary-color;
+			}
+			> span {
+				.lib-css(color, @checkout-progress-bar-item__color);
+				&:after {
+					content: '\e64c';
+					font-family: 'themify';
+					position: absolute;
+					color:@color-white;
+					background: @theme-primary-color;
+					left: 0;
+					@media (max-width: 767px) {
+						left: 50%;
+						.lib-transform(translateX(-50%));
+					}
+				}
+			}
+		}
+
+        &._complete {
+            cursor: pointer;
+        }
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+& when (@media-common = false) {
+	@media (min-width: 1200px) {
+		 .opc-progress-bar-item {
+			&:last-child {
+				&._active {
+					> span {
+						&:after {
+							left: 16%;
+						}
+					}
+				}
+			}
+			> span {
+				&:after {
+					left: 16%;
+				}
+			}
+			&._active, &._complete {
+				> span {
+					&:after {
+						left:28%;
+					}
+				}
+			}
+		 }
+	}
+}

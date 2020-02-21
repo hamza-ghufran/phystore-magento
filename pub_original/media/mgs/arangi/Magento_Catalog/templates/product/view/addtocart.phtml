@@ -1,0 +1,187 @@
+<?php
+use Magento\Framework\App\Action\Action;
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php $_product = $block->getProduct(); ?>
+
+<?php 
+	// add to cart
+
+	$aHelper = $this->Helper('MGS\AjaxCart\Helper\Data');
+	$animationType = $aHelper->getConfig('ajaxcart/additional/animation_type');
+	$animationType;
+
+	$_animationTypeShowCart = false;
+	if($animationType == 'showcart') {
+		$_animationTypeShowCart = true;
+	}
+
+	$typeId = $_product->getTypeId();
+
+	//echo $typeId;
+	$redirectByTypeId = false;
+
+	if($typeId == 'simple' || $typeId == 'downloadable' || $typeId == 'virtual') {
+		$redirectByTypeId = true;
+	}
+
+	$linkDetailProduct = $_product->getProductUrl();
+
+
+ ?>
+<?php if ($_product->isSaleable()): ?>
+	<?php // If is deals product. Show countdown time ?>
+		<?php if($_product->getSpecialPrice() && $_product->getSpecialToDate() && $_product->getSpecialFromDate()): ?>
+			
+			<?php $themeHelper = $this->helper('MGS\ThemeSettings\Helper\Config'); ?>
+			<?php $dateTimeFormat = \Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT; ?>
+			<?php $now = $themeHelper->getCurrentDateTime(); ?>
+			<?php $specialFromDate = date($dateTimeFormat, strtotime($_product->getSpecialFromDate())); ?>
+			<?php $specialToDate = date($dateTimeFormat, strtotime($_product->getSpecialToDate())); ?>
+			
+			<?php if($specialFromDate <= $now && $specialToDate > $now): ?>
+				<div class="product-detail-deals margin-top25">
+					<?= $this->getLayout()
+									->createBlock('Magento\Framework\View\Element\Template')
+									->setProduct($_product->getId())
+									->setTimeNow($now)
+									->setSpecialFromDate($specialFromDate)
+									->setSpecialToDate($specialToDate)
+									->setTemplate('MGS_ThemeSettings::products/deals/countdown_detail.phtml')
+									->toHtml() ?>
+				</div>
+			<?php endif ?>
+			
+		<?php endif ?>
+	<?php // End Deals ?>
+	<div class="box-tocart">
+		<div class="fieldset">
+			<?php if ($block->shouldRenderQuantity()): ?>
+			<div class="field qty">
+				<div class="qty-pr">
+					<span class="edit-qty minus disable-select-text" onclick="minusQty('qty')"><i class="icon-minus"></i></span>
+					<input type="number"
+						   name="qty"
+						   id="qty"
+						   maxlength="12"
+						   value="<?= $block->getProductDefaultQty() * 1 ?>"
+						   title="<?= __('Qty') ?>" class="input-text qty"
+						   data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+						   />
+					<span class="edit-qty plus disable-select-text" onclick="plusQty('qty')"><i class="icon-plus"></i></span>
+				</div>
+			</div>
+			<?php endif; ?>
+			<div class="actions">
+
+					<button type="submit"
+							title="<?= __('Add To Cart') ?>"
+							class="action primary tocart"
+							id="product-addtocart-button">
+						<?= __('Add To Cart') ?>
+					</button>
+			</div>
+		</div>
+		<!-- product.info.social -->
+		<?php 
+			$themeSettingConfig = $this->helper('MGS\ThemeSettings\Helper\Config');
+			$compareHelper = $this->helper('Magento\Catalog\Helper\Product\Compare');
+		?>
+		<div class="product-social-links product-bottom">
+			<?php
+				$hideAddWishlist = $themeSettingConfig->getStoreConfig('themesettings/catalog/wishlist_button');
+			?>
+			<?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow() && ($hideAddWishlist != 1)): ?>
+				<a href="#"
+				   class="action towishlist"
+				   title="<?= $block->escapeHtml(__('Add to Wish List')); ?>"
+				   aria-label="<?= $block->escapeHtml(__('Save')); ?>"
+				   data-post='<?php /* @escapeNotVerified */ echo $block->getAddToWishlistParams($_product); ?>'
+				   data-action="add-to-wishlist"
+				   role="button">
+					<span><?php /* @escapeNotVerified */ echo __('Add to Wish List') ?></span>
+				</a>
+			<?php endif; ?>
+			<?php
+				$hideAddCompare = $themeSettingConfig->getStoreConfig('themesettings/catalog/compare_button');
+			?>
+			<?php if($block->getAddToCompareUrl() && $hideAddCompare != 1): ?>
+				<a href="#"
+				   class="action tocompare"
+				   title="<?= $block->escapeHtml(__('Add to Compare')); ?>"
+				   aria-label="<?= $block->escapeHtml(__('Compare')); ?>"
+				   data-post='<?php /* @escapeNotVerified */ echo $compareHelper->getPostDataParams($_product); ?>'
+				   role="button">
+					<span><?php /* @escapeNotVerified */ echo __('Add to Compare') ?></span>
+				</a>
+			<?php endif ?>
+			<?php if ($block->canEmailToFriend()): ?>
+				<a href="<?php /* @escapeNotVerified */ echo $this->helper('Magento\Catalog\Helper\Product')->getEmailToFriendUrl($_product) ?>"
+				   class="action mailto friend"><span><?php /* @escapeNotVerified */ echo __('Email') ?></span></a>
+			<?php endif; ?>
+		</div>
+	</div>
+	
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/product/view/validation": {
+                "radioCheckboxClosest": ".nested"
+            }
+        }
+    }
+</script>
+<?php if (!$block->isRedirectToCartEnabled()) : ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "catalogAddToCart": {
+                "bindSubmit": false
+            }
+        }
+    }
+</script>
+<?php endif; ?>
+
+<?php if ($block->shouldRenderQuantity()): ?>
+	<script type="text/javascript">
+		function plusQty(qtyInput){
+			require([
+			'jquery'
+			], function($){
+				if($('#'+qtyInput).attr('disabled')!='disabled'){
+					qty = $('#'+qtyInput).attr('value');
+					qty = parseInt(qty);
+					qty++;
+					$('#'+qtyInput).val(qty);
+					$('#sticky_qty').val(qty);
+				}
+			});
+			
+		}
+		function minusQty(qtyInput){
+			require([
+			'jquery'
+			], function($){
+				if($('#'+qtyInput).attr('disabled')!='disabled'){
+					qty = $('#'+qtyInput).attr('value');
+					qty = parseInt(qty);
+					
+					if(qty>1){
+						qty--;
+						$('#'+qtyInput).val(qty);
+						$('#sticky_qty').val(qty);
+					}
+				}
+			});
+		}
+	</script>
+<?php endif; ?>

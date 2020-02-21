@@ -1,0 +1,102 @@
+<?php
+/**
+ * Magento
+ *  * NOTICE OF LICENSE
+ *  * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *  * DISCLAIMER
+ *  * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/* @var $this \Magento\Catalog\Block\Product\Compare\Sidebar */
+?>
+<?php
+$_helper = $this->helper('Magento\Catalog\Helper\Product\Compare');
+$_items = $_helper->getItemCount() > 0 ? $_helper->getItemCollection() : null;
+$count = $_helper->getItemCount();
+
+$objectManager =\Magento\Framework\App\ObjectManager::getInstance();
+$blockCompare = $objectManager->get('Magento\Catalog\Block\Product\Compare\ListCompare');
+$templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+$imageHelper  = $this->helper('\Magento\Catalog\Helper\Image');
+?>
+
+
+<div class="block block-compare">
+    <div class="block-title">
+        <h3 id="block-compare-heading" role="heading" aria-level="2"><?php echo __('Compare Products') ?></h3>
+        <?php if($count > 0): ?>
+        <span class="counter qty"><?php echo ($count == 1) ? __('1 item') : __('%1 items',$count) ?></span>
+        <?php endif; ?>
+    </div>
+
+    <?php if($_helper->getItemCount() > 0): ?>
+    <div class="block-content" aria-labelledby="block-compare-heading">
+            <ol id="compare-items" class="product-items product-items-names"
+                data-mage-init='{"compareItems":{
+                    "removeConfirmMessage":"<?php echo __("Are you sure you would like to remove this item from the compare products?") ?>",
+                    "removeSelector":"#compare-items a.action.delete",
+                    "clearAllConfirmMessage":"<?php echo __("Are you sure you would like to remove all products from your comparison?") ?>",
+                    "clearAllSelector":"#compare-clear-all"
+                }}'>
+            <?php foreach($blockCompare->getItems() as $_index => $_item): ?>
+                <?php
+                $imagewidth=70;
+                $imageheight=85;
+                $image_url = $imageHelper->init($_item, 'product_page_image_small')->setImageFile($_item->getFile())->resize($imagewidth, $imageheight)->getUrl();        
+                ?>
+            <li class="product-item">
+                <?php
+                   
+                    $product_url = $_item->getProductUrl();
+                ?>
+                <input type="hidden" class="compare-item-id" value="<?php echo $_item->getId() ?>"/>
+
+                <a class="product-compare-image" href="<?php echo $product_url; ?>" title="<?php echo $_item->getName() ?>">
+                    <img src="<?php echo $image_url; ?>" />
+                </a>
+                <div class="products__compare__detail">
+                    <strong class="product-item-name">
+                        <a href="<?php echo $product_url; ?>" class="product-item-link">
+                            <?php echo $_item->getName(); ?>
+                        </a>
+                    </strong>
+                    <?php echo $blockCompare->getReviewsSummaryHtml($_item, 'short') ?>
+                    <?php /* @escapeNotVerified */ echo $blockCompare->getProductPrice($_item, '-compare-list-top') ?>
+                </div>
+                
+
+
+                <?php $compareHelper = $this->helper('Magento\Catalog\Helper\Product\Compare');?>
+
+                <a href="#" data-post='<?php echo $compareHelper->getPostDataRemove($_item); ?>'
+                   title="<?php echo __('Remove This Item') ?>"
+                   class="action delete">
+                    <span><?php echo __('Remove This Item') ?></span></a>
+            </li>
+            <?php endforeach; ?>
+             </ol> 
+        <div class="actions-toolbar">
+            <div class="primary">
+                <a href="<?php echo $_helper->getListUrl() ?>" class="action primary compare"><span><?php echo __('Compare') ?></span></a>
+            </div>
+            <div class="secondary">
+                <a id="compare-clear-all" href="#" data-post='<?php echo $_helper->getPostDataClearList() ?>' class="action clear">
+                    <span><?php echo __('Clear All') ?></span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <?php else: ?>
+    <div class="empty message-notice notice message"><?php /* @escapeNotVerified */ echo __('You have no items to compare.') ?></div>
+    <?php endif; ?> 
+</div>
+

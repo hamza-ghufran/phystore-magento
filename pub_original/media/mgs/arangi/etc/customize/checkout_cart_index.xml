@@ -1,0 +1,127 @@
+<settings>
+	<section>
+		<name>themesettings</name>
+		<group>
+			<name>shopping_cart</name>
+			<title>Shopping Cart Page</title>
+			<icon>pe-7s-cart</icon>
+			<fields>
+				<item>
+					<name>show_coupon</name>
+					<type>boolean</type>
+					<label>Show Coupon Code form</label>
+				</item>
+			</fields>
+			
+			<fields>
+				<label>Cross-sell Products</label>
+				<item>
+					<name>show_crosssell</name>
+					<type>boolean</type>
+					<label>Show Cross-sell Products</label>
+				</item>
+				<item>
+					<name>crosssell_title</name>
+					<type>text</type>
+					<label>Title</label>
+					<depends>
+						<condition><![CDATA[themesettings_shopping_cart_show_crosssell=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>number_product</name>
+					<type>number</type>
+					<label>Number of Productss to show</label>
+					<depends>
+						<condition><![CDATA[themesettings_shopping_cart_show_crosssell=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>crosssell_per_row</name>
+					<type>select</type>
+					<label>Products per row (Desktop)</label>
+					<option>MGS\ThemeSettings\Model\Config\Source\Perrow</option>
+					<depends>
+						<condition><![CDATA[themesettings_shopping_cart_show_crosssell=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>crosssell_per_row_tablet</name>
+					<type>select</type>
+					<label>Products per row (Tablet)</label>
+					<option>MGS\ThemeSettings\Model\Config\Source\Perrow</option>
+					<depends>
+						<condition><![CDATA[themesettings_shopping_cart_show_crosssell=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>crosssell_per_row_mobile</name>
+					<type>select</type>
+					<label>Products per row (Mobile)</label>
+					<option>MGS\ThemeSettings\Model\Config\Source\Perrow</option>
+					<depends>
+						<condition><![CDATA[themesettings_shopping_cart_show_crosssell=="1"]]></condition>
+					</depends>
+				</item>
+				
+				<item>
+					<name>crosssell_slider</name>
+					<type>boolean</type>
+					<label>Use Slider</label>
+					<depends>
+						<condition><![CDATA[themesettings_shopping_cart_show_crosssell=="1"]]></condition>
+					</depends>
+				</item>
+				
+				<item>
+					<name>crosssell_autoplay</name>
+					<type>boolean</type>
+					<label>Auto play</label>
+					<depends>
+						<condition><![CDATA[themesettings_shopping_cart_show_crosssell=="1" && themesettings_shopping_cart_crosssell_slider=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>crosssell_stop_auto</name>
+					<type>boolean</type>
+					<label>Stop autoplay on mouse hover</label>
+					<depends>
+						<condition><![CDATA[themesettings_shopping_cart_show_crosssell=="1" && themesettings_shopping_cart_crosssell_slider=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>crosssell_loop</name>
+					<type>boolean</type>
+					<label>Loop</label>
+					<depends>
+						<condition><![CDATA[themesettings_shopping_cart_show_crosssell=="1" && themesettings_shopping_cart_crosssell_slider=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>crosssell_navigation</name>
+					<type>boolean</type>
+					<label>Display navigation</label>
+					<depends>
+						<condition><![CDATA[themesettings_shopping_cart_show_crosssell=="1" && themesettings_shopping_cart_crosssell_slider=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>crosssell_pagination</name>
+					<type>boolean</type>
+					<label>Display pagination</label>
+					<depends>
+						<condition><![CDATA[themesettings_shopping_cart_show_crosssell=="1" && themesettings_shopping_cart_crosssell_slider=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>crosssell_slide_by</name>
+					<type>text</type>
+					<label>Navigation slide by</label>
+					<depends>
+						<condition><![CDATA[themesettings_shopping_cart_show_crosssell=="1" && themesettings_shopping_cart_crosssell_slider=="1"]]></condition>
+					</depends>
+				</item>
+			</fields>
+		</group>
+	</section>
+</settings>

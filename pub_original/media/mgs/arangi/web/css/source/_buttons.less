@@ -1,0 +1,123 @@
+// /**
+//  * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+	.btn.btn-primary,
+	.action.primary,
+	.btn.btn-secondary,
+	.action.secondary{
+		display: inline-block;
+		font-size: @theme-button-font-size;
+		font-family: inherit;
+		font-weight: 400;
+		outline: none;
+		cursor: pointer;
+		.lib-border-radius(@theme-button-border-radius);
+		.lib-transition(all 300ms);
+		padding: @theme-button-padding;
+		border-width: @theme-button-border-width;
+		border-style: @theme-button-border-type;
+		&.btn-md {
+			font-size: @theme-button-font-size__medium;
+			padding: @theme-button-padding__medium;
+		}
+		&.btn-sm {
+			font-size: @theme-button-font-size__small;
+			padding: @theme-button-padding__small;
+		}
+		&:hover,
+		&:focus {
+			outline: none;
+			box-shadow: none;
+		}
+	}
+	.btn.btn-primary,
+	.action.primary {
+		border-color: @theme-button-primary-border-nogradient;
+		background-color: @theme-button-primary-background-nogradient;
+		color: @theme-button-primary-color;
+		&:hover,
+		&:focus {
+			border-color: @theme-button-primary-border-nogradient__hover;
+			background-color: @theme-button-primary-background-nogradient__hover;
+			color: @theme-button-primary-color__hover;
+		}
+	}
+	.btn.btn-secondary,
+	.action.secondary {
+		border-color: @theme-button-secondary-border-nogradient;
+		background-color: @theme-button-secondary-background-nogradient;
+		color: @theme-button-secondary-color;
+		&:hover,
+		&:focus {
+			border-color: @theme-button-secondary-border-nogradient__hover;
+			background-color: @theme-button-secondary-background-nogradient__hover;
+			color: @theme-button-secondary-color__hover;
+		}
+	}
+	
+	.btn-gradient {
+		&.btn.btn-primary,
+		&.action.primary,
+		&.btn.btn-secondary,
+		&.action.secondary {
+			border: none;
+			padding: @theme-button-border-width;
+			> span {
+				display: block;
+				padding: @theme-button-padding;
+				.lib-border-radius(@theme-button-border-radius);
+			}
+			&.btn-md {
+				font-size: @theme-button-font-size__medium;
+				> span {
+					padding: @theme-button-padding__medium;
+				}
+			}
+			&.btn-sm {
+				font-size: @theme-button-font-size__small;
+				> span {
+					padding: @theme-button-padding__small;
+				}
+			}
+		}
+		&.btn.btn-primary,
+		&.action.primary {
+			.lib-background-gradient(@theme-button-primary-border-gradient-start, @theme-button-primary-border-gradient-end, vertical, true);
+			> span {
+				.lib-background-gradient(@theme-button-primary-background-gradient-start, @theme-button-primary-background-gradient-end, vertical, true);
+			}
+			&:focus,
+			&:hover {
+				.lib-background-gradient(@theme-button-primary-border-gradient-start__hover, @theme-button-primary-border-gradient-end__hover, vertical, true);
+				color: @theme-button-primary-color__hover;
+				> span {
+					.lib-background-gradient(@theme-button-primary-background-gradient-start__hover, @theme-button-primary-background-gradient-end__hover, vertical, true);
+				}
+			}
+		}
+		&.btn.btn-secondary,
+		&.action.secondary {
+			.lib-background-gradient(@theme-button-secondary-border-gradient-start, @theme-button-secondary-border-gradient-end, vertical, true);
+			color: @theme-button-secondary-color;
+			> span {
+				background: rgba(255,255,255,0.96);
+			}
+			&:focus,
+			&:hover {
+				.lib-background-gradient(@theme-button-secondary-border-gradient-start__hover, @theme-button-secondary-border-gradient-end__hover, vertical, true);
+				color: @theme-button-secondary-color__hover;
+				> span {
+					.lib-background-gradient(@theme-button-secondary-background-gradient-start__hover, @theme-button-secondary-background-gradient-end__hover, vertical, true);
+				}
+			}
+		}
+	}
+
+}

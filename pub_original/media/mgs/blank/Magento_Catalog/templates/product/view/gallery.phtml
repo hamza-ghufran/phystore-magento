@@ -1,0 +1,210 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Product media data template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View\Gallery
+ */
+?>
+<?php
+$themeSettingConfig = $this->helper('MGS\ThemeSettings\Helper\Config');
+$_product = $block->getProduct();
+if($_product && ($_product->getMgsImageDimention()!='')){
+	$dimentionMain = $_product->getMgsImageDimention();
+}else{
+	$dimentionMain = $themeSettingConfig->getStoreConfig("themesettings/product_image_dimention/detail_big");
+}
+
+$arrDimentionMain = explode('x',$dimentionMain);
+if(($dimentionMain!='') && (count($arrDimentionMain)>0)){
+	$widthMain = trim($arrDimentionMain[0]);
+	if(isset($arrDimentionMain[1])){
+		$heightMain = trim($arrDimentionMain[1]);
+	}else{
+		$heightMain = $widthMain;
+	}
+}else{
+	$widthMain = $block->getImageAttribute('product_page_image_medium', 'width');
+	if ($block->getImageAttribute('product_page_image_medium', 'height') || $block->getImageAttribute('product_page_image_medium', 'width')){
+		$heightMain = $block->getImageAttribute('product_page_image_medium', 'height') ?: $widthMain;
+	}
+}
+
+if($_product && ($_product->getMgsImageDimention()!='')){
+	$dimentionThumb = $_product->getMgsImageDimention();
+}else{
+	$dimentionThumb = $themeSettingConfig->getStoreConfig("themesettings/product_image_dimention/detail_small");
+}
+
+$arrDimentionThumb = explode('x',$dimentionThumb);
+if(($dimentionThumb!='') && (count($arrDimentionThumb)>0)){
+	$widthThumb = trim($arrDimentionThumb[0]);
+	if(isset($arrDimentionThumb[1])){
+		$heightThumb = trim($arrDimentionThumb[1]);
+	}else{
+		$heightThumb = $widthThumb;
+	}
+}else{
+	$widthThumb = $block->getImageAttribute('product_page_image_small', 'width');
+	if ($block->getImageAttribute('product_page_image_small', 'height') || $block->getImageAttribute('product_page_image_small', 'width')){
+		$heightThumb = $block->getImageAttribute('product_page_image_small', 'height') ?: $widthThumb;
+	}
+}
+?>
+<div class="gallery-placeholder _block-content-loading" data-gallery-role="gallery-placeholder">
+    <div data-role="loader" class="loading-mask">
+        <div class="loader">
+            <img src="<?php /* @escapeNotVerified */ echo $block->getViewFileUrl('images/oval.svg'); ?>"
+                 alt="<?php /* @escapeNotVerified */ echo __('Loading...') ?>">
+        </div>
+    </div>
+</div>
+<!--Fix for jumping content. Loader must be the same size as gallery.-->
+<script>
+    var config = {
+            "width": <?= $widthMain; ?>,
+            "thumbheight": <?= $heightThumb; ?>,
+            "navtype": "<?php /* @escapeNotVerified */  echo $block->getVar("gallery/navtype"); ?>",
+            "height": <?= $heightMain; ?>
+        },
+        thumbBarHeight = 0,
+        loader = document.querySelectorAll('[data-gallery-role="gallery-placeholder"] [data-role="loader"]')[0];
+
+    if (config.navtype === 'horizontal') {
+        thumbBarHeight = config.thumbheight;
+    }
+
+    loader.style.paddingBottom = ( config.height / config.width * 100) + "%";
+</script>
+<script type="text/x-magento-init">
+    {
+        "[data-gallery-role=gallery-placeholder]": {
+            "mage/gallery/gallery": {
+                "mixins":["magnifier/magnify"],
+                "magnifierOpts": <?php /* @escapeNotVerified */ echo $block->getMagnifier(); ?>,
+                "data": <?php /* @escapeNotVerified */ echo $block->getGalleryImagesJson(); ?>,
+                "options": {
+					"shadows": false,
+                    "nav": "<?php /* @escapeNotVerified */ echo $block->getVar("gallery/nav"); ?>",
+                    "thumbmargin": <?php /* @escapeNotVerified */ echo $block->getVar("gallery/thumbmargin"); ?>,
+                    "thumbborderwidth": <?php /* @escapeNotVerified */ echo $block->getVar("gallery/thumbborderwidth"); ?>,
+                    <?php if (($block->getVar("gallery/loop"))): ?>
+                        "loop": <?php /* @escapeNotVerified */ echo $block->getVar("gallery/loop"); ?>,
+                    <?php endif; ?>
+                    <?php if (($block->getVar("gallery/keyboard"))): ?>
+                        "keyboard": <?php /* @escapeNotVerified */ echo $block->getVar("gallery/keyboard"); ?>,
+                    <?php endif; ?>
+                    <?php if (($block->getVar("gallery/arrows"))): ?>
+                        "arrows": <?php /* @escapeNotVerified */ echo $block->getVar("gallery/arrows"); ?>,
+                    <?php endif; ?>
+                    <?php if (($block->getVar("gallery/allowfullscreen"))): ?>
+                        "allowfullscreen": <?php /* @escapeNotVerified */ echo $block->getVar("gallery/allowfullscreen"); ?>,
+                    <?php endif; ?>
+                    <?php if (($block->getVar("gallery/caption"))): ?>
+                        "showCaption": <?php /* @escapeNotVerified */ echo $block->getVar("gallery/caption"); ?>,
+                    <?php endif; ?>
+                    "width": "<?= $widthMain; ?>",
+					"height": "<?= $heightMain; ?>",
+                    "thumbwidth": "<?= $widthThumb; ?>",
+					"thumbheight": "<?= $heightThumb; ?>",
+                    <?php if ($block->getVar("gallery/transition/duration")): ?>
+                        "transitionduration": <?php /* @escapeNotVerified */  echo $block->getVar("gallery/transition/duration"); ?>,
+                    <?php endif; ?>
+                    "transition": "<?php /* @escapeNotVerified */  echo $block->getVar("gallery/transition/effect"); ?>",
+                    <?php if (($block->getVar("gallery/navarrows"))): ?>
+                        "navarrows": <?php /* @escapeNotVerified */  echo $block->getVar("gallery/navarrows"); ?>,
+                    <?php endif; ?>
+                    "navtype": "<?php /* @escapeNotVerified */  echo $block->getVar("gallery/navtype"); ?>",
+                    "navdir": "<?php /* @escapeNotVerified */  echo $block->getVar("gallery/navdir"); ?>"
+                },
+                "fullscreen": {
+                    "nav": "<?php /* @escapeNotVerified */  echo $block->getVar("gallery/fullscreen/nav"); ?>",
+                    <?php if ($block->getVar("gallery/fullscreen/loop")): ?>
+                        "loop": <?php /* @escapeNotVerified */  echo $block->getVar("gallery/fullscreen/loop"); ?>,
+                    <?php endif; ?>
+                    "navdir": "<?php /* @escapeNotVerified */  echo $block->getVar("gallery/fullscreen/navdir"); ?>",
+                    <?php if ($block->getVar("gallery/transition/navarrows")): ?>
+                        "navarrows": <?php /* @escapeNotVerified */  echo $block->getVar("gallery/fullscreen/navarrows"); ?>,
+                    <?php endif; ?>
+                    "navtype": "<?php /* @escapeNotVerified */  echo $block->getVar("gallery/fullscreen/navtype"); ?>",
+                    <?php if ($block->getVar("gallery/fullscreen/arrows")): ?>
+                        "arrows": <?php /* @escapeNotVerified */  echo $block->getVar("gallery/fullscreen/arrows"); ?>,
+                    <?php endif; ?>
+                    <?php if ($block->getVar("gallery/fullscreen/caption")): ?>
+                        "showCaption": <?php /* @escapeNotVerified */  echo $block->getVar("gallery/fullscreen/caption"); ?>,
+                    <?php endif; ?>
+                    <?php if ($block->getVar("gallery/fullscreen/transition/duration")): ?>
+                        "transitionduration": <?php /* @escapeNotVerified */  echo $block->getVar("gallery/fullscreen/transition/duration"); ?>,
+                    <?php endif; ?>
+                    "transition": "<?php /* @escapeNotVerified */  echo $block->getVar("gallery/fullscreen/transition/effect"); ?>"
+                },
+                "breakpoints": <?php /* @escapeNotVerified */ echo $block->getBreakpoints(); ?>
+            }
+        }
+    }
+</script>
+<?php // Image 360 ?>
+<?php $_product = $block->getProduct(); ?>
+<?php $rotateImage = $_product->getData('mgs_j360') ?>
+<?php $rotateImages = [] ?>
+<?php if($rotateImage): ?>
+	<?php $rotateImages = $themeHelper->getRotateImages($_product->getId()) ?>
+<?php endif ?>
+<?php if($rotateImage && (count($rotateImages)>0)): ?>
+    <a class="rotate-image btn btn-default" href="#" onclick="rotate360(); return false"><?= __('360 Deg') ?></a>
+    <script type="text/javascript">
+        function rotate360(){
+            require([
+                'jquery',
+                "mage/translate",
+                'rotateImage'
+            ], function ($) {
+                $.ajax({
+                    url: '<?= $this->getUrl('mpanel/index/rotate') ?>',
+                    data: ('&product=<?= $_product->getId() ?>'),
+                    type: 'get',
+                    dataType: 'json',
+                    cache: true,
+                    showLoader: true
+                }).done(function (response) {
+                    $('.loading-mask').append(response.html);
+                    $('.loading-mask').addClass('j360-container');
+                    setTimeout(initImageRotate, 1);
+                    
+                }).fail(function (error) {
+                    alert($.mage.__('Sorry, something went wrong. Please try again later.'));
+                });
+            });
+        }
+        
+        function initImageRotate(){
+            require([
+                'jquery',
+                "mage/translate",
+                'rotateImage'
+            ], function ($) {
+                $('.loading-mask').show();
+                $('#mgs_j360').j360();
+            });
+        }
+        
+        function closeRotateContainer(){
+            require([
+                'jquery',
+                "mage/translate",
+                'rotateImage'
+            ], function ($) {
+                $('.rotate-image-container').remove();
+                $('.loading-mask').removeClass('j360-container');
+                $('.loading-mask').hide();
+                $('.preload_img').parent().remove();
+            });
+        }
+    </script>
+<?php endif ?>

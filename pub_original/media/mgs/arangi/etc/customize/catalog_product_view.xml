@@ -1,0 +1,481 @@
+<settings>
+	<section>
+		<name>themesettings</name>
+		<group>
+			<name>product_details</name>
+			<title>Product Page</title>
+			<icon>pe-7s-display2</icon>
+			<fields>
+				<item>
+					<name>layout</name>
+					<type>select</type>
+					<label>Default Page Layout</label>
+					<option>MGS\ThemeSettings\Model\Config\Source\PageLayout</option>
+				</item>
+			</fields>
+			<fields>
+				<label>Gallery</label>
+				<item>
+					<name>extragallery_general_glr_type</name>
+					<custom><![CDATA[extragallery/general/glr_type]]></custom>
+					<label>Gallery type</label>
+					<type>select</type>
+					<option>MGS\ExtraGallery\Model\Config\Source\Gallery</option>
+				</item>
+				<item>
+					<name>extragallery_general_gallery_right</name>
+					<custom><![CDATA[extragallery/general/gallery_right]]></custom>
+					<label>Show Gallery In Right</label>
+					<type>boolean</type>
+				</item>
+				<item>
+					<name>extragallery_general_glr_effect</name>
+					<custom><![CDATA[extragallery/general/glr_effect]]></custom>
+					<label>Gallery Effect</label>
+					<type>select</type>
+					<option>MGS\ExtraGallery\Model\Config\Source\GalleryEffect</option>
+				</item>
+				
+				<item>
+					<name>extragallery_general_per_row_xl</name>
+					<custom><![CDATA[extragallery/general/per_row_xl]]></custom>
+					<label>Number Images on Desktop</label>
+					<type>number</type>
+					<depends>
+						<condition><![CDATA[extragallery_general_glr_type=="3"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>extragallery_general_per_row_lg</name>
+					<custom><![CDATA[extragallery/general/per_row_lg]]></custom>
+					<label>Number Images on small Desktop</label>
+					<type>number</type>
+					<depends>
+						<condition><![CDATA[extragallery_general_glr_type=="3"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>extragallery_general_per_row_md</name>
+					<custom><![CDATA[extragallery/general/per_row_md]]></custom>
+					<label>Number Images on Tablet</label>
+					<type>number</type>
+					<depends>
+						<condition><![CDATA[extragallery_general_glr_type=="3"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>extragallery_general_per_row_sm</name>
+					<custom><![CDATA[extragallery/general/per_row_sm]]></custom>
+					<label>Number Images on small Tablet</label>
+					<type>number</type>
+					<depends>
+						<condition><![CDATA[extragallery_general_glr_type=="3"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>extragallery_general_per_row_xs</name>
+					<custom><![CDATA[extragallery/general/per_row_xs]]></custom>
+					<label>Number Images on Mobile</label>
+					<type>number</type>
+					<depends>
+						<condition><![CDATA[extragallery_general_glr_type=="3"]]></condition>
+					</depends>
+				</item>
+			</fields>
+			<fields>
+				<label>Product Information</label>
+				<item>
+					<name>sku</name>
+					<type>boolean</type>
+					<label>Show SKU</label>
+				</item>
+				<item>
+					<name>stock_status</name>
+					<type>boolean</type>
+					<label>Show Stock Status</label>
+				</item>
+				<item>
+					<name>reviews_summary</name>
+					<type>boolean</type>
+					<label>Show Reviews Summary</label>
+				</item>
+				<item>
+					<name>short_description</name>
+					<type>boolean</type>
+					<label>Show Short Description</label>
+				</item>
+				<item>
+					<name>wishlist</name>
+					<type>boolean</type>
+					<label>Show Add to Wishlist link</label>
+				</item>
+				<item>
+					<name>compare</name>
+					<type>boolean</type>
+					<label>Show Add to Compare link</label>
+				</item>
+				<item>
+					<name>email_to_friend</name>
+					<type>boolean</type>
+					<label>Show Email to Friend</label>
+				</item>
+			</fields>
+			<fields>
+				<label>Related Products</label>
+				<item>
+					<name>related_products</name>
+					<type>boolean</type>
+					<label>Show Related Products</label>
+				</item>
+				<item>
+					<name>related_title</name>
+					<type>text</type>
+					<label>Title</label>
+					<depends>
+						<condition><![CDATA[themesettings_product_details_related_products=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>related_position</name>
+					<type>select</type>
+					<label>Position</label>
+					<option>MGS\ThemeSettings\Model\Config\Source\RelatedPosition</option>
+					<depends>
+						<condition><![CDATA[themesettings_product_details_related_products=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>related_per_row</name>
+					<type>select</type>
+					<label>Products per row (Desktop)</label>
+					<option>MGS\ThemeSettings\Model\Config\Source\Perrow</option>
+					<depends>
+						<condition><![CDATA[themesettings_product_details_related_products=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>related_per_row_tablet</name>
+					<type>select</type>
+					<label>Products per row (Tablet)</label>
+					<option>MGS\ThemeSettings\Model\Config\Source\Perrow</option>
+					<depends>
+						<condition><![CDATA[themesettings_product_details_related_products=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>related_per_row_mobile</name>
+					<type>select</type>
+					<label>Products per row (Mobile)</label>
+					<option>MGS\ThemeSettings\Model\Config\Source\Perrow</option>
+					<depends>
+						<condition><![CDATA[themesettings_product_details_related_products=="1"]]></condition>
+					</depends>
+				</item>
+				
+				<item>
+					<name>related_slider</name>
+					<type>boolean</type>
+					<label>Use Slider</label>
+					<depends>
+						<condition><![CDATA[themesettings_product_details_related_products=="1"]]></condition>
+					</depends>
+				</item>
+				
+				<item>
+					<name>related_autoplay</name>
+					<type>boolean</type>
+					<label>Auto play</label>
+					<depends>
+						<condition><![CDATA[themesettings_product_details_related_products=="1" && themesettings_product_details_related_slider=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>related_stop_auto</name>
+					<type>boolean</type>
+					<label>Stop autoplay on mouse hover</label>
+					<depends>
+						<condition><![CDATA[themesettings_product_details_related_products=="1" && themesettings_product_details_related_slider=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>related_loop</name>
+					<type>boolean</type>
+					<label>Loop</label>
+					<depends>
+						<condition><![CDATA[themesettings_product_details_related_products=="1" && themesettings_product_details_related_slider=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>related_navigation</name>
+					<type>boolean</type>
+					<label>Display navigation</label>
+					<depends>
+						<condition><![CDATA[themesettings_product_details_related_products=="1" && themesettings_product_details_related_slider=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>related_pagination</name>
+					<type>boolean</type>
+					<label>Display pagination</label>
+					<depends>
+						<condition><![CDATA[themesettings_product_details_related_products=="1" && themesettings_product_details_related_slider=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>related_slide_by</name>
+					<type>text</type>
+					<label>Navigation slide by</label>
+					<depends>
+						<condition><![CDATA[themesettings_product_details_related_products=="1" && themesettings_product_details_related_slider=="1"]]></condition>
+					</depends>
+				</item>
+			</fields>
+			
+			<fields>
+				<label>Up-sell Products</label>
+				<item>
+					<name>upsell_products</name>
+					<type>boolean</type>
+					<label>Show Up-sell Products</label>
+				</item>
+				<item>
+					<name>upsell_title</name>
+					<type>text</type>
+					<label>Title</label>
+					<depends>
+						<condition><![CDATA[themesettings_product_details_upsell_products=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>upsell_position</name>
+					<type>select</type>
+					<label>Position</label>
+					<option>MGS\ThemeSettings\Model\Config\Source\RelatedPosition</option>
+					<depends>
+						<condition><![CDATA[themesettings_product_details_upsell_products=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>upsell_per_row</name>
+					<type>select</type>
+					<label>Products per row (Desktop)</label>
+					<option>MGS\ThemeSettings\Model\Config\Source\Perrow</option>
+					<depends>
+						<condition><![CDATA[themesettings_product_details_upsell_products=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>upsell_per_row_tablet</name>
+					<type>select</type>
+					<label>Products per row (Tablet)</label>
+					<option>MGS\ThemeSettings\Model\Config\Source\Perrow</option>
+					<depends>
+						<condition><![CDATA[themesettings_product_details_upsell_products=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>upsell_per_row_mobile</name>
+					<type>select</type>
+					<label>Products per row (Mobile)</label>
+					<option>MGS\ThemeSettings\Model\Config\Source\Perrow</option>
+					<depends>
+						<condition><![CDATA[themesettings_product_details_upsell_products=="1"]]></condition>
+					</depends>
+				</item>
+				
+				<item>
+					<name>upsell_slider</name>
+					<type>boolean</type>
+					<label>Use Slider</label>
+					<depends>
+						<condition><![CDATA[themesettings_product_details_upsell_products=="1"]]></condition>
+					</depends>
+				</item>
+				
+				<item>
+					<name>upsell_autoplay</name>
+					<type>boolean</type>
+					<label>Auto play</label>
+					<depends>
+						<condition><![CDATA[themesettings_product_details_upsell_products=="1" && themesettings_product_details_upsell_slider=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>upsell_stop_auto</name>
+					<type>boolean</type>
+					<label>Stop autoplay on mouse hover</label>
+					<depends>
+						<condition><![CDATA[themesettings_product_details_upsell_products=="1" && themesettings_product_details_upsell_slider=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>upsell_loop</name>
+					<type>boolean</type>
+					<label>Loop</label>
+					<depends>
+						<condition><![CDATA[themesettings_product_details_upsell_products=="1" && themesettings_product_details_upsell_slider=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>upsell_navigation</name>
+					<type>boolean</type>
+					<label>Display navigation</label>
+					<depends>
+						<condition><![CDATA[themesettings_product_details_upsell_products=="1" && themesettings_product_details_upsell_slider=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>upsell_pagination</name>
+					<type>boolean</type>
+					<label>Display pagination</label>
+					<depends>
+						<condition><![CDATA[themesettings_product_details_upsell_products=="1" && themesettings_product_details_upsell_slider=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>upsell_slide_by</name>
+					<type>text</type>
+					<label>Navigation slide by</label>
+					<depends>
+						<condition><![CDATA[themesettings_product_details_upsell_products=="1" && themesettings_product_details_upsell_slider=="1"]]></condition>
+					</depends>
+				</item>
+			</fields>
+			<fields>
+				<label>MGS Shop by Brand</label>
+				<item>
+					<name>brand_product_page_settings_show_brand</name>
+					<custom><![CDATA[brand/product_page_settings/show_brand]]></custom>
+					<type>boolean</type>
+					<label>Show Brand</label>
+				</item>
+				<item>
+					<name>brand_product_page_settings_show_brand_img</name>
+					<custom><![CDATA[brand/product_page_settings/show_brand_img]]></custom>
+					<type>boolean</type>
+					<label>Show Brand Img On Sidebar</label>
+					<depends>
+						<condition><![CDATA[brand_product_page_settings_show_brand=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>brand_product_page_settings_show_related_products_by_brand</name>
+					<custom><![CDATA[brand/product_page_settings/show_related_products_by_brand]]></custom>
+					<type>boolean</type>
+					<label>Show Related Products By Brand</label>
+				</item>
+				<item>
+					<name>brand_product_page_settings_title_related_products</name>
+					<custom><![CDATA[brand/product_page_settings/title_related_products]]></custom>
+					<type>text</type>
+					<label>Title</label>
+					<depends>
+						<condition><![CDATA[brand_product_page_settings_show_related_products_by_brand=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>brand_product_page_settings_limit_related_products</name>
+					<custom><![CDATA[brand/product_page_settings/limit_related_products]]></custom>
+					<type>text</type>
+					<label>Number Of Products to Display</label>
+					<depends>
+						<condition><![CDATA[brand_product_page_settings_show_related_products_by_brand=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>brand_product_page_settings_perrow_brand_products</name>
+					<custom><![CDATA[brand/product_page_settings/perrow_brand_products]]></custom>
+					<type>select</type>
+					<option>MGS\ThemeSettings\Model\Config\Source\Perrow</option>
+					<label>Product Per Row (Desktop)</label>
+					<depends>
+						<condition><![CDATA[brand_product_page_settings_show_related_products_by_brand=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>brand_product_page_settings_brand_per_row_tablet</name>
+					<custom><![CDATA[brand/product_page_settings/brand_per_row_tablet]]></custom>
+					<type>select</type>
+					<option>MGS\ThemeSettings\Model\Config\Source\Perrow</option>
+					<label>Product Per Row (Tablet)</label>
+					<depends>
+						<condition><![CDATA[brand_product_page_settings_show_related_products_by_brand=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>brand_product_page_settings_brand_per_row_mobile</name>
+					<custom><![CDATA[brand/product_page_settings/brand_per_row_mobile]]></custom>
+					<type>select</type>
+					<option>MGS\ThemeSettings\Model\Config\Source\Perrow</option>
+					<label>Product Per Row (Mobile)</label>
+					<depends>
+						<condition><![CDATA[brand_product_page_settings_show_related_products_by_brand=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>brand_product_page_settings_brand_products_slider</name>
+					<custom><![CDATA[brand/product_page_settings/brand_products_slider]]></custom>
+					<type>boolean</type>
+					<label>Use Slider</label>
+					<depends>
+						<condition><![CDATA[brand_product_page_settings_show_related_products_by_brand=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>brand_product_page_settings_brand_products_autoplay</name>
+					<custom><![CDATA[brand/product_page_settings/brand_products_autoplay]]></custom>
+					<type>boolean</type>
+					<label>Auto play</label>
+					<depends>
+						<condition><![CDATA[brand_product_page_settings_show_related_products_by_brand=="1" && brand_product_page_settings_brand_products_slider=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>brand_product_page_settings_brand_products_stop_auto</name>
+					<custom><![CDATA[brand/product_page_settings/brand_products_stop_auto]]></custom>
+					<type>boolean</type>
+					<label>Stop autoplay on mouse hover</label>
+					<depends>
+						<condition><![CDATA[brand_product_page_settings_show_related_products_by_brand=="1" && brand_product_page_settings_brand_products_slider=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>brand_product_page_settings_brand_products_loop</name>
+					<custom><![CDATA[brand/product_page_settings/brand_products_loop]]></custom>
+					<type>boolean</type>
+					<label>Loop</label>
+					<depends>
+						<condition><![CDATA[brand_product_page_settings_show_related_products_by_brand=="1" && brand_product_page_settings_brand_products_slider=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>brand_product_page_settings_brand_products_navigation</name>
+					<custom><![CDATA[brand/product_page_settings/brand_products_navigation]]></custom>
+					<type>boolean</type>
+					<label>Display navigation</label>
+					<depends>
+						<condition><![CDATA[brand_product_page_settings_show_related_products_by_brand=="1" && brand_product_page_settings_brand_products_slider=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>brand_product_page_settings_brand_products_pagination</name>
+					<custom><![CDATA[brand/product_page_settings/brand_products_pagination]]></custom>
+					<type>boolean</type>
+					<label>Display pagination</label>
+					<depends>
+						<condition><![CDATA[brand_product_page_settings_show_related_products_by_brand=="1" && brand_product_page_settings_brand_products_slider=="1"]]></condition>
+					</depends>
+				</item>
+				<item>
+					<name>brand_product_page_settings_brand_products_slide_by</name>
+					<custom><![CDATA[brand/product_page_settings/brand_products_slide_by]]></custom>
+					<type>text</type>
+					<label>Navigation slide by</label>
+					<depends>
+						<condition><![CDATA[brand_product_page_settings_show_related_products_by_brand=="1" && brand_product_page_settings_brand_products_slider=="1"]]></condition>
+					</depends>
+				</item>
+			</fields>
+		</group>
+	</section>
+</settings>

@@ -1,0 +1,993 @@
+<?php 
+/* 	
+* 	Block Guide
+*	Magento menu: $block->getChildHtml('store.menu');
+*	Language: $block->getChildHtml('store_language');
+*	Currency: $block->getChildHtml('currency');
+*	Top Links: $block->getChildHtml('top.links');
+*	Skip Content Block: $block->getChildHtml('skip_to_content');
+*	Logo: $block->getChildHtml('logo');
+*	Mini Cart: $block->getChildHtml('minicart');
+*	Search: $block->getChildHtml('topSearch');
+*	Static block: $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('your_block_identifier')->toHtml();
+*/
+?>
+
+<?php
+
+$themeSettingConfig = $this->helper('MGS\ThemeSettings\Helper\Config');
+
+$isLoginRegister = $themeSettingConfig->isLoginRegisterPage();
+$isLogged = $themeSettingConfig->isLogged();
+
+$blockEnable = explode(",",$themeSettingConfig->getStoreConfig('themesettings/header/elements'));
+$cartType = $themeSettingConfig->getStoreConfig('themesettings/header/mini_cart_type');
+$accountType = $themeSettingConfig->getStoreConfig('themesettings/header/my_account_type');
+$searchType = $themeSettingConfig->getStoreConfig('themesettings/header/search_type');
+$loginForm = $themeSettingConfig->getStoreConfig('themesettings/header/my_account_form');
+$stickyMenu = $themeSettingConfig->getStoreConfig('themesettings/header/sticky_menu');
+$stickyMenuMobile = $themeSettingConfig->getStoreConfig('themesettings/header/sticky_menu_mobile');
+$_headerVer = $themeSettingConfig->getStoreConfig('themesettings/header/header_version');
+
+//get wishlist
+$wishlist = $this->helper('Magento\Wishlist\Helper\Data');
+if($_headerVer == ''){ $_headerVer = 'header1'; }
+
+$addtionClass = "search-" . $searchType;
+if($cartType == 'slide'){
+    $addtionClass .= " minicart-slide";
+}
+if($accountType == 'slide'){
+    $addtionClass .= " myaccount-slide";
+}
+if($stickyMenu){
+    $addtionClass .= " active-sticky";
+}
+
+$stickkyMenuMobileShow = '';
+if($stickyMenuMobile){
+    $stickkyMenuMobileShow = 'show-sticky-menu';
+}
+
+$settingContentCondition =  false;
+if((in_array('store', $blockEnable) && trim(preg_replace('/\s+/', ' ', $block->getChildHtml('store_language')))) || (in_array('curency', $blockEnable) && trim(preg_replace('/\s+/', ' ', $block->getChildHtml('currency')))) || (in_array('static1', $blockEnable) && trim(preg_replace('/\s+/', ' ', $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('supro_header_custom_static_block_1')->toHtml()))) || (in_array('static2', $blockEnable) && trim(preg_replace('/\s+/', ' ', $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('supro_header_custom_static_block_2')->toHtml())))){
+    $settingContentCondition = true;
+}
+?>
+<div class="header header-area <?php echo $stickkyMenuMobileShow ?> <?php if($_headerVer == 'header2' || $_headerVer == 'header4' || $_headerVer == 'header6'): ?>right-slide-menu<?php endif ?> <?= $_headerVer ?> <?= $addtionClass ?>">
+    <?php /* Header 1 */ ?>
+    <?php if($_headerVer == 'header1'): ?>
+
+        <?php if($themeSettingConfig->getStoreConfig('themesettings/header/display_top_header') && in_array('static3', $blockEnable)): ?>
+            <div class="top-header">
+                <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('header_custom_static_block_3')->toHtml(); ?>
+            </div>
+        <?php endif ?>
+        <div class="frame">
+            <div class="menu-mobile">
+                <div class="menu-mobile-content">
+                    <div class="menu-mobile-icon">
+                        <span class="cancel"></span>
+                        <div class="logo-mobile"><?= $block->getChildHtml('logo') ?></div>
+                        <span class="search-menu"></span>
+                    </div>
+                <div class="main-menu-mobile">
+            </div>
+
+            <div class="menu-mobile-control">
+                <div class="menu-mobile-control-left">
+					<?php if(in_array('account', $blockEnable)): ?>
+						<?php if($isLoginRegister != 1): ?>
+							<?php if($themeSettingConfig->getStoreConfig('themesettings/header/my_account_type') == 'popup' && $isLogged != 1): ?>
+								<div class="account-header account-popup d-inline-block"> 
+									<a href="javascript:void(0)" data-fancybox="">
+										<i class="icon-user1"></i>
+										<!-- <span class="box-label">Sign in</span> -->
+									</a>
+								</div>
+							<?php else: ?>
+								<div class='account'>
+									<div class="account-logged"><i class="icon-user1"></i></div>
+									<div class="dropdown-account">
+										<?= $block->getChildHtml('login.form.header'); ?>
+									</div>
+								</div>
+							<?php endif ?>
+						<?php endif ?>
+					<?php endif ?>
+                    <div class="action cart-mobile">
+                        <span class="icon-shopping-basket"></span>
+                    </div>
+                    <div class="phone-mobile"> <a href="tel:01029001209"><i class="icon-phone"></i></a></div>
+                </div>
+                <div class="menu-mobile-control-right"></div>
+            </div>
+        </div>
+
+    </div>
+    <div class="middle-header">
+		<?= $block->getChildHtml('logo') ?>
+		<div class="horizontal-menu<?php if(!$block->getChildHtml('megamenu')): ?> mgt-menu<?php endif ?>">
+			<?php if($block->getChildHtml('megamenu')): ?>
+				<?= $block->getChildHtml('megamenu') ?>
+				<?php else: ?>
+					<?= $block->getChildHtml('store.menu') ?>
+				<?php endif ?>
+		</div>
+				<?php if(in_array('minicart', $blockEnable) || in_array('wishlist', $blockEnable) || in_array('search', $blockEnable) || in_array('account', $blockEnable) || in_array('store', $blockEnable) || in_array('curency', $blockEnable) || in_array('static1', $blockEnable) || in_array('static2', $blockEnable)): ?>
+				<div class="right-control">
+				
+					<div class="icon-menu-responsive">
+						<span>
+							<?php echo __('Menu') ?>
+						</span>
+					</div>
+					<?php if(in_array('search', $blockEnable)): ?>
+						<div class="search-menu"><i class="icon-search"></i></div>
+					<?php endif ?>
+					<?php if(in_array('account', $blockEnable)): ?>
+						<?php if($isLoginRegister != 1): ?>
+							<?php if($themeSettingConfig->getStoreConfig('themesettings/header/my_account_type') == 'popup' && $isLogged != 1): ?>
+								<div class="account-popup"><i class="icon-user1"></i></div>
+							<?php else: ?>
+								<div class='account'>
+									<div class="account-logged"><i class="icon-user1"></i></div>
+									<div class="dropdown-account">
+										<?= $block->getChildHtml('login.form.header'); ?>
+									</div>
+								</div>
+							<?php endif ?>
+						<?php endif ?>
+					<?php endif ?>
+					<?php if(in_array('wishlist', $blockEnable)): ?>
+						<div class="wishlist">
+							<?= $block->getChildHtml('wishlist-link-header') ?>
+						</div>
+					<?php endif; ?>		
+					<?php if(in_array('minicart', $blockEnable)): ?>
+						<?php if($cartType == 'dropdown'): ?>
+							<?= $block->getChildHtml('minicart') ?>
+						<?php else: ?>
+							<div class="slide-cart">
+							<?= $block->getChildHtml('minicart') ?>
+							</div>
+						<?php endif; ?>
+					<?php endif; ?>
+
+					<?php if(in_array('store', $blockEnable) || in_array('curency', $blockEnable) || in_array('static1', $blockEnable) || in_array('static2', $blockEnable)): ?>
+					
+					<div class="menu-right">
+					<span></span>
+					</div>
+				<?php endif ?>
+			
+
+			<?php endif ?>
+		</div>
+	</div>
+</div>
+	<div class="block-search-header">
+	<div class="search-header">
+		<div class="search-popup">
+			<?= $block->getChildHtml('topSearch') ?>
+		</div>
+	</div>
+	</div>
+	<?php if($isLoginRegister != 1){ ?>
+	<div id="popup-login" class="js-form-hidden">
+		<?php echo $this->getLayout()->createBlock('MGS\ArangiTheme\Block\Login')->setTemplate('Magento_Customer::form/login_copy.phtml')->toHtml() ?>
+		<?php echo $this->getLayout()->createBlock('MGS\ArangiTheme\Block\Register')->setTemplate('Magento_Customer::form/register_copy.phtml')->toHtml() ?>
+	</div>
+	<?php } ?>
+
+
+	<div class="sidebar-content">
+		<span class="sidebar-cancel"></span>
+		<div class="setting-site">
+			<div class="actions">
+				<button class="action setting" type="button"><span class="icon-setting-web theme-header-icon"></span></button>
+			</div>
+			<div class="setting-site-content">
+				<div class="ct">
+					<div class="actions-close">
+						<button id="close-setting-site"><span class="icon-cross2"></span></button>
+					</div>
+					<div class="customer-web-config">
+						<?php if(in_array('store', $blockEnable)): ?>
+							<?= $block->getChildHtml('store_language'); ?>
+						<?php endif ?>
+						<?php if(in_array('curency', $blockEnable)): ?>
+							<?= $block->getChildHtml('currency'); ?>
+						<?php endif ?>
+					</div>
+					<?php if(in_array('static1', $blockEnable)): ?>
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('supro_header_custom_static_block_1')->toHtml(); ?>
+					<?php endif ?>
+					<?php if(in_array('static2', $blockEnable)): ?>
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('supro_header_custom_static_block_2')->toHtml(); ?>
+					<?php endif ?>
+				</div>
+			</div>
+		</div>
+
+		<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('about')->toHtml();?>
+		<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('topsale')->toHtml();?>
+		<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('contact')->toHtml();?>
+		<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('social')->toHtml();?>
+	</div>
+	<div class="opacity-background"></div>
+</div>
+<?php elseif($_headerVer == 'header2'): ?>
+    <?php /* Header 2 */ ?>
+     <?php if($themeSettingConfig->getStoreConfig('themesettings/header/display_top_header') && in_array('static3', $blockEnable)): ?>
+       <div class="top-header">
+        <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('header_custom_static_block_3')->toHtml(); ?>
+    </div>
+<?php endif ?>
+<div class="frame">
+    <div class="menu-mobile">
+        <div class="menu-mobile-content">
+            <div class="menu-mobile-icon">
+                <span class="cancel"></span>
+                <div class="logo-mobile"><?= $block->getChildHtml('logo') ?></div>
+                <span class="search-menu"></span>
+            </div>
+
+            <div class="main-menu-mobile">
+
+            </div>
+
+            <div class="menu-mobile-control">
+                <div class="menu-mobile-control-left">
+                   <?php if(in_array('account', $blockEnable)): ?>
+						<?php if($isLoginRegister != 1): ?>
+							<?php if($themeSettingConfig->getStoreConfig('themesettings/header/my_account_type') == 'popup' && $isLogged != 1): ?>
+								<div class="account-header account-popup d-inline-block"> 
+									<a href="javascript:void(0)" data-fancybox="">
+										<i class="icon-user1"></i>
+										<!-- <span class="box-label">Sign in</span> -->
+									</a>
+								</div>
+							<?php else: ?>
+								<div class='account'>
+									<div class="account-logged"><i class="icon-user1"></i></div>
+									<div class="dropdown-account">
+										<?= $block->getChildHtml('login.form.header'); ?>
+									</div>
+								</div>
+							<?php endif ?>
+						<?php endif ?>
+					<?php endif ?>
+                    <div class="action cart-mobile">
+                        <span class="icon-shopping-basket"></span>
+                    </div>
+                    <div class="phone-mobile"> <a href="tel:01029001209"><i class="icon-phone"></i></a></div>
+                </div>
+                <div class="menu-mobile-control-right">
+                    
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="middle-header">
+            <?= $block->getChildHtml('logo') ?>
+            <div class="horizontal-menu<?php if(!$block->getChildHtml('megamenu')): ?> mgt-menu<?php endif ?>">
+                <?php if($block->getChildHtml('megamenu')): ?>
+                    <?= $block->getChildHtml('megamenu') ?>
+                    <?php else: ?>
+                        <?= $block->getChildHtml('store.menu') ?>
+                    <?php endif ?>
+            </div>
+                    <?php if(in_array('minicart', $blockEnable) || in_array('wishlist', $blockEnable) || in_array('search', $blockEnable) || in_array('account', $blockEnable) || in_array('store', $blockEnable) || in_array('curency', $blockEnable) || in_array('static1', $blockEnable) || in_array('static2', $blockEnable)): ?>
+                    <div class="right-control">
+                        <div class="icon-menu-responsive">
+                            <span>
+                               
+                            </span>
+                        </div>
+						<?php if(in_array('search', $blockEnable)): ?>
+                            <div class="search-menu"><i class="icon-search"></i></div>
+                        <?php endif ?>
+						<?php if(in_array('account', $blockEnable)): ?>
+							<?php if($isLoginRegister != 1): ?>
+								<?php if($themeSettingConfig->getStoreConfig('themesettings/header/my_account_type') == 'popup' && $isLogged != 1): ?>
+									<div class="account-popup"><i class="icon-user1"></i></div>
+								<?php else: ?>
+									<div class='account'>
+										<div class="account-logged"><i class="icon-user1"></i></div>
+										<div class="dropdown-account">
+											<?= $block->getChildHtml('login.form.header'); ?>
+										</div>
+									</div>
+								<?php endif ?>
+							<?php endif ?>
+						<?php endif ?>
+						<?php if(in_array('wishlist', $blockEnable)): ?>
+							<div class="wishlist">
+								<?= $block->getChildHtml('wishlist-link-header') ?>
+							</div>
+						<?php endif; ?>	
+						<?php if(in_array('minicart', $blockEnable)): ?>
+                            <?php if($cartType == 'dropdown'): ?>
+                                <?= $block->getChildHtml('minicart') ?>
+                            <?php else: ?>
+                                <div class="slide-cart">
+                                <?= $block->getChildHtml('minicart') ?>
+                                </div>
+                          
+                        <?php endif; ?>
+						<div class='setting-config'>
+							<button class='action action-setting'><i class="icon-setting-web theme-header-icon"></i></button>
+							<div class="customer-web-config">
+								<?php if(in_array('store', $blockEnable)): ?>
+									<?= $block->getChildHtml('store_language'); ?>
+								<?php endif ?>
+								<?php if(in_array('curency', $blockEnable)): ?>
+									<?= $block->getChildHtml('currency'); ?>
+								<?php endif ?>
+							</div>
+						</div>
+                        <div class="menu-right">
+						<span></span>
+                        </div>
+                    <?php endif ?>
+                
+
+                <?php endif ?>
+            </div>
+            
+    </div>
+</div>
+<div class="block-search-header">
+<div class="search-header">
+    <div class="search-popup">
+        <?= $block->getChildHtml('topSearch') ?>
+    </div>
+</div>
+</div>
+<div id="popup-login" class="js-form-hidden">
+    <?php echo $this->getLayout()->createBlock('MGS\ArangiTheme\Block\Login')->setTemplate('Magento_Customer::form/login_copy.phtml')->toHtml() ?>
+	<?php echo $this->getLayout()->createBlock('MGS\ArangiTheme\Block\Register')->setTemplate('Magento_Customer::form/register_copy.phtml')->toHtml() ?>
+</div>
+
+
+<div class="sidebar-content">
+    <span class="sidebar-cancel"></span>
+    <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('about')->toHtml();?>
+    <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('topsale')->toHtml();?>
+    <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('contact')->toHtml();?>
+    <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('social')->toHtml();?>
+</div>
+<div class="opacity-background"></div>
+</div>
+<?php /* Header 3 */ ?>
+<?php elseif($_headerVer == 'header3'): ?>
+    <?php if($themeSettingConfig->getStoreConfig('themesettings/header/display_top_header') && in_array('static3', $blockEnable)): ?>
+        <div class="top-header">
+            <div class="frame">
+                <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('header_custom_static_block_3')->toHtml(); ?>
+            </div>
+        </div>
+    <?php endif ?>
+    <div class="frame">
+	<div class="menu-mobile">
+        <div class="menu-mobile-content">
+            <div class="menu-mobile-icon">
+                <span class="cancel"></span>
+                <div class="logo-mobile"><?= $block->getChildHtml('logo') ?></div>
+                <span class="search-menu"></span>
+            </div>
+
+            <div class="main-menu-mobile">
+
+            </div>
+
+            <div class="menu-mobile-control">
+                <div class="menu-mobile-control-left">
+                    <?php if(in_array('account', $blockEnable)): ?>
+						<?php if($isLoginRegister != 1): ?>
+							<?php if($themeSettingConfig->getStoreConfig('themesettings/header/my_account_type') == 'popup' && $isLogged != 1): ?>
+								<div class="account-header account-popup d-inline-block"> 
+									<a href="javascript:void(0)" data-fancybox="">
+										<i class="icon-user1"></i>
+										<!-- <span class="box-label">Sign in</span> -->
+									</a>
+								</div>
+							<?php else: ?>
+								<div class='account'>
+									<div class="account-logged"><i class="icon-user1"></i></div>
+									<div class="dropdown-account">
+										<?= $block->getChildHtml('login.form.header'); ?>
+									</div>
+								</div>
+							<?php endif ?>
+						<?php endif ?>
+					<?php endif ?>
+                    <div class="action cart-mobile">
+                        <span class="icon-shopping-basket"></span>
+                    </div>
+                    <div class="my-wishlist wishlist action-wishlist"> 
+						<span class="wishlist-icon icon-heart theme-header-icon"></span>
+                    </div>
+                </div>
+                <div class="menu-mobile-control-right">
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="middle-header">
+            <?= $block->getChildHtml('logo') ?>
+            <div class="horizontal-menu<?php if(!$block->getChildHtml('megamenu')): ?> mgt-menu<?php endif ?>">
+                <?php if($block->getChildHtml('megamenu')): ?>
+                    <?= $block->getChildHtml('megamenu') ?>
+                    <?php else: ?>
+                        <?= $block->getChildHtml('store.menu') ?>
+                    <?php endif ?>
+            </div>
+                    <?php if(in_array('minicart', $blockEnable) || in_array('wishlist', $blockEnable) || in_array('search', $blockEnable) || in_array('account', $blockEnable) || in_array('store', $blockEnable) || in_array('curency', $blockEnable) || in_array('static1', $blockEnable) || in_array('static2', $blockEnable)): ?>
+                    <div class="right-control">
+                        <div class="icon-menu-responsive">
+                            <span>
+                            <i class="fa fa-bars" aria-hidden="true"></i>
+                            </span>
+                        </div>
+						
+                       
+                        <?php if(in_array('search', $blockEnable)): ?>
+                            <div class="search-menu"><i class="icon-search"></i></div>
+                        <?php endif ?>
+                        <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('header3_middle_right')->toHtml(); ?>
+                <?php endif ?>
+            </div>
+			
+    </div>
+</div>
+<div class="header-bottom">
+    <div class="header-bottom-container">
+        <div class="header-bottom-search">
+            <?php if(in_array('search', $blockEnable)): ?>
+                <?= $block->getChildHtml('topSearch') ?>
+            <?php endif ?>
+        </div>
+        <div class="header-bottom-control">
+            <?php if(in_array('wishlist', $blockEnable)): ?>
+				<div class="wishlist">
+					<?= $block->getChildHtml('wishlist-link-header') ?>
+				</div>
+			<?php endif; ?>	
+            <div class="addToCart">
+                <?php if(in_array('minicart', $blockEnable)): ?>
+                    <?= $block->getChildHtml('minicart') ?>
+                <?php endif ?>
+            </div>
+            <?php if(in_array('account', $blockEnable)): ?>
+				<?php if($isLoginRegister != 1): ?>
+					<?php if($themeSettingConfig->getStoreConfig('themesettings/header/my_account_type') == 'popup' && $isLogged != 1): ?>
+						<div class="account-popup"><i class="icon-user1"></i><?php echo __(' Sign in ')?></div>
+					<?php else: ?>
+						<div class='account'>
+							<div class="account-logged"><i class="icon-user1"></i><?php echo __(' Account')?></div>
+							<div class="dropdown-account">
+								<?= $block->getChildHtml('login.form.header'); ?>
+							</div>
+						</div>
+					<?php endif ?>
+				<?php endif ?>
+			<?php endif ?>
+        </div>
+        <div class="switcher-language-currency">
+        <?php if(in_array('store', $blockEnable) || in_array('curency', $blockEnable) || in_array('static1', $blockEnable) || in_array('static2', $blockEnable)): ?>
+                        <?php if($settingContentCondition): ?>
+                            <div class="setting-site">
+                                <div class="actions">
+                                    <button class="action setting" type="button"><span class="icon-setting-web theme-header-icon"></span></button>
+                                </div>
+                                <div class="setting-site-content">
+                                    <div class="ct">
+                                        <div class="actions-close">
+                                            <button id="close-setting-site"><span class="icon-cross2"></span></button>
+                                        </div>
+                                        <div class="customer-web-config">
+                                            <?php if(in_array('store', $blockEnable)): ?>
+                                                <?= $block->getChildHtml('store_language'); ?>
+                                            <?php endif ?>
+                                            <?php if(in_array('curency', $blockEnable)): ?>
+                                                <?= $block->getChildHtml('currency'); ?>
+                                            <?php endif ?>
+                                        </div>
+                                        <?php if(in_array('static1', $blockEnable)): ?>
+                                            <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('supro_header_custom_static_block_1')->toHtml(); ?>
+                                        <?php endif ?>
+                                        <?php if(in_array('static2', $blockEnable)): ?>
+                                            <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('supro_header_custom_static_block_2')->toHtml(); ?>
+                                        <?php endif ?>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif ?>
+                    <?php endif ?>
+        </div>
+    </div>
+</div>
+<div class="block-search-header">
+<div class="search-header">
+	<div class="search-popup">
+		
+	</div>
+</div>
+</div>
+<div id="popup-login" class="js-form-hidden">
+<?php echo $this->getLayout()->createBlock('MGS\ArangiTheme\Block\Login')->setTemplate('Magento_Customer::form/login_copy.phtml')->toHtml() ?>
+<?php echo $this->getLayout()->createBlock('MGS\ArangiTheme\Block\Register')->setTemplate('Magento_Customer::form/register_copy.phtml')->toHtml() ?>
+</div>
+
+<div class="opacity-background"></div>
+</div>
+<?php /* Header 4 */ ?>
+<?php elseif($_headerVer == 'header4'): ?>
+    <?php if($themeSettingConfig->getStoreConfig('themesettings/header/display_top_header')): ?>
+		<div class="top-header">
+			<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_top_header_4')->toHtml(); ?>
+		</div>
+	<?php endif ?>
+	<div class="middle-header">
+		<div class="frame">
+			<div class="line conts-middle-header">
+				<div class="col-des-4 hidden-mb">
+					<?php if(in_array('search', $blockEnable)): ?>
+						<?= $block->getChildHtml('topSearch') ?>
+					<?php endif ?>
+				</div>
+				<div class="col-des-4 col-tb-6 col-mb-6">
+					<?= $block->getChildHtml('logo') ?>
+				</div>
+				<div class="col-des-4 col-tb-6 col-mb-6 right-control">
+					<?php if(in_array('account', $blockEnable)): ?>
+						<?php if($isLoginRegister != 1): ?>
+							<?php if($themeSettingConfig->getStoreConfig('themesettings/header/my_account_type') == 'popup' && $isLogged != 1): ?>
+								<div class="account-popup"><i class="icon-user1"></i><span class="text"><?php echo __('Login ')?></span></div>
+							<?php else: ?>
+								<div class='account'>
+									<div class="account-logged"><i class="icon-user1"></i><span class="text"><?php echo __('Account ')?></span></div>
+									<div class="dropdown-account">
+										<?= $block->getChildHtml('login.form.header'); ?>
+									</div>
+								</div>
+							<?php endif ?>
+						<?php endif ?>
+					<?php endif ?>
+					<?php if(in_array('wishlist', $blockEnable)): ?>
+						<div class="wishlist ">
+							<?= $block->getChildHtml('wishlist-link-header') ?>
+						</div>
+					<?php endif ?>
+					<?php if(in_array('minicart', $blockEnable)): ?>
+						<?= $block->getChildHtml('minicart') ?>
+					<?php endif ?>
+					<div class="icon-menu-responsive"><span class="icon-menu"></span></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="bottom-header">
+		<div class="frame">
+			<div class="horizontal-menu<?php if(!$block->getChildHtml('megamenu')): ?> mgt-menu<?php endif ?>">
+				<?php if($block->getChildHtml('megamenu')): ?>
+					<?= $block->getChildHtml('megamenu') ?>
+				<?php else: ?>
+					<?= $block->getChildHtml('store.menu') ?>
+				<?php endif ?>
+			</div>
+		</div>
+	</div>
+	<div class="menu-mobile">
+        <div class="menu-mobile-content">
+            <div class="menu-mobile-icon">
+                <span class="cancel"></span>
+                <div class="logo-mobile"><?= $block->getChildHtml('logo') ?></div>
+                <span class="search-menu"></span>
+            </div>
+
+            <div class="main-menu-mobile">
+
+            </div>
+
+            <div class="menu-mobile-control">
+                <div class="menu-mobile-control-left">
+                    <?php if(in_array('account', $blockEnable)): ?>
+						<?php if($isLoginRegister != 1): ?>
+							<?php if($themeSettingConfig->getStoreConfig('themesettings/header/my_account_type') == 'popup' && $isLogged != 1): ?>
+								<div class="account-header account-popup d-inline-block"> 
+									<a href="javascript:void(0)" data-fancybox="">
+										<i class="icon-user1"></i>
+										<!-- <span class="box-label">Sign in</span> -->
+									</a>
+								</div>
+							<?php else: ?>
+								<div class='account'>
+									<div class="account-logged"><i class="icon-user1"></i></div>
+									<div class="dropdown-account">
+										<?= $block->getChildHtml('login.form.header'); ?>
+									</div>
+								</div>
+							<?php endif ?>
+						<?php endif ?>
+					<?php endif ?>
+                    <div class="action cart-mobile">
+                        <span class="icon-shopping-basket"></span>
+                    </div>
+					<div class="my-wishlist wishlist action-wishlist"> 
+						<span class="wishlist-icon icon-heart theme-header-icon"></span>
+                    </div>
+                </div>
+                <div class="menu-mobile-control-right">
+                    <div class="customer-web-config">
+						<?php if(in_array('store', $blockEnable)): ?>
+							<?= $block->getChildHtml('store_language'); ?>
+						<?php endif ?>
+						<?php if(in_array('curency', $blockEnable)): ?>
+							<?= $block->getChildHtml('currency'); ?>
+						<?php endif ?>
+					</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+	<div class="block-search-header">
+		<div class="search-header popup">
+			<div class="search-popup">
+				
+			</div>
+		</div>
+	</div>
+	<div id="popup-login" class="js-form-hidden">
+		<?php echo $this->getLayout()->createBlock('MGS\ArangiTheme\Block\Login')->setTemplate('Magento_Customer::form/login_copy.phtml')->toHtml() ?>
+		<?php echo $this->getLayout()->createBlock('MGS\ArangiTheme\Block\Register')->setTemplate('Magento_Customer::form/register_copy.phtml')->toHtml() ?>
+	</div>
+
+	<div class="opacity-background"></div>
+</div>
+	<?php /* Header 5 */ ?>
+<?php elseif($_headerVer == 'header5'): ?>
+    <div class="middle-header">
+		<div class="frame">
+			<div class="line conts-middle-header">
+				<div class="col-des-3 col-tb-6 col-mb-6">
+					<?= $block->getChildHtml('logo') ?>
+				</div>
+				<div class="col-des-6 col-tb-hide">
+					<div class="horizontal-menu<?php if(!$block->getChildHtml('megamenu')): ?> mgt-menu<?php endif ?>">
+						<?php if($block->getChildHtml('megamenu')): ?>
+							<?= $block->getChildHtml('megamenu') ?>
+						<?php else: ?>
+							<?= $block->getChildHtml('store.menu') ?>
+						<?php endif ?>
+					</div>
+				</div>
+				<div class="col-des-3 col-tb-5 col-mb-6 right-control">
+					<?php if(in_array('search', $blockEnable)): ?>
+						<div class="search-menu"><i class="icon-search"></i></div>
+					<?php endif ?>
+					<?php if(in_array('wishlist', $blockEnable)): ?>
+						<div class="wishlist ">
+							<?= $block->getChildHtml('wishlist-link-header') ?>
+						</div>
+					<?php endif; ?>	
+					<?php if(in_array('minicart', $blockEnable)): ?>
+						<?= $block->getChildHtml('minicart') ?>
+					<?php endif ?>
+					<?php if(in_array('account', $blockEnable)): ?>
+						<?php if($isLoginRegister != 1): ?>
+							<?php if($themeSettingConfig->getStoreConfig('themesettings/header/my_account_type') == 'popup' && $isLogged != 1): ?>
+								<div class="account-popup"><i class="icon-user1"></i></div>
+							<?php else: ?>
+								<div class='account'>
+									<div class="account-logged"><i class="icon-user1"></i></div>
+									<div class="dropdown-account">
+										<?= $block->getChildHtml('login.form.header'); ?>
+									</div>
+								</div>
+							<?php endif ?>
+						<?php endif ?>
+					<?php endif ?>
+					<?php if(in_array('store', $blockEnable) || in_array('curency', $blockEnable)): ?>
+					<div class='setting-config'>
+						<button class='action action-setting'><i class="icon-setting-web theme-header-icon"></i></button>
+						<div class="customer-web-config">
+							<?php if(in_array('store', $blockEnable)): ?>
+								<?= $block->getChildHtml('store_language'); ?>
+							<?php endif ?>
+							<?php if(in_array('curency', $blockEnable)): ?>
+								<?= $block->getChildHtml('currency'); ?>
+							<?php endif ?>
+						</div>
+					</div>
+					<?php endif ?>
+					<div class="icon-menu-responsive"><span class="icon-menu"></span></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="menu-mobile">
+        <div class="menu-mobile-content">
+            <div class="menu-mobile-icon">
+                <span class="cancel"></span>
+                <div class="logo-mobile"><?= $block->getChildHtml('logo') ?></div>
+                <span class="search-menu"></span>
+            </div>
+
+            <div class="main-menu-mobile">
+
+            </div>
+
+            <div class="menu-mobile-control">
+                <div class="menu-mobile-control-left">
+                    <?php if(in_array('account', $blockEnable)): ?>
+						<?php if($isLoginRegister != 1): ?>
+							<?php if($themeSettingConfig->getStoreConfig('themesettings/header/my_account_type') == 'popup' && $isLogged != 1): ?>
+								<div class="account-header account-popup d-inline-block"> 
+									<a href="javascript:void(0)" data-fancybox="">
+										<i class="icon-user1"></i>
+										<!-- <span class="box-label">Sign in</span> -->
+									</a>
+								</div>
+							<?php else: ?>
+								<div class='account'>
+									<div class="account-logged"><i class="icon-user1"></i></div>
+									<div class="dropdown-account">
+										<?= $block->getChildHtml('login.form.header'); ?>
+									</div>
+								</div>
+							<?php endif ?>
+						<?php endif ?>
+					<?php endif ?>
+                    <div class="action cart-mobile">
+                        <span class="icon-shopping-basket"></span>
+                    </div>
+                    <div class="my-wishlist wishlist action-wishlist"> 
+						<span class="wishlist-icon icon-heart theme-header-icon"></span>
+                    </div>
+                </div>
+                <div class="menu-mobile-control-right">
+                    <div class="customer-web-config">
+					</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+	<div class="block-search-header">
+		<div class="search-header">
+			<div class="search-popup">
+				<?= $block->getChildHtml('topSearch') ?>
+			</div>
+		</div>
+	</div>
+	<div id="popup-login" class="js-form-hidden">
+		<?php echo $this->getLayout()->createBlock('MGS\ArangiTheme\Block\Login')->setTemplate('Magento_Customer::form/login_copy.phtml')->toHtml() ?>
+		<?php echo $this->getLayout()->createBlock('MGS\ArangiTheme\Block\Register')->setTemplate('Magento_Customer::form/register_copy.phtml')->toHtml() ?>
+	</div>
+
+	<div class="opacity-background"></div>
+</div>
+<?php /* Header 6 */ ?>
+<?php elseif($_headerVer == 'header6'): ?>
+    <div class="middle-header">
+		<div class="frame">
+			<div class="line conts-middle-header">
+				<div class="col-des-2 col-tb-6 col-mb-6">
+					<?= $block->getChildHtml('logo') ?>
+				</div>
+				<div class="col-des-8 megamenu-conts col-tb-hide">
+					<div class="horizontal-menu<?php if(!$block->getChildHtml('megamenu')): ?> mgt-menu<?php endif ?>">
+						<?php if($block->getChildHtml('megamenu')): ?>
+							<?= $block->getChildHtml('megamenu') ?>
+						<?php else: ?>
+							<?= $block->getChildHtml('store.menu') ?>
+						<?php endif ?>
+					</div>
+				</div>
+				<div class="col-des-2 col-tb-5 col-mb-6 menu-control">
+					<?php if(in_array('store', $blockEnable) || in_array('curency', $blockEnable)): ?>
+						<div class='setting-config'>
+							<button class='action action-setting'><i class="icon-setting-web theme-header-icon"></i></button>
+							<div class="customer-web-config">
+								<?php if(in_array('store', $blockEnable)): ?>
+									<?= $block->getChildHtml('store_language'); ?>
+								<?php endif ?>
+								<?php if(in_array('curency', $blockEnable)): ?>
+									<?= $block->getChildHtml('currency'); ?>
+								<?php endif ?>
+							</div>
+						</div>
+					<?php endif ?>
+					<?php if(in_array('search', $blockEnable)): ?>
+						<div class="search-menu"><i class="icon-search"></i></div>
+					<?php endif ?>
+					<?php if(in_array('wishlist', $blockEnable)): ?>
+						<div class="wishlist ">
+							<?= $block->getChildHtml('wishlist-link-header') ?>
+						</div>
+					<?php endif; ?>	
+					<?php if(in_array('minicart', $blockEnable)): ?>
+						<?= $block->getChildHtml('minicart') ?>
+					<?php endif ?>
+					<?php if(in_array('account', $blockEnable)): ?>
+						<?php if($isLoginRegister != 1): ?>
+							<?php if($themeSettingConfig->getStoreConfig('themesettings/header/my_account_type') == 'popup' && $isLogged != 1): ?>
+								<div class="account-popup"><i class="icon-user1"></i></div>
+							<?php else: ?>
+								<div class='account'>
+									<div class="account-logged"><i class="icon-user1"></i></div>
+									<div class="dropdown-account">
+										<?= $block->getChildHtml('login.form.header'); ?>
+									</div>
+								</div>
+							<?php endif ?>
+						<?php endif ?>
+					<?php endif ?>
+
+					
+					<div class="icon-menu-responsive"><span class="icon-menu"></span></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="menu-mobile">
+        <div class="menu-mobile-content">
+            <div class="menu-mobile-icon">
+                <span class="cancel"></span>
+                <div class="logo-mobile"><?= $block->getChildHtml('logo') ?></div>
+                <span class="search-menu"></span>
+            </div>
+
+            <div class="main-menu-mobile">
+
+            </div>
+
+            <div class="menu-mobile-control">
+                <div class="menu-mobile-control-left">
+                    <?php if(in_array('account', $blockEnable)): ?>
+						<?php if($isLoginRegister != 1): ?>
+							<?php if($themeSettingConfig->getStoreConfig('themesettings/header/my_account_type') == 'popup' && $isLogged != 1): ?>
+								<div class="account-header account-popup d-inline-block"> 
+									<a href="javascript:void(0)" data-fancybox="">
+										<i class="icon-user1"></i>
+										<!-- <span class="box-label">Sign in</span> -->
+									</a>
+								</div>
+							<?php else: ?>
+								<div class='account'>
+									<div class="account-logged"><i class="icon-user1"></i></div>
+									<div class="dropdown-account">
+										<?= $block->getChildHtml('login.form.header'); ?>
+									</div>
+								</div>
+							<?php endif ?>
+						<?php endif ?>
+					<?php endif ?>
+                    <div class="action cart-mobile">
+                        <span class="icon-shopping-basket"></span>
+                    </div>
+                    <div class="my-wishlist wishlist action-wishlist"> 
+						<span class="wishlist-icon icon-heart theme-header-icon"></span>
+                    </div>
+                </div>
+                <div class="menu-mobile-control-right">
+                    <div class="customer-web-config">
+					</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+	<div class="block-search-header">
+		<div class="search-header">
+			<div class="search-popup">
+				<?= $block->getChildHtml('topSearch') ?>
+			</div>
+		</div>
+	</div>
+	<div id="popup-login" class="js-form-hidden">
+		<?php echo $this->getLayout()->createBlock('MGS\ArangiTheme\Block\Login')->setTemplate('Magento_Customer::form/login_copy.phtml')->toHtml() ?>
+		<?php echo $this->getLayout()->createBlock('MGS\ArangiTheme\Block\Register')->setTemplate('Magento_Customer::form/register_copy.phtml')->toHtml() ?>
+	</div>
+
+	<div class="opacity-background"></div>
+</div>
+<?php endif ?>
+
+<?php // Search Auto Complete ?>
+<?php if($searchType != "icon-popup"): ?>
+    <?= $block->getChildHtml('mgs.instant.search.autocomplete.default') ?>
+<?php endif ?>
+
+<?php /* Bottom Tabs Mobile */ ?>
+<div id="js_mobile_tabs" class="header-mobile-tabs--bottom">
+    <ul>
+       <li>
+          <button class="action-mb-tabs" id="back-home-action" type="button">
+             <span class="icon-building"></span>
+         </button>
+     </li>
+     <li>
+      <button class="action-mb-tabs" id="my-account-action" type="button">
+         <span class="icon-my-account"></span>
+     </button>
+	</li>
+ <li>
+  <button class="action-mb-tabs" data-bind="scope: 'wishlist'" id="wishlist-link-action" type="button">
+     <span class="icon-wishlist"></span>
+     <!-- ko if: wishlist().counter -->
+     <span data-bind="text: wishlist().counter" class="counter qty"></span>
+     <!-- /ko -->
+ </button>
+</li>
+<li>
+  <button class="action-mb-tabs" data-bind="scope: 'minicart_content'" id="cart-top-action" type="button">
+     <span class="icon-cart-top"></span>
+     <span class="counter qty empty"
+     data-bind="css: { empty: !!getCartParam('summary_count') == false }, blockLoader: isLoading">
+     <span class="counter-number"><!-- ko text: getCartParam('summary_count') --><!-- /ko --></span>
+ </span>
+</button>
+</li>
+<?php if($settingContentCondition): ?>
+    <li>
+       <button id="setting-web-action" type="button">
+        <span class="icon-setting-web"></span>
+    </button>
+</li>
+<?php endif ?>
+</ul>
+</div>
+
+
+<script>
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ],
+        function(
+            $,
+            modal
+        ) {
+			
+			$('.account-popup').click(function (){
+                $("#popup-login").removeClass('js-form-hidden');
+                $("#popup-login").addClass('js-form-active');
+				var options = {
+					type: 'popup',
+					responsive: true,
+                    innerScroll: true,
+                    modalClass: 'popup-login-register',
+                    closed: function() {
+                        $("#popup-login").removeClass('js-form-active');
+                        $("#popup-login").addClass('js-form-hidden');
+                    }
+				};
+
+				var popup = modal(options, $('#popup-login'));
+
+				$('#popup-login').modal('openModal');
+				});
+        }
+    );
+</script>
+<script type="text/javascript">
+	require([
+		'jquery',
+	], function(jQuery){
+		(function($) {
+			$(".action.cart-mobile").click(function() {
+				$('.header .minicart-wrapper').addClass('active');
+			});
+		})(jQuery);
+	});
+</script>

@@ -1,0 +1,73 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Customer\Block\Form\Login $block */
+?>
+<?php
+/**
+ * Customer login form template
+ *
+ * @see \Magento\Customer\Block\Form\Login
+ * @var $block \Magento\Customer\Block\Form\Login
+ */
+?>
+
+	<div class="block block-customer-login">
+		<span class="login-cancel" data-role="closeBtn"></span>
+		<div class="block-title">
+			<h3 class="title" id="block-customer-login-heading" role="heading" aria-level="2"><!-- <span class="login"> --><?php /* @escapeNotVerified */ echo __('Login') ?><!-- </span> --></h3>
+		</div>
+		<div class="block-content" aria-labelledby="block-customer-login-heading">
+			<form class="form form-login"
+				action="<?php /* @escapeNotVerified */ echo $block->getPostActionUrl() ?>"
+				method="post"
+				id="login-form"
+				data-mage-init='{"validation":{}}'>
+				<?= $block->getBlockHtml('formkey'); ?>
+				<fieldset class="fieldset login" data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>">
+					<div class="form-group email required">
+						<div class="form-group field">
+							<label for="email" class="label required"><?= __('Email'); ?></label>
+							<div class="control">
+								<input name="login[username]" value="<?= $block->escapeHtml($block->getUsername()) ?>" <?php if ($block->isAutocompleteDisabled()) :?> placeholder="" autocomplete="off"<?php endif; ?> id="email" type="email" class="input-text" title="<?php /* @escapeNotVerified */ echo __('Email') ?>" data-validate="{required:true, 'validate-email':true}">
+							</div>	
+						</div>
+					</div>
+					<div class="form-group password required">
+						<div class="form-group field">
+							<label for="pass" class="label required"><?= __('Password'); ?></label>
+							<div class="control">
+								<input name="login[password]" placeholder="" type="password" <?php if ($block->isAutocompleteDisabled()) :?> autocomplete="off"<?php endif; ?> class="input-text" id="pass" title="<?php /* @escapeNotVerified */ echo __('Password') ?>" data-validate="{required:true}">
+								<span class="show-password"></span>
+							</div>
+						</div>
+					
+						<a class="action remind" href="<?php /* @escapeNotVerified */ echo $block->getForgotPasswordUrl() ?>"><span><?php /* @escapeNotVerified */ echo __('Forgot password?') ?></span></a>
+				</div>
+					<?= $block->getChildHtml('form_additional_info'); ?>
+					<div class="actions-toolbar padding-top10">
+						<button type="submit" class="action login btn btn-primary" name="send" id="send2"><span><?php /* @escapeNotVerified */ echo __('Login') ?></span></button>
+					</div>
+					<div class="login-social">
+						<?php echo $this->getLayout()->createBlock('Magento\Framework\View\Element\Template')->setTemplate('Magento_Customer::social.phtml')->toHtml(); ?>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+
+	<div class="block-us-register">
+		<div class="block-title">
+			<h3 class="title" id="block-customer-login-heading" role="heading" aria-level="2"><!-- <span class="register"> --><?php /* @escapeNotVerified */ echo __('Register Account') ?><!-- </span> --></h3>
+		</div>
+		<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('page_login_register_content')->toHtml() ?>
+		<div class="button-register">
+			<button class="action login btn btn-primary" onClick='window.location =" <?php echo $this->getUrl('customer/account/create'); ?>"'><span><?php echo __('Register')?> </span></button>
+		</div>
+	</div>
+

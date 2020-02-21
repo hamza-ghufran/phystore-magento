@@ -1,0 +1,57 @@
+<?php
+	$product = $block->getProductTopSale();
+	$use_slider = $block->getUseSlider();
+	$item_page = $block->getItemPage();
+	$imageHelper  = $this->helper('\Magento\Catalog\Helper\Image');
+?>
+
+<div class="topsale">
+	<h3 class="topsale_title">Top sale</h3>
+	
+	<div class="topsale__list">
+		<ol>
+			<?php foreach($product as $_product): ?>
+				<li class="topsale_item">
+					<?php
+						$imagewidth=70;
+						$imageheight=85;
+						$image_url = $imageHelper->init($_product, 'product_page_image_small')->setImageFile($_product->getFile())->resize($imagewidth, $imageheight)->getUrl();
+						$product_url = $_product->getProductUrl();
+					?>
+					
+					<a href="<?php echo $product_url; ?>" title="<?php echo $_product->getName() ?>">
+						<img src="<?php echo $image_url; ?>" alt="<?php echo $_product->getName() ?>" />
+					</a>
+					
+					<div class="product__details">
+						<div class="product__details-name">
+							<a href="<?php echo $product_url; ?>" title="<?php echo $_product->getName() ?>"><?php echo $_product->getName() ?></a>
+						</div>
+						<div class="product__details-summary">
+							 <?php 
+								//pass $product object as argument...
+								$_ratingSummary = $block->getRatingSummary($_product);
+							?>
+							<?php if($_ratingSummary): ?>
+							<div class="product-reviews-summary short">
+								<div class="rating-summary">
+									<div title="<?php echo (int)$_ratingSummary; ?>%" class="rating-result">
+										<span style="width:<?php echo (int)$_ratingSummary; ?>%">
+											<span><?php echo (int)$_ratingSummary; ?>%</span>
+										</span>
+									</div>
+								</div>
+							</div>
+							<?php endif; ?>
+						</div>
+					 	<div class="product__details-price">
+							<div><?php echo $block->getProductPrice($_product); ?></div>
+						</div>
+					</div>
+				</li>
+			<?php endforeach; ?>
+		</ol>
+	</div>
+</div>
+
+

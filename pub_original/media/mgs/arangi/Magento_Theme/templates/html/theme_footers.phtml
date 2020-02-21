@@ -1,0 +1,202 @@
+<?php 
+/* 	
+* 	Block Guide
+*	Report Bug: $block->getChildHtml('report.bugs');
+*	Store Swicher: $block->getChildHtml('store_switcher');
+*	Footer Links: $block->getChildHtml('footer_links');
+*	Copyright: $block->getChildHtml('copyright');
+*	Form Subcribe: $block->getChildHtml('form.subscribe');
+*	Static block: 		     $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('your_block_identifier')->toHtml();
+*/
+?>
+
+<?php
+	$themeSettingConfig = $this->helper('MGS\ThemeSettings\Helper\Config');
+	$themeHelper = $this->helper('MGS\Fbuilder\Helper\Data');
+	$footerVer = $themeSettingConfig->getStoreConfig('themesettings/footer/footer_version');
+	$footerParallax = $themeSettingConfig->getStoreConfig('themesettings/footer/parallax');
+	if($footerVer == ''){ $footerVer = 'footer1'; }
+	if($themeSettingConfig->getStoreConfig('themesettings/footer/footer_bottom_custom_copyright')){
+		$copyright = $themeSettingConfig->getStoreConfig('themesettings/footer/footer_bottom_copyright');
+	}else {
+		$copyright = $block->getChildHtml('copyright');
+	}
+?>
+<div class="<?= $footerVer ?><?php if($footerParallax): ?> footer footer-parallax<?php endif ?>">
+	<?php if($footerVer == 'footer1'): ?>
+		<div class="top-footer">
+			<div class="frame footer-newsletter">
+				<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_1_block_newsletter')->toHtml(); ?>
+			</div>
+		</div>
+		<div class="middle-footer">
+			<div class="frame middle-content-top">
+				<div class="footer-block  footer-instagram">
+					<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_1_block_instagram')->toHtml(); ?>
+				</div>
+			</div>
+			<div class="frame">
+				<div class="line">
+					<div class="footer-block acc-block col-des-2 col-tb-3 col-mb-6 col-mb-auto">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_1_block_1')->toHtml(); ?>
+					</div>
+					<div class="footer-block acc-block col-des-2 col-tb-3 col-mb-6 col-mb-auto">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_1_block_2')->toHtml(); ?>
+					</div>
+					<div class="footer-block acc-block col-des-2 col-tb-3 col-mb-6 col-mb-auto">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_1_block_3')->toHtml(); ?>
+					</div>
+					<div class="footer-block acc-block col-des-2 col-tb-3 col-mb-6 col-mb-auto">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_1_block_4')->toHtml(); ?>
+					</div>
+					<div class="footer-block col-des-4 col-tb-12 col-mb-12 block-contact-info">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_1_block_contact_info')->toHtml(); ?>
+					</div>
+					<?php ?>	
+				</div>
+			</div>
+		</div>
+		<div class="bottom-footer">
+			<div class="frame">
+				<div class="line content-bottom">
+					<div class="bottom-footer-copyright col-des-6 col-tb-6 col-mb-12">
+						<?= $copyright ?>
+					</div>
+					<div class="bottom-footer-payment col-des-6 col-tb-6 col-mb-12">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_1_block_payment')->toHtml(); ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	<?php elseif($footerVer == 'footer2'): ?>
+		<div class="middle-footer">
+			<div class="frame">
+				<div class="line">
+					<div class="footer-block col-des-4 col-tb-6 col-mb-12 col-mb-auto mg-bottom">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_2_block_contact_info')->toHtml(); ?>
+					</div>
+					<div class="footer-block col-des-2 col-tb-3 col-mb-6 col-mb-auto mg-bottom">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_1_block_2')->toHtml(); ?>
+					</div>
+					<div class="footer-block col-des-2 col-tb-3 col-mb-6 col-mb-auto mg-bottom">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_1_block_3')->toHtml(); ?>
+					</div>
+					<div class="footer-block footer-instagram col-des-4 col-tb-12 col-mb-12 col-mb-auto mg-bottom">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_2_block_instagram')->toHtml(); ?>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<div class="bottom-footer">
+			<div class="frame">
+				<div class="line content-bottom">
+					<div class="bottom-footer-copyright col-des-6 col-tb-6 col-mb-12">
+						<?= $copyright ?>
+					</div>
+					<div class="bottom-footer-payment col-des-6 col-tb-6 col-mb-12">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_1_block_payment')->toHtml(); ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	<?php elseif($footerVer == 'footer3'): ?>
+		<div class="middle-footer">
+			<div class="frame">
+				<div class="line">
+					<div class="footer-block col-des-4 col-tb-12 col-mb-12 col-mb-auto mg-bottom block-contact-info">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_3_block_contact_info')->toHtml(); ?>
+					</div>
+					<div class="footer-block col-des-2 col-tb-3 col-mb-6 col-mb-auto mg-bottom">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_1_block_3')->toHtml(); ?>
+					</div>
+					<div class="footer-block col-des-2 col-tb-3 col-mb-6 col-mb-auto mg-bottom">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_3_block_products')->toHtml(); ?>
+					</div>
+					<div class="footer-block col-des-2 col-tb-3 col-mb-6 col-mb-auto mg-bottom">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_1_block_2')->toHtml(); ?>
+					</div>
+					<div class="footer-block col-des-2 col-tb-3 col-mb-6 col-mb-auto mg-bottom">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_1_block_4')->toHtml(); ?>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<div class="bottom-footer">
+			<div class="frame bottom-footer-copyright">
+				<?= $copyright ?>
+			</div>
+		</div>
+	
+	<?php elseif($footerVer == 'footer4'): ?>
+		<div class="middle-footer">
+			<div class="frame">
+				<div class="line">
+					<div class="footer-block acc-block col-des-2 col-tb-3 col-mb-6 col-mb-auto">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_1_block_1')->toHtml(); ?>
+					</div>
+					<div class="footer-block acc-block col-des-2 col-tb-3 col-mb-6 col-mb-auto">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_1_block_2')->toHtml(); ?>
+					</div>
+					<div class="footer-block acc-block col-des-2 col-tb-3 col-mb-6 col-mb-auto">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_1_block_3')->toHtml(); ?>
+					</div>
+					<div class="footer-block acc-block col-des-2 col-tb-3 col-mb-6 col-mb-auto">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_1_block_4')->toHtml(); ?>
+					</div>
+					<div class="footer-block col-des-4 col-tb-12 col-mb-12 block-contact-info">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_1_block_contact_info')->toHtml(); ?>
+					</div>
+					<?php ?>	
+				</div>
+			</div>
+		</div>
+		<div class="bottom-footer">
+			<div class="frame">
+				<div class="line content-bottom">
+					<div class="bottom-footer-copyright col-des-6 col-tb-6 col-mb-12">
+						<?= $copyright ?>
+					</div>
+					<div class="bottom-footer-payment col-des-6 col-tb-6 col-mb-12">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_1_block_payment')->toHtml(); ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+	<?php elseif($footerVer == 'footer5'): ?>
+		<div class="middle-footer">
+			<div class="frame">
+				<div class="line">
+					<div class="footer-block col-des-4 col-tb-6 col-mb-12 col-mb-auto mg-bottom">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_2_block_contact_info')->toHtml(); ?>
+					</div>
+					<div class="footer-block col-des-2 col-tb-3 col-mb-6 col-mb-auto mg-bottom">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_1_block_2')->toHtml(); ?>
+					</div>
+					<div class="footer-block col-des-2 col-tb-3 col-mb-6 col-mb-auto mg-bottom">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_1_block_3')->toHtml(); ?>
+					</div>
+					<div class="footer-block footer-block-product col-des-4 col-tb-12 col-mb-12 col-mb-auto mg-bottom">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('block_product_footer')->toHtml(); ?>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<div class="bottom-footer">
+			<div class="frame">
+				<div class="line content-bottom">
+					<div class="bottom-footer-copyright col-des-6 col-tb-6 col-mb-12">
+						<?= $copyright ?>
+					</div>
+					<div class="bottom-footer-payment col-des-6 col-tb-6 col-mb-12">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('arangi_footer_1_block_payment')->toHtml(); ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+	<?php endif ?>
+</div>

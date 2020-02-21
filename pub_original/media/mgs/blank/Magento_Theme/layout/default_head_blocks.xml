@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../vendor/magento/framework/Module/etc/module.xsd">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+		<script src="js/mgs_theme.js"/>
+		<css src="css/linearicons-icons.css" />
+		<css src="css/arangi-font.css" media="all"/>
+		<css src="css/themify-icons.css" />
+
+	</head>
+</page>

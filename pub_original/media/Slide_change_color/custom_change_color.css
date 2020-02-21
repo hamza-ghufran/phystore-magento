@@ -1,0 +1,267 @@
+
+/* color 1*/
+.color1 .header2 .middle-header .horizontal-menu .navigation.mgs-megamenu--main .nav-main-menu > li:hover > a,
+.color1 .header2 .middle-header > .right-control .minicart-wrapper .showcart .counter.qty,
+.color1 .header .setting-config .customer-web-config .switcher .dropdown.options .switcher-trigger,
+.color1 .page-header-sliders .slider_mgs_carousel.owl-carousel .owl-dots .owl-dot.active span,
+.color1 .page-header-sliders .owl-carousel .owl-dots button.owl-dot:hover span,
+.color1  .category-tab-vertical .mgs-product-tab .mgs-tab.product.data.items.tab-style8 > .item.title.active, 
+.color1 .category-tab-vertical .mgs-product-tab .mgs-tab.product.data.items.tab-style8 > .item.title:hover,
+.color1 .btn.btn-primary, .color1 .action.primary,
+.color1 .color-v2 .newsletter-home .form.subscribe .actions .action.subscribe,
+.color1 .color-v2 .newsletter-home .newsletter-social .btn-show-social,
+.color1 .footer.content .middle-footer .footer-block .list-link-footer .item a:before, 
+.color1 .password-strength-meter-1 .password-strength-meter:before,
+.color1 .mgs-products .product-ribbon,
+.color1 .header2 .middle-header > .right-control .wishlist .top-wishlist span.counter.qty,
+.color1 .horizontal-menu .navigation.mgs-megamenu--main .nav-main-menu .menu-2columns.mega-menu-item.static-menu .dropdown-mega-menu li ul > li .label,
+.color1 .wishlist .top-wishlist .block.block-wishlist .actions-toolbar > .primary a.action.details,
+.color1 .block .block-title.title.background-name > strong:after,
+.color1  .label-menu  {
+	background-color: var(--color1);
+	transition: all 0.7s ease;
+    -webkit-transition:all 0.7s ease;
+    -moz-transition: all 0.7s ease;
+    -o-transition: all 0.7s ease;
+}
+.color1 .header2 .middle-header > .right-control > div:not(.setting-site),
+.color1 .header2 .middle-header > .right-control > div:not(.setting-site) .theme-header-icon:before, 
+.color1 .header2 .middle-header > .right-control .minicart-wrapper .showcart .mini-cart .icon-shopping-cart1::before,
+.color1 .horizontal-menu .navigation.mgs-megamenu--main .nav-main-menu > li .dropdown-mega-menu li a:hover,
+.color1 a:hover, .color1 a:focus,
+.color1 header.page-header .header4 .horizontal-menu .navigation.mgs-megamenu--main .nav-main-menu li a i, 
+.color1 .footer.content .footer2 .footer-block .list-contact-info .item .label:before, 
+.color1 .footer.content .middle-footer .footer-block .list-contact-info .item.phone-number .label, 
+.color1 .footer.content .middle-footer .footer-block .list-link-footer .item:hover a,
+.color1 .footer.content .footer2 .footer-block .list-contact-info .item a:hover,
+.color1 .horizontal-menu .navigation.mgs-megamenu--main .nav-main-menu .mega-menu-item.mega-menu-fullwidth .dropdown-mega-menu li .mega-menu-content .level1 .sub-menu li a:hover,
+.color1 .footer.content .middle-footer .footer-block .title-block:hover,
+.color1 .header2 .middle-header > .right-control > div .icon-search,
+.color1 .header2 .middle-header > .right-control > div .account-logged,
+.color1 .header2 .middle-header > .right-control > div button.action.action-setting,
+.color1 .header2 .middle-header > .right-control > div .wishlist-icon,
+.color1 .header2 .middle-header > .right-control > div.account-popup > i  {
+	color:var(--color1);
+	transition: all 0.7s ease;
+    -webkit-transition:all 0.7s ease;
+    -moz-transition: all 0.7s ease;
+    -o-transition: all 0.7s ease;
+}
+
+.color1 .header2 .middle-header > .right-control > div:not(.setting-site),
+.color1 .page-header-sliders .slider_mgs_carousel.owl-carousel .owl-dots .owl-dot,
+.color1 .btn.btn-primary, .color1 .action.primary,
+.color1 .color-v2 .newsletter-home .form.subscribe .actions .action.subscribe,
+.color1 .header2 .middle-header > .right-control > div .icon-search,
+.color1 .header2 .middle-header > .right-control > div .account-logged,
+.color1 .header2 .middle-header > .right-control > div button.action.action-setting,
+.color1 .header2 .middle-header > .right-control > div .wishlist-icon,
+.color1 .header2 .middle-header > .right-control > div.account-popup > i,
+.color1 .horizontal-menu .navigation.mgs-megamenu--main .nav-main-menu .menu-2columns.mega-menu-item.static-menu .dropdown-mega-menu li ul > li .label,
+.color1  .label-menu     {
+	border-color:var(--color1);
+	transition: all 0.7s ease;
+    -webkit-transition:all 0.7s ease;
+    -moz-transition: all 0.7s ease;
+    -o-transition: all 0.7s ease;
+}
+
+/* color 2*/
+
+.color2 .header2 .middle-header .horizontal-menu .navigation.mgs-megamenu--main .nav-main-menu > li:hover > a,
+.color2 .header2 .middle-header > .right-control .minicart-wrapper .showcart .counter.qty,
+.color2 .header .setting-config .customer-web-config .switcher .dropdown.options .switcher-trigger,
+.color2 .page-header-sliders .slider_mgs_carousel.owl-carousel .owl-dots .owl-dot.active span,
+.color2 .page-header-sliders  .owl-carousel .owl-dots button.owl-dot:hover span, 
+.color2  .category-tab-vertical .mgs-product-tab .mgs-tab.product.data.items.tab-style8 > .item.title.active, 
+.color2 .category-tab-vertical .mgs-product-tab .mgs-tab.product.data.items.tab-style8 > .item.title:hover,
+.color2 .btn.btn-primary, .color2 .action.primary,
+.color2 .color-v2 .newsletter-home .form.subscribe .actions .action.subscribe,
+.color2 .color-v2 .newsletter-home .newsletter-social .btn-show-social ,
+.color2 .footer.content .middle-footer .footer-block .list-link-footer .item a:before, 
+.color2 .password-strength-meter-1 .password-strength-meter:before,
+.color2 .mgs-products .product-ribbon,
+.color2 .header2 .middle-header > .right-control .wishlist .top-wishlist span.counter.qty,
+.color2 .horizontal-menu .navigation.mgs-megamenu--main .nav-main-menu .menu-2columns.mega-menu-item.static-menu .dropdown-mega-menu li ul > li .label,
+.color2 .wishlist .top-wishlist .block.block-wishlist .actions-toolbar > .primary a.action.details,
+.color2 .block .block-title.title.background-name > strong:after ,
+.color2 .label-menu  {
+	background-color: var(--color2);
+	transition: all 0.7s ease;
+    -webkit-transition:all 0.7s ease;
+    -moz-transition: all 0.7s ease;
+    -o-transition: all 0.7s ease;
+}
+
+.color2 .header2 .middle-header > .right-control > div:not(.setting-site),
+.color2 .header2 .middle-header > .right-control > div:not(.setting-site) .theme-header-icon:before,
+.color2 .header2 .middle-header > .right-control .minicart-wrapper .showcart .mini-cart .icon-shopping-cart1::before,
+.color2 .horizontal-menu .navigation.mgs-megamenu--main .nav-main-menu > li .dropdown-mega-menu li a:hover,
+.color2 a:hover, .color2 a:focus,
+.color2 header.page-header .header4 .horizontal-menu .navigation.mgs-megamenu--main .nav-main-menu li a i, 
+.color2 .footer.content .footer2 .footer-block .list-contact-info .item .label:before, 
+.color2 .footer.content .middle-footer .footer-block .list-contact-info .item.phone-number .label, 
+.color2 .footer.content .middle-footer .footer-block .list-link-footer .item:hover a,
+.color2 .footer.content .footer2 .footer-block .list-contact-info .item a:hover,
+.color2 .horizontal-menu .navigation.mgs-megamenu--main .nav-main-menu .mega-menu-item.mega-menu-fullwidth .dropdown-mega-menu li .mega-menu-content .level1 .sub-menu li a:hover,
+.color2 .footer.content .middle-footer .footer-block .title-block:hover , 
+.color2 .header2 .middle-header > .right-control > div .icon-search,
+.color2 .header2 .middle-header > .right-control > div .account-logged,
+.color2 .header2 .middle-header > .right-control > div button.action.action-setting,
+.color2 .header2 .middle-header > .right-control > div .wishlist-icon,
+.color2 .header2 .middle-header > .right-control > div.account-popup > i    {
+	color:var(--color2);
+	transition: all 0.7s ease;
+    -webkit-transition:all 0.7s ease;
+    -moz-transition: all 0.7s ease;
+    -o-transition: all 0.7s ease;
+}
+.color2 .header2 .middle-header > .right-control > div:not(.setting-site),
+.color2 .page-header-sliders .slider_mgs_carousel.owl-carousel .owl-dots .owl-dot,
+.color2 .btn.btn-primary, .color2 .action.primary,
+.color2 .color-v2 .newsletter-home .form.subscribe .actions .action.subscribe,
+.color2 .header2 .middle-header > .right-control > div .icon-search,
+.color2 .header2 .middle-header > .right-control > div .account-logged,
+.color2 .header2 .middle-header > .right-control > div button.action.action-setting,
+.color2 .header2 .middle-header > .right-control > div .wishlist-icon,
+.color2 .header2 .middle-header > .right-control > div.account-popup > i,
+.color2 .horizontal-menu .navigation.mgs-megamenu--main .nav-main-menu .menu-2columns.mega-menu-item.static-menu .dropdown-mega-menu li ul > li .label ,
+.color2  .label-menu    {
+	border-color:var(--color2);
+	transition: all 0.7s ease;
+    -webkit-transition:all 0.7s ease;
+    -moz-transition: all 0.7s ease;
+    -o-transition: all 0.7s ease;
+}
+/* color 3*/
+
+.color3 .header2 .middle-header .horizontal-menu .navigation.mgs-megamenu--main .nav-main-menu > li:hover > a,
+.color3 .header2 .middle-header > .right-control .minicart-wrapper .showcart .counter.qty,
+.color3 .header .setting-config .customer-web-config .switcher .dropdown.options .switcher-trigger, 
+.color3 .page-header-sliders .slider_mgs_carousel.owl-carousel .owl-dots .owl-dot.active span,
+.color3 .page-header-sliders  .owl-carousel .owl-dots button.owl-dot:hover span,
+.color3  .category-tab-vertical .mgs-product-tab .mgs-tab.product.data.items.tab-style8 > .item.title.active, 
+.color3 .category-tab-vertical .mgs-product-tab .mgs-tab.product.data.items.tab-style8 > .item.title:hover,
+.color3 .btn.btn-primary, .color3 .action.primary,
+.color3 .color-v2 .newsletter-home .form.subscribe .actions .action.subscribe,
+.color3 .color-v2 .newsletter-home .newsletter-social .btn-show-social,
+.color3 .footer.content .middle-footer .footer-block .list-link-footer .item a:before, 
+.color3 .password-strength-meter-1 .password-strength-meter:before,
+.color3 .mgs-products .product-ribbon,
+.color3 .header2 .middle-header > .right-control .wishlist .top-wishlist span.counter.qty,
+.color3 .horizontal-menu .navigation.mgs-megamenu--main .nav-main-menu .menu-2columns.mega-menu-item.static-menu .dropdown-mega-menu li ul > li .label,
+.color3 .wishlist .top-wishlist .block.block-wishlist .actions-toolbar > .primary a.action.details,
+.color3 .block .block-title.title.background-name > strong:after ,
+.color3  .label-menu   {
+	background-color: var(--color3);	
+	transition: all 0.7s ease;
+    -webkit-transition:all 0.7s ease;
+    -moz-transition: all 0.7s ease;
+    -o-transition: all 0.7s ease;
+}
+.color3 .header2 .middle-header > .right-control > div:not(.setting-site),
+.color3 .header2 .middle-header > .right-control > div:not(.setting-site) .theme-header-icon:before,
+.color3 .header2 .middle-header > .right-control .minicart-wrapper .showcart .mini-cart .icon-shopping-cart1::before,
+.color3 .horizontal-menu .navigation.mgs-megamenu--main .nav-main-menu > li .dropdown-mega-menu li a:hover,
+.color3 a:hover, .color3 a:focus,
+.color3 header.page-header .header4 .horizontal-menu .navigation.mgs-megamenu--main .nav-main-menu li a i, 
+.color3 .footer.content .footer2 .footer-block .list-contact-info .item .label:before, 
+.color3 .footer.content .middle-footer .footer-block .list-contact-info .item.phone-number .label, 
+.color3 .footer.content .middle-footer .footer-block .list-link-footer .item:hover a,
+.color3 .footer.content .footer2 .footer-block .list-contact-info .item a:hover,
+.color3 .horizontal-menu .navigation.mgs-megamenu--main .nav-main-menu .mega-menu-item.mega-menu-fullwidth .dropdown-mega-menu li .mega-menu-content .level1 .sub-menu li a:hover,
+.color3 .footer.content .middle-footer .footer-block .title-block:hover,
+.color3 .header2 .middle-header > .right-control > div .icon-search,
+.color3 .header2 .middle-header > .right-control > div .account-logged,
+.color3 .header2 .middle-header > .right-control > div button.action.action-setting,
+.color3 .header2 .middle-header > .right-control > div .wishlist-icon,
+.color3 .header2 .middle-header > .right-control > div.account-popup > i     {
+	color:var(--color3);
+	transition: all 0.7s ease;
+    -webkit-transition:all 0.7s ease;
+    -moz-transition: all 0.7s ease;
+    -o-transition: all 0.7s ease;
+}
+.color3 .header2 .middle-header > .right-control > div:not(.setting-site),
+.color3 .page-header-sliders .slider_mgs_carousel.owl-carousel .owl-dots .owl-dot,
+.color3 .btn.btn-primary, .color3 .action.primary,
+.color3 .color-v2 .newsletter-home .form.subscribe .actions .action.subscribe,
+.color3 .header2 .middle-header > .right-control > div .icon-search,
+.color3 .header2 .middle-header > .right-control > div .account-logged,
+.color3 .header2 .middle-header > .right-control > div button.action.action-setting,
+.color3 .header2 .middle-header > .right-control > div .wishlist-icon,
+.color3 .header2 .middle-header > .right-control > div.account-popup > i,
+.color3 .horizontal-menu .navigation.mgs-megamenu--main .nav-main-menu .menu-2columns.mega-menu-item.static-menu .dropdown-mega-menu li ul > li .label,
+.color3  .label-menu      {
+	border-color:var(--color3);
+	transition: all 0.7s ease;
+    -webkit-transition:all 0.7s ease;
+    -moz-transition: all 0.7s ease;
+    -o-transition: all 0.7s ease;
+}
+
+/* background opacity */
+.color1 .category-tab-v2, 
+.color1 .newslletr-bg-v2,
+.color1 .header .setting-config .customer-web-config .switcher,
+.color1 .product-image-wrapper {
+	background-color: var(--color1opacity2);
+	transition: all 0.7s ease;
+    -webkit-transition:all 0.7s ease;
+    -moz-transition: all 0.7s ease;
+    -o-transition: all 0.7s ease;
+} 
+.color2 .category-tab-v2,
+.color2 .newslletr-bg-v2,
+.color2 .header .setting-config .customer-web-config .switcher,
+.color2 .product-image-wrapper{
+	background-color: var(--color2opacity2);
+	transition: all 0.7s ease;
+    -webkit-transition:all 0.7s ease;
+    -moz-transition: all 0.7s ease;
+    -o-transition: all 0.7s ease;
+} 
+.color3 .category-tab-v2,
+.color3 .newslletr-bg-v2,
+.color3 .header .setting-config .customer-web-config .switcher,
+.color3 .product-image-wrapper{
+	background-color: var(--color3opacity2);
+	transition: all 0.7s ease;
+    -webkit-transition:all 0.7s ease;
+    -moz-transition: all 0.7s ease;
+    -o-transition: all 0.7s ease;
+} 
+/* background opacity 0.3*/
+.color1 .deals-product .deals-products-block .mgs-deals-products {
+	background-color: var(--color1opacity3);
+	transition: all 0.7s ease;
+    -webkit-transition:all 0.7s ease;
+    -moz-transition: all 0.7s ease;
+    -o-transition: all 0.7s ease;
+}
+.color2 .deals-product .deals-products-block .mgs-deals-products {
+	background-color: var(--color2opacity3);
+	transition: all 0.7s ease;
+    -webkit-transition:all 0.7s ease;
+    -moz-transition: all 0.7s ease;
+    -o-transition: all 0.7s ease;	
+}
+.color3 .deals-product .deals-products-block .mgs-deals-products {
+	background-color: var(--color3opacity3);
+	transition: all 0.7s ease;
+    -webkit-transition:all 0.7s ease;
+    -moz-transition: all 0.7s ease;
+    -o-transition: all 0.7s ease;
+}
+
+
+
+
+
+
+
+
+
+
+
+

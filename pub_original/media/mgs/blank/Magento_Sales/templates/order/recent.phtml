@@ -1,0 +1,56 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile	
+
+?>
+<div class="block block-dashboard-orders">
+<?php $_orders = $block->getOrders(); ?>
+    <div class="block-title order">
+        <strong><?php /* @escapeNotVerified */ echo __('Recent Orders') ?></strong>
+    </div>
+    <div class="block-content">
+    <?= $block->getChildHtml()?>
+    <?php if (sizeof($_orders->getItems()) > 0): ?>
+        <div class="table-wrapper orders-recent">
+            <table class="data table table-order-items recent" id="my-orders-table">
+                <caption class="table-caption"><?php /* @escapeNotVerified */ echo __('Recent Orders') ?></caption>
+                <thead>
+                    <tr>
+						<th scope="col" class="col id"><?php /* @escapeNotVerified */ echo __('Order #') ?></th>
+                        <th scope="col" class="col date"><?php /* @escapeNotVerified */ echo __('Date') ?></th>
+                        <th scope="col" class="col status"><?php /* @escapeNotVerified */ echo __('Status') ?></th>
+						<th scope="col" class="col total"><?php /* @escapeNotVerified */ echo __('Order Total') ?></th>
+                        <th scope="col" class="col actions"><?php /* @escapeNotVerified */ echo __('') ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($_orders as $_order): ?>
+                        <tr>
+							<td data-th="<?= $block->escapeHtml(__('Order #')) ?>" class="col id"><?php /* @escapeNotVerified */ echo $_order->getRealOrderId() ?></td>
+                            <td data-th="<?= $block->escapeHtml(__('Date')) ?>" class="col date"><?php /* @escapeNotVerified */ echo $block->formatDate($_order->getCreatedAt()) ?></td>
+							<td data-th="<?= $block->escapeHtml(__('Status')) ?>" class="col status"><?php /* @escapeNotVerified */ echo $_order->getStatusLabel() ?></td>
+						    <td data-th="<?= $block->escapeHtml(__('Order Total')) ?>" class="col total"><?php /* @escapeNotVerified */ echo $_order->formatPrice($_order->getGrandTotal()) ?></td>
+                           <td data-th="<?= $block->escapeHtml(__('Actions')) ?>" class="col actions">
+                                <a href="<?php /* @escapeNotVerified */ echo $block->getViewUrl($_order) ?>" class="action view order-primary">
+                                    <span><?php /* @escapeNotVerified */ echo __('View Order') ?></span>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+	<?php else: ?>
+		<div class="message info empty"><span><?php /* @escapeNotVerified */ echo __('You have placed no orders.'); ?></span></div>
+	<?php endif; ?>
+    </div>
+	<?php if (sizeof($_orders->getItems()) > 0): ?>
+		<a class="action view view-order" href="<?php /* @escapeNotVerified */ echo $block->getUrl('sales/order/history') ?>">
+			<span><?php /* @escapeNotVerified */ echo __('View All Orders History') ?></span>
+		</a>
+	<?php endif; ?>
+</div>

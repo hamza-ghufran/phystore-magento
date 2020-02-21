@@ -1,0 +1,111 @@
+<?php $portfolio = $this->getPortfolio(); ?>
+<?php $portfolioHelper = $this->helper('MGS\Portfolio\Helper\Data'); ?>
+<?php 
+	$portfolios = $this->getCurrentPortfolios();
+?>
+<div class="portfolio-title">
+	<h1 class="title"><?php echo $portfolio->getName();?></h1>
+</div>
+
+<div class="portfolio-view">
+	<div class="portfolio-details">
+		<div class="portfolio-image">
+			<?php $galleryArray = $this->getBaseImage($portfolio); ?>
+			<?php if($galleryArray): ?>
+				<?php foreach($galleryArray as $_img): ?>
+					<img id="base_img" src="<?php echo $_img; ?>" alt="" class="img-fluid"/>
+					<?php break; ?>
+				<?php endforeach ?>
+			<?php endif ?>
+		</div>
+		<div class="portfolio-view-content">
+			<div class="portfolio-info">
+				<div class="portfolio-datetime">
+					<div class="date">
+						<?php $date = $portfolio->getPortfolioDate() ?>
+						<?php if($date != ''): ?>
+							<span><?php echo date('F d, Y', strtotime($date))?></span>
+						<?php endif ?>
+					</div>
+					<div class="category">
+						<?php $categoryLinks = $this->getCategoriesLink($portfolio) ?>
+						<?php if($categoryLinks != ''): ?>
+							<span><?php echo $categoryLinks ?></span>
+						<?php endif ?>
+					</div>
+				</div>
+				<div class="sharethis">
+					<span class="text-color"><?php echo __('Share:')?></span><span><?php echo $block->getChildHtml('sharethis.html');?></span>
+				</div>
+			</div>
+			<div class="description">
+				<?php echo $portfolioHelper->generateContentFilter($portfolio->getDescription()) ?>
+			</div>
+		</div>
+	</div>
+	<?php // Related Portfolio ?>
+	<?php $relatedPortfolio = $this->getRelatedPortfolio($portfolio) ?>
+	<?php if (count($relatedPortfolio) > 0): ?>
+		<div class="portfolio-related detail-page-grid-products">
+			<div class="content-heading">
+				<h2 class="title"><?php echo __('Related Works') ?></h2>
+			</div>
+			<div class="row-owl-carousel portfolio-content-grid">
+				<div class="owl-carousel portfolio-widget portfolio-carousel one-row portfolio-container" id="portfolio_carousel">
+					<?php foreach ($relatedPortfolio as $_portfolio): ?>
+						<div class="item">
+							<div class="item-inner">
+								<div class="image portfolio-top-content">
+									<?php $thumbnailUrl = $this->getThumbnailSrc($_portfolio) ?>
+									<?php $portfolioUrl = $this->getPortfolioAddress($_portfolio) ?>
+									<?php if($thumbnailUrl): ?>
+										<a class="port-thumbnail-image" href="<?php echo $portfolioUrl; ?>" style="background-image:url('<?php echo $thumbnailUrl; ?>');"><img src=" <?php echo $thumbnailUrl?>" alt="" class="img-fluid"/></a>
+									<?php endif ?>
+								</div>
+								<div class="portfolio-bottom-content">
+									<h4 class="port-title"><a href="<?php echo $portfolioUrl; ?>"><?php echo $portfolio->getName() ?></a></h4>
+									<div class="category-link"><?php echo $block->getCategoriesLink($portfolio)?></div>
+								</div>
+							</div>
+						</div>
+					<?php endforeach ?>
+				</div>
+			</div>
+			<script type="text/javascript">
+				require([
+					'jquery',
+					'mgsowlcarousel'
+				], function (jQuery) {
+					(function ($) {
+						$("#portfolio_carousel").owlCarousel({
+							items: 3,
+							margin: 30 ,
+							autoplay: true,
+							autoplayHoverPause: true,
+							nav: false,
+							dots: true,
+							loop: true,
+							rtl: false,
+							navText: ["<i class='ti-arrow-left'></i>","<i class='ti-arrow-right'></i>"],
+							responsive:{
+								0:{
+									items:1,
+								},
+								768:{
+									items:2,
+								},
+								992:{
+									items:3,
+								}
+							}
+						});
+					})(jQuery);
+				});
+				
+			</script>
+		</div>
+	<?php endif ?>
+</div>
+
+
+

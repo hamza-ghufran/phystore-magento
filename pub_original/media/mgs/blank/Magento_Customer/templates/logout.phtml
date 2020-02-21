@@ -1,0 +1,20 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<div class="logout-success">
+	<h3 class="title"><?php /* @escapeNotVerified */ echo __('You are signed out') ?></h3>
+	<p><?php /* @escapeNotVerified */ echo __('You have signed out and will go to our homepage in 5 seconds.') ?></p>
+</div>
+<script>
+require([
+    "jquery",
+    "mage/mage"
+], function($){
+
+    $($.mage.redirect("<?php /* @escapeNotVerified */ echo $block->getUrl() ?>", "assign", 5000));
+
+});
+</script>

@@ -1,0 +1,17 @@
+<?php 
+/* 	
+* 	Block Guide
+*	Copyright: $block->getChildHtml('checkout.copyright');
+*/
+?>
+
+<?php
+	$themeSettingConfig = $this->helper('MGS\ThemeSettings\Helper\Config');
+?>
+<div class="footer-copyright">
+	<?php if($themeSettingConfig->getStoreConfig('themesettings/footer/footer_bottom_custom_copyright')==1):?>
+		<?= $themeSettingConfig->getStoreConfig('themesettings/footer/footer_bottom_copyright') ?>
+	<?php else: ?>
+		<?= $block->getChildHtml('checkout.copyright'); ?>
+	<?php endif ?>
+</div>

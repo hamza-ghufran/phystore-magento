@@ -1,0 +1,139 @@
+// /**
+//  * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+	.message {
+		&.info,
+		&.error,
+		&.warning,
+		&.notice,
+		&.success {
+			font-size: 1rem;
+			display: block;
+			padding: 16px 40px 15px;
+			border-radius: 4px;
+			position: fixed;
+			right: 0;
+			top: 60px;
+			z-index: 999;
+			left: 0;
+			> *:first-child:before {
+				font-family: "Linearicons";
+				position: absolute;
+				font-size: 18px;
+				left: 13px;
+				top: 50%;
+				transform: translateY(-50%);
+				-moz-transform: translateY(-50%);
+				-webkit-transform: translateY(-50%);
+				-ms-transform: translateY(-50%);
+			}
+			.close {
+			    position: absolute;
+				cursor: pointer;
+				right: 13px;
+				top: 50%;
+				transform: translateY(-50%);
+				-moz-transform: translateY(-50%);
+				-webkit-transform: translateY(-50%);
+				-ms-transform: translateY(-50%);
+				&:before {
+					content: "\e935";
+					font-family: "Linearicons";
+					font-size: 16px;
+				}
+			}
+		}
+		&.info {
+			color: #0c5460;
+			background-color: #d1ecf1;
+			> *:first-child:before {
+				content: "\e691";
+			}
+		}
+		&.error {
+            color: #721c24;
+			background-color: #f8d7da;
+			> *:first-child:before {
+				content: "\e954";
+			}
+		}
+		&.warning {
+			color: #856404;
+			background-color: #fff3cd;
+			> *:first-child:before {
+				content: "\e955";
+			}
+		}
+		&.notice {
+            background: #fdf0d5;
+			color: #6f4400;
+			> *:first-child:before {
+				content: "\e956";
+			}
+		}
+		&.success {
+			background-color: #ceecce;
+			color: #006400;
+			> *:first-child:before {
+				content: "\e959";
+			}
+		}
+	}
+	
+	.rtl-theme .message {
+		&.info,
+		&.error,
+		&.warning,
+		&.notice,
+		&.success {
+			> *:first-child:before {
+				left: auto;
+				right: 13px;
+			}
+			.close {
+				left: 13px;
+				right: auto;
+			}
+		}
+	}
+	
+	.column.main,
+	.sidebar {
+		.message {
+			&.info,
+			&.error,
+			&.warning,
+			&.notice,
+			&.success {
+				position: relative;
+				max-width: 100%;
+				left: auto;
+				right: auto;
+				top: auto;
+			}
+		}
+	}
+	
+}
+
+& when (@media-common = false) {
+	.message {
+		&.info,
+		&.error,
+		&.warning,
+		&.notice,
+		&.success {
+			max-width: 400px;
+			left: auto;
+			right: 100px;
+			top: 100px;
+		}
+	}
+}

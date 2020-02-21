@@ -1,0 +1,425 @@
+@account-nav-background: @sidebar__background-color;
+@account-nav-color: false;
+
+@account-nav-current-border: 3px solid transparent;
+@account-nav-current-border-color: @color-orange-red1;
+@account-nav-current-color: false;
+@account-nav-current-font-weight: @font-weight__semibold;
+
+@account-nav-item-hover: @color-gray91;
+
+@_password-default: @color-gray-light01;
+@_password-weak: #ffafae;
+@_password-medium: #ffd6b3;
+@_password-strong: #c5eeac;
+@_password-very-strong: #81b562;
+
+/* style login form */
+
+& when (@media-common = true) {
+    .customer-account-login {
+        .login-container {
+            >div {
+                width: 100%;
+                height: auto;
+            }
+            .block-customer-login {
+                .block-title {
+                    .title {
+                        margin: 0 !important;
+                        .login {
+                            font-weight: 600;
+                            text-transform: uppercase;
+                        }
+                    }
+                }
+                .block-content {
+                    .form-login {
+                        .form-group {
+                            .block-content {
+                                .control {
+                                    input[type="email"] {
+                                        background: none;
+                                        padding-left: 10px;
+                                        font-weight: 400;
+                                        font-size: 15px;
+                                        color: #f8c0ca;
+                                        max-height: 35px !important;
+                                    }
+                                    position: relative;
+                                    margin-bottom: 25px;
+                                    margin-top: 5px;
+                                }
+                            }
+                            .action {
+                                font-weight: 400;
+                                font-size: 0.9375rem;
+                                color: #797476;
+                            }
+                            margin-bottom: 16px;
+                        }
+                        .choice {
+                            margin-bottom: 15px;
+                        }
+                        .login-social {
+                            padding-top: 15px;
+                            ul {
+                                display: flex;
+                                li {
+                                    margin: 0 !important;
+                                    padding: 0 10px;
+									&:first-child {
+										padding-left: 0;
+									}
+                                }
+                            }
+                        }
+                    }
+                }
+                margin-bottom: 20px;
+            }
+            .block-us-register {
+                .block-title {
+                    .title {
+                        margin: 0;
+                    }
+                    .register {
+                        font-weight: 600;
+                        font-size: 1.875rem; 
+                        text-transform: uppercase;
+                    }
+                }
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                p {
+                    margin-top: 0;
+                }
+            }
+			.block-title {
+				margin-bottom:20px;
+			}
+        }
+    }
+    .login-container {
+        .block-us-register {
+            >a {
+                text-align: center;
+            }
+        }
+    }
+}
+
+& when (@media-common = false) {
+    .login-container {
+		display: flex;
+		.block-customer-login {
+			max-width: 50%;
+		}
+		.block-us-register {
+			max-width: 50%;
+			padding: 0 20px;
+		}
+	}
+	.customer-account-login {
+		.login-container {
+			.block-customer-login {
+                padding: 0 20px;
+				.block-content {
+					.form-login {
+						.actions-toolbar {
+							margin-left: 0;
+							margin-top: 30px;
+						}
+					}
+				}
+			}
+
+            .block-us-register {
+                p {
+                    margin-top: 22px;
+                }
+				.button-register {
+					margin-top: 30px;
+				}
+            }
+		}
+	}
+}
+
+/* style register form */
+
+& when (@media-common = true) {
+    .customer-account-create {
+        .register-container-base {
+            .block-title {
+                margin-bottom:20px;
+                .title {
+                    margin: 0 !important;
+                    .register {
+                        font-weight: 600;
+                        line-height: 60px;
+                        text-transform: uppercase;
+                    }
+                }
+            }
+            .form-create-account {
+                .fieldset {
+                    .password {
+                        .control {
+                            .password-strength-meter {
+                                font-weight: 400;
+                                font-size: 0.9375rem;
+                            }
+                        }
+                    }
+
+                    .newsletter {
+                        margin-top: 16px;
+                    }
+                }
+                .fieldset.account {
+                    margin-top: 30px;
+                    .legend {
+                        span {
+                          font-weight: 500;
+                          font-size: 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+& when (@media-common = false) {
+    .customer-account-create {
+		.register-container-base {
+			.form-create-account {
+				.fieldset {
+					.password {
+						.field-name-firstname {
+							max-width: 49%;
+						}
+					}
+					.account-information {
+						display: flex;
+						width: 100%;
+						justify-content: space-between;
+						.field-name-firstname {
+							max-width: 49%;
+							width: 49%;
+						}
+						.field-name-lastname {
+							max-width: 49%;
+							width: 49%;
+						}
+						>div {
+							margin: 0;
+						}
+					}
+				}
+				.actions-toolbar {
+					margin: 30px 0 0 0;
+					justify-content: flex-start;
+				}
+			}
+		}
+	}
+}
+
+/* style forget password */
+
+& when (@media-common = true) {
+    .customer-account-forgotpassword {
+        .block-customer-forgot-password {
+            .block-title {
+                .title {
+                    span {
+                        font-weight: 600;
+                        line-height: 60px;
+                        text-transform: uppercase;
+                    }
+                }
+            }
+            .password {
+                .fieldset {
+                    .field.note {
+                        font-size: 15px;
+                    }
+                    .field.email {
+                        .label {
+                            font-weight: 400;
+                            font-size: 0.9375rem;
+                            margin: 0 0 6px;
+                            display: inline-block;
+                        }
+                        .control {
+                            input {
+                                border-width: 1px;
+                                border-style: solid;
+                                border-color: #d7d7d7;
+                                border-radius: 1px;
+                                font-weight: 400;
+                                height: 3rem;
+                                font-size: 1rem;
+                                padding: 0 1rem;
+                                box-shadow: none;
+                                max-height: none !important;
+                            }
+                        }
+                    }
+                }
+            }
+            .actions-toolbar {
+                margin-top: 20px;
+                .primary {
+                    padding-top: 10px;
+                    float: none;
+                }
+                .secondary {
+                    padding-top: 10px;
+                    height: auto;
+                    float: none;
+                    .action.back {
+                        width: 100%;
+                        margin: 0;
+                        display: inline-block;
+                    }
+                }
+            }
+        }
+    }
+}
+
+& when (@media-common = false) {
+    .customer-account-forgotpassword {
+		.block-customer-forgot-password {
+			.actions-toolbar {
+				margin-left: 0 !important;
+				margin-top: 20px;
+				display: flex;
+			}
+		}
+	}
+}
+
+/* style general */
+
+& when (@media-common = true) {
+    ._has-datepicker~.ui-datepicker-trigger:before {
+        -webkit-font-smoothing: antialiased;
+        font-size: 23px;
+        line-height: 23px;
+        color: #7d7d7d;
+        content: '\f073';
+        font-family: 'fontAwesome';
+        vertical-align: middle;
+        display: inline-block;
+        font-weight: normal;
+        overflow: hidden;
+        speak: none;
+        text-align: center;
+    }
+
+    ._has-datepicker~.ui-datepicker-trigger {
+        background-image: none;
+        background: none;
+        -moz-box-sizing: content-box;
+        border: 0;
+        box-shadow: none;
+        line-height: inherit;
+        margin: 0;
+        padding: 0;
+        text-shadow: none;
+        font-weight: 400;
+        display: block;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: -4px;
+        vertical-align: middle;
+        cursor: pointer;
+    }
+
+    ._has-datepicker~.ui-datepicker-trigger>span {
+        border: 0;
+        clip: rect(0, 0, 0, 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+
+    input#dob {
+        margin-right: 10px;
+        width: calc(100% - 33px);
+    }
+
+    /* style lengt password */
+
+    .field.password .control {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .field.password .control .input-text {
+        -ms-flex-order: 0;
+        -webkit-order: 0;
+        order: 0;
+    }
+
+    .mage-error {
+        -ms-flex-order: 2;
+        -webkit-order: 2;
+        order: 2;
+        display: block;
+        margin-top: 7px;
+    }
+
+    .password-strength-meter {
+        background-color: #eaeaea;
+        height: 32px;
+        line-height: 32px;
+        padding: 0 9px;
+        position: relative;
+        z-index: 1;
+    }
+
+    div.mage-error[generated] {
+        color: #e02b27;
+        font-size: 0.8rem !important;
+    }
+
+    .password-strength-meter:before {
+        content: '';
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        z-index: -1;
+    }
+
+
+    .password-strength-meter-1 .password-strength-meter:before {
+        background-color: #ffafae;
+        width: 25%;
+    }
+
+    .password-strength-meter-2 .password-strength-meter:before {
+        background-color: #ffd6b3;
+        width: 50%;
+    }
+
+    .password-strength-meter-3 .password-strength-meter:before {
+        background-color: #c5eeac;
+        width: 75%;
+    }
+
+    .password-strength-meter-4 .password-strength-meter:before {
+        background-color: #81b562;
+        width: 100%;
+    }
+
+}

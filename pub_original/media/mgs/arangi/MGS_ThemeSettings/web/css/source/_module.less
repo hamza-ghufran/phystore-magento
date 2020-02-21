@@ -1,0 +1,41 @@
+& when (@media-common = true) {
+	.scroll-to-top {
+	  display: inline-block;
+	  box-shadow: none !important;
+	  background: transparent !important;
+	  color: #333 !important;
+	  font-family: 'Raleway' !important;
+	  font-weight: 500 !important;
+	  font-size: 11.07px !important;
+	  letter-spacing: 2px;
+	  transform: rotate(-90deg);
+	  right: 10px;
+
+	}
+
+.scroll-to-top::before {
+    content: ' ';
+    width: 20px;
+    height: 2px;
+    position: absolute;
+    color: black;
+    top: 50%;
+    background: black;
+    right: 110%;
+    transform: translateY(-50%);
+  }
+
+.scroll-to-top::after {
+	  font-family: 'themify';
+	  content: "\e649";
+	  position: absolute;
+	  font-size: 10px;
+	  left: 100%;
+	}
+}
+
+& when (@media-common = false) {
+	@media (min-width: 1200px) {
+	  right: 115px !important;
+	}
+}

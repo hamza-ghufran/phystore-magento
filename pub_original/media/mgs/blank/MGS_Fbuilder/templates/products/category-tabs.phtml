@@ -1,0 +1,233 @@
+<?php $attribute = NULL ?>
+<?php if($this->getData('attribute')!=''): ?>
+	<?php $attribute = $this->getData('attribute') ?>
+<?php endif ?>
+<?php $categories = $this->getCategoryByIds() ?>
+<?php $builderHelper = $this->helper('MGS\Fbuilder\Helper\Data'); ?>
+<?php $blockType = $this->getData('block_type'); ?>
+<?php $template = 'MGS_Fbuilder::products/grid_item.phtml'; ?>
+<?php 
+$mode = $this->getMode(); 
+$themeSettingConfig = $this->helper('MGS\ThemeSettings\Helper\Config');
+$rtl = $themeSettingConfig->getStoreConfig('themesettings/general/rtl_theme') ? 'true' : 'false';
+$masonryLayout = $mode == 'masonry.phtml' ? true : false;
+?>
+<?php if($blockType=='deals'): ?>
+	<?php $template = 'MGS_Fbuilder::products/deals/grid_item.phtml'; ?>
+<?php endif ?>
+<?php if($masonryLayout): ?>
+	<?php $template = 'MGS_Fbuilder::products/masonry_item.phtml'; ?>
+<?php endif ?>
+<div class="content-block <?php if($masonryLayout): ?> masonry<?php endif ?> mgs-product-tab <?= $blockType ?>-product-cat-block <?= $blockType ?>-product-cat-tab-block">
+	<?php if(count($categories)>0): ?>
+		<?php $blockId = rand() . time(); ?>
+		<?php $useSlider = $this->getUseSlider(); ?>
+		<?php $useAjax = $this->getUseAjax(); ?>
+		<?php $items = $perRowDefault = $this->getPerrow(); ?>
+		<?php $perRowTablet = $this->getPerrowTablet(); ?>
+		<?php $perRowMobile = $this->getPerrowMobile(); ?>
+		
+		<?php if($useSlider && $this->hasData('number_row') && $this->getNumberRow()>1): ?>
+			<?php $slideMultiRow = true; ?>
+			<?php $slideBy = 1 ?>
+			<?php $columnCount = $perRowDefault * $this->getNumberRow(); ?>
+		<?php else: ?>
+			<?php $slideBy = $this->getSlideBy() ?>
+			<?php $slideMultiRow = false; ?>
+		<?php endif ?>
+		
+		<?php $extraClass = 'tab-'.$this->getTabStyle().' tab-align-'.$this->getTabAlign() ?>
+		<?php if($this->getTabFontBold()): ?>
+			<?php $extraClass .= ' tab-font-bold' ?>
+		<?php endif ?>
+		<?php if($this->getTabItalic()): ?>
+			<?php $extraClass .= ' tab-italic' ?>
+		<?php endif ?>
+		<?php if($this->getTabUppercase()): ?>
+			<?php $extraClass .= ' tab-uppercase' ?>
+		<?php endif ?>
+		<?php if($useSlider): ?>
+			<?php $autoPlay = $this->getAutoplay() ? 'true' : 'false'; ?>
+			<?php $stopAuto = $this->getStopAuto() ? 'true' : 'false'; ?>
+			<?php $nav = $this->getNavigation() ? 'true' : 'false'; ?>
+			<?php $dot = $this->getPagination() ? 'true' : 'false'; ?>
+			<?php $loop = $this->getLoop() ? 'true' : 'false'; ?>
+			<?php $slideBy = $slideBy ? $slideBy : 1; ?>
+		
+		<?php 
+			$settingMode = 'multiple'; 
+			$navPosition = $this->getNavigationPosition();
+	
+			$navType = $builderHelper->getStoreConfig('fbuilder/'.$settingMode.'_slider/navigation');
+			if($navType=='image'){
+				$nextIcon = $builderHelper->getStoreConfig('fbuilder/'.$settingMode.'_slider/next_image');
+				$prevIcon = $builderHelper->getStoreConfig('fbuilder/'.$settingMode.'_slider/prev_image');
+				$navHtml = '["<span><img src=\''.$builderHelper->getMediaUrl().'mgs/fbuilder/slider/'.$prevIcon.'\'/></span>", "<span><img src=\''.$builderHelper->getMediaUrl().'mgs/fbuilder/slider/'.$nextIcon.'\'/></span>"]';
+			}elseif($navType=='font'){
+				$nextIcon = $builderHelper->getStoreConfig('fbuilder/'.$settingMode.'_slider/next_font_class');
+				$prevIcon = $builderHelper->getStoreConfig('fbuilder/'.$settingMode.'_slider/prev_font_class');
+				$navHtml = '["<span><em class=\''.$prevIcon.'\'></em></span>", "<span><em class=\''.$nextIcon.'\'></em></span>"]';
+			}else {
+				$navHtml = '["<span></span>", "<span></span>"]';
+				
+			}
+		?>
+		<?php endif ?>
+		
+		
+		<div class="product data items mgs-tab <?= $extraClass?> <?php if($useAjax): ?> tab-cate-ajax <?php endif ?>" data-mage-init='{"tabs":{"openedState":"active"}}'>
+			<?php $k=0; foreach($categories as $category): $k++ ?>
+				<div class="data item title item<?= $k ?><?php if(count($categories)==$k): ?> last-item<?php endif ?><?php if($useAjax && $k==1): ?> tab-title-ajax<?php endif ?>" data-role="collapsible" id="tab-label-<?= $category->getId().$blockId ?>">
+					<a class="data switch" tabindex="-1" data-toggle="switch" href="#<?= $category->getId().$blockId ?>" id="tab-label-<?= $category->getId().$blockId ?>-title"<?php if($useAjax): ?> onclick="getAjaxProductCollection(<?= $category->getId() ?>, '<?= $attribute ?>', '<?= $blockType ?>', '<?= $this->getLimit() ?>','<?= $blockId ?>', '<?= $useSlider ?>', '<?= $perRowDefault ?>', '<?= $perRowTablet ?>', '<?= $perRowMobile ?>', '<?= $this->getNumberRow() ?>', '<?= $this->getSlideBy() ?>', '<?= $this->getHideName() ?>', '<?= $this->getHideReview() ?>', '<?= $this->getHidePrice() ?>', '<?= $this->getHideAddcart() ?>', '<?= $this->getHideAddwishlist() ?>', '<?= $this->getHideAddcompare() ?>','<?= $this->getAutoplay() ?>','<?= $this->getStopAuto() ?>','<?= $this->getNavigation() ?>','<?= $this->getPagination() ?>','<?= $this->getLoop() ?>', '<?= $this->getHideNav() ?>', '<?= $this->getNavTop()?>', '<?= $this->getNavigationPosition()?>', '<?= $this->getPaginationPosition()?>', '<?= $this->getRtl()?>', '<?= $this->getSlideMargin()?>','<?= $this->getCateLink() ?>', '<?= $category->getUrl() ?>')"<?php endif ?>>
+						<?= $category->getName(); ?>
+					</a>
+				</div>
+				<div class="data item content" id="<?= $category->getId().$blockId ?>" data-role="content"<?php if($k!=1): ?> style="display:none"<?php endif ?>>
+					<?php if(!$useAjax): ?>
+						<?php $_productCollection = $this->getProductCollection($category, $attribute); ?>
+						<?php if (count($_productCollection)>0): ?>
+							<div class="block<?php if($masonryLayout): ?> masonry-gridlayout<?php endif ?> widget products list items mgs-products <?= $blockType ?>-products-grid products-grid product-items">
+								<div id="<?= $blockType.$category->getId() ?>-products<?= $blockId; ?>" 
+									class="<?php if($masonryLayout): ?>masonry-grid<?php endif ?> items<?php if($useSlider): ?> owl-carousel mgs-owl-carousel mgs-carousel-<?= $settingMode ?> nav-type-<?= $navType ?> nav-position-<?= $navPosition ?> <?php if($this->getHideNav() && ((($items==1) && ($navPosition!='middle-outside')) || (($items>1) && ($navPosition=='middle-inside')))): ?> autohide-nav<?php endif ?> dot-position-<?= $this->getPaginationPosition()?><?php else: ?> line row-<?= $perRowDefault ?> row-tablet-<?= $perRowTablet ?> row-mobile-<?= $perRowMobile ?><?php endif ?>">
+									<?php $i=0; $j=0; foreach ($_productCollection as $_product): $i++; ?>
+										
+										<?php if($slideMultiRow): ?>
+											<?php if ($j++ % $columnCount == 0): ?>
+											<div class="line row-<?= $perRowDefault ?> row-tablet-<?= $perRowTablet ?> row-mobile-<?= $perRowMobile ?>">
+											<?php endif ?>
+										<?php endif ?>
+										
+												<div class="product<?php if($masonryLayout): ?> masonry-item<?= $i % 2 ?><?php endif ?> product-item<?php if($slideMultiRow || !$this->hasData('number_row')): ?> col<?php endif ?>">
+													<?= $this->getLayout()
+														->createBlock('MGS\Fbuilder\Block\Products\ProductItem')
+														->setProductId($_product->getId())
+														->setBlockData($this->getData())
+														->setTemplate($template)
+														->toHtml(); ?>
+																	
+												</div>
+												
+										<?php if($slideMultiRow): ?>
+											<?php if ($j % $columnCount == 0 || $j == count($_productCollection)): ?>
+											</div>
+											<?php endif ?>
+										<?php endif ?>
+										
+									<?php endforeach; ?>
+								</div>
+								<?php if($this->getCateLink()): ?>
+									<div class="tab-cate-link">
+										<a href="<?= $category->getUrl(); ?>" title="<?= __('Discover More'); ?>" class="action default">
+											<span><?= __('Discover More'); ?></span>
+										</a>
+									</div>
+								<?php endif ?>
+							</div>
+							
+							<?php if($useSlider): ?>
+								
+								<script type="text/javascript">
+									require([
+										'jquery',
+										'mgsowlcarousel'
+									], function ($) {
+										$('#<?= $blockType.$category->getId() ?>-products<?= $blockId ?>').owlCarousel({
+											<?php if($slideMultiRow): ?>
+												items: 1,
+											<?php else: ?>
+												items: <?= $perRowDefault; ?>,
+											<?php endif ?>
+											autoplay: <?= $autoPlay ?>,
+											autoplayHoverPause: <?= $stopAuto ?>,
+											nav: <?= $nav ?>,
+											rtl: <?= $rtl ?>
+											dots: <?= $dot ?>,
+											slideBy: <?= $slideBy ?>,
+											loop: <?= $loop; ?>,
+											<?php if(!$slideMultiRow):?>margin: <?= $this->getSlideMargin() ?>,<?php endif ?>
+											<?php if($navPosition=='top-left' || $navPosition=='top-right'): ?>
+												onInitialized: function(){
+													$("#<?= $blockType.$category->getId() ?>-products<?= $blockId ?> .owl-nav").attr('style', 'top:<?= $this->getNavTop() ?>px');
+												},
+											<?php endif ?>
+											<?php if(!$slideMultiRow): ?>
+											responsive:{
+												0:{
+													items:<?= $perRowMobile; ?>,
+													nav: false,
+												},
+												571:{
+													items:<?= $perRowTablet; ?>
+												},
+												1200:{
+													items:<?= $perRowDefault; ?>
+												}
+											},
+											<?php endif ?>
+											navText: <?= $navHtml ?>,
+											autoHeight:true
+										});
+									});
+								</script>
+							<?php endif ?>
+						
+						<?php else: ?>
+							<div class="message info empty"><div><?= /* @escapeNotVerified */ __('We can\'t find products matching the selection.') ?></div></div>
+						<?php endif ?>
+					<?php endif ?>
+				</div>
+			<?php endforeach ?>
+		</div>
+	<?php else: ?>
+		<div class="message info empty"><div><?= /* @escapeNotVerified */ __('There are no categories matching the selection.') ?></div></div>
+	<?php endif ?>
+</div>
+
+<?php if($masonryLayout): ?>
+    <script type="text/javascript">
+        requirejs([ 
+            'require', 
+            'jquery', 
+            'mgsmasonry',
+			'mgsvisible'
+        ], function( require, $, Masonry ) {
+            require( [ 'bridget' ], function( jQueryBridget ) {
+                jQueryBridget( 'masonry', Masonry, $ );
+                $(document).ready(function(){
+					$('.masonry-grid').masonry({
+						itemSelector: '.product-item',
+						columnWidth: '.product-item',
+						horizontalOrder: true
+					});
+					setTimeout(function(){ $('.masonry-gridlayout.products-grid').addClass('masonry-done'); }, 500);
+                });
+            });
+			
+			$(window).scroll(function(){
+				$(".masonry-grid > .product-item").each(function(){
+					if($(this).visible(true,true,'vertical')) {
+						$(this).addClass('enable');
+					}else {
+						$(this).removeClass('enable');
+					}
+				});
+			});
+        });
+    </script>
+    
+<?php endif ?>
+
+<?php if($useAjax): ?> 
+<script type="text/javascript">
+	 require([
+			'jquery'
+		], function(jQuery){
+			(function($) {
+				$(document).ready(function(){
+					
+				});
+			})(jQuery);
+		});
+</script>
+<?php endif ?>
+

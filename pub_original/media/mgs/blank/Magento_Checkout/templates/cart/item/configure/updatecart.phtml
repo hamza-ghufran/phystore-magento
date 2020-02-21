@@ -1,0 +1,89 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php $_product = $block->getProduct(); ?>
+<?php $buttonTitle = __('Update Cart'); ?>
+<?php if ($_product->isSaleable()): ?>
+    <div class="box-tocart update">
+        <fieldset class="fieldset">
+            <?php if ($block->shouldRenderQuantity()): ?>
+			<?php echo $block->getChildHtml('', true) ?>
+            <div class="field qty">
+                <div class="qty-pr">
+					<span class="edit-qty minus disable-select-text" onclick="minusQty('qty')"><i class="icon-minus"></i></span>
+					<input type="number"
+						   name="qty"
+						   id="qty"
+						   maxlength="12"
+						   value="<?= $block->getProductDefaultQty() * 1 ?>"
+						   title="<?= __('Qty') ?>" class="input-text qty"
+						   data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+						   />
+					<span class="edit-qty plus disable-select-text" onclick="plusQty('qty')"><i class="icon-plus"></i></span>
+				</div>
+			</div>
+            <?php endif; ?>
+            <div class="actions">
+				<button type="submit"
+                        title="<?php /* @escapeNotVerified */ echo $buttonTitle ?>"
+                        class="action primary tocart"
+                        id="product-updatecart-button">
+                    <span><?php /* @escapeNotVerified */ echo $buttonTitle ?></span>
+                </button>
+            </div>
+        </fieldset>
+    </div>
+    <script type="text/x-magento-init">
+        {
+            "#product_addtocart_form": {
+                "validation": {},
+                "addToCart": {
+                    "cartButtonId": "#product-updatecart-button",
+                    "cartForm": "#product_addtocart_form"
+                }
+            }
+        }
+    </script>
+	<?php if ($block->shouldRenderQuantity()): ?>
+		<script type="text/javascript">
+			function plusQty(qtyInput){
+				require([
+				'jquery'
+				], function($){
+					if($('#'+qtyInput).attr('disabled')!='disabled'){
+						qty = $('#'+qtyInput).attr('value');
+						qty = parseInt(qty);
+						qty++;
+						$('#'+qtyInput).val(qty);
+						$('#sticky_qty').val(qty);
+					}
+				});
+				
+			}
+			function minusQty(qtyInput){
+				require([
+				'jquery'
+				], function($){
+					if($('#'+qtyInput).attr('disabled')!='disabled'){
+						qty = $('#'+qtyInput).attr('value');
+						qty = parseInt(qty);
+						
+						if(qty>1){
+							qty--;
+							$('#'+qtyInput).val(qty);
+							$('#sticky_qty').val(qty);
+						}
+					}
+				});
+			}
+		</script>
+	<?php endif; ?>
+
+<?php endif; ?>

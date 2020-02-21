@@ -1,0 +1,414 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/* @var $block \Magento\Catalog\Block\Product\AbstractProduct */
+?>
+
+<?php
+$themeSettingConfig = $this->helper('MGS\ThemeSettings\Helper\Config');
+$rtl = $themeSettingConfig->getStoreConfig('themesettings/general/rtl_theme') ? 'true' : 'false';
+
+switch ($type = $block->getType()) {
+
+    case 'related-rule':
+        if ($exist = $block->hasItems()) {
+            $type = 'related';
+            $class = $type;
+			
+			$show = $themeSettingConfig->getStoreConfig('themesettings/product_details/related_products');
+			$useSlider = $themeSettingConfig->getStoreConfig('themesettings/product_details/related_slider');
+			if($useSlider){
+				$autoPlay = $themeSettingConfig->getStoreConfig('themesettings/product_details/related_autoplay');
+				$stopAutoPlayHover = $themeSettingConfig->getStoreConfig('themesettings/product_details/related_stop_auto');
+				$loop = $themeSettingConfig->getStoreConfig('themesettings/product_details/related_loop');
+				$nav = $themeSettingConfig->getStoreConfig('themesettings/product_details/related_navigation');
+				$dots = $themeSettingConfig->getStoreConfig('themesettings/product_details/related_pagination');
+				$slideBy = $themeSettingConfig->getStoreConfig('themesettings/product_details/related_slide_by');
+			}
+			$perRowDefault = $themeSettingConfig->getStoreConfig('themesettings/product_details/related_per_row');
+			$perRowTablet = $themeSettingConfig->getStoreConfig('themesettings/product_details/per_row_tablet');
+			$perRowMobile = $themeSettingConfig->getStoreConfig('themesettings/product_details/per_row_mobile');
+            $classCol = ' row-' . $perRowDefault . ' row-tablet-' . $perRowTablet . ' row-mobile-' . $perRowMobile;
+
+            $image = 'related_products_list';
+			$titleConfig = $themeSettingConfig->getStoreConfig('themesettings/product_details/related_title');
+            $title = $titleConfig ? __($titleConfig) : __('Related Products');
+            $items = $block->getAllItems();
+            $limit = $block->getPositionLimit();
+            $shuffle = (int) $block->isShuffled();
+            $canItemsAddToCart = $block->canItemsAddToCart();
+
+            $showAddTo = true;
+            $showCart = false;
+            $templateType = null;
+            $description = false;
+        }
+    break;
+
+    case 'related':
+        /** @var \Magento\Catalog\Block\Product\ProductList\Related $block */
+        if ($exist = $block->getItems()->getSize()) {
+            $type = 'related';
+            $class = $type;
+			$show = $themeSettingConfig->getStoreConfig('themesettings/product_details/related_products');
+			$useSlider = $themeSettingConfig->getStoreConfig('themesettings/product_details/related_slider');
+			if($useSlider){
+				$autoPlay = $themeSettingConfig->getStoreConfig('themesettings/product_details/related_autoplay');
+				$stopAutoPlayHover = $themeSettingConfig->getStoreConfig('themesettings/product_details/related_stop_auto');
+				$loop = $themeSettingConfig->getStoreConfig('themesettings/product_details/related_loop');
+				$nav = $themeSettingConfig->getStoreConfig('themesettings/product_details/related_navigation');
+				$dots = $themeSettingConfig->getStoreConfig('themesettings/product_details/related_pagination');
+				$slideBy = $themeSettingConfig->getStoreConfig('themesettings/product_details/related_slide_by');
+			}
+			$perRowDefault = $themeSettingConfig->getStoreConfig('themesettings/product_details/related_per_row');
+			$perRowTablet = $themeSettingConfig->getStoreConfig('themesettings/product_details/related_per_row_tablet');
+			$perRowMobile = $themeSettingConfig->getStoreConfig('themesettings/product_details/related_per_row_mobile');
+            $classCol = ' row-' . $perRowDefault . ' row-tablet-' . $perRowTablet . ' row-mobile-' . $perRowMobile;
+
+            $image = 'related_products_list';
+			$titleConfig = $themeSettingConfig->getStoreConfig('themesettings/product_details/related_title');
+            $title = $titleConfig ? __($titleConfig) : __('Related Products');
+            $items = $block->getItems();
+            $limit = 0;
+            $shuffle = 0;
+            $canItemsAddToCart = $block->canItemsAddToCart();
+
+            $showAddTo = true;
+            $showCart = false;
+            $templateType = null;
+            $description = false;
+        }
+    break;
+
+    case 'upsell-rule':
+        if ($exist = $block->hasItems()) {
+            $type = 'upsell';
+            $class = $type;
+			$show = $themeSettingConfig->getStoreConfig('themesettings/product_details/upsell_products');
+			$useSlider = $themeSettingConfig->getStoreConfig('themesettings/product_details/upsell_slider');
+			if($useSlider){
+				$autoPlay = $themeSettingConfig->getStoreConfig('themesettings/product_details/upsell_autoplay');
+				$stopAutoPlayHover = $themeSettingConfig->getStoreConfig('themesettings/product_details/upsell_stop_auto');
+				$loop = $themeSettingConfig->getStoreConfig('themesettings/product_details/upsell_loop');
+				$nav = $themeSettingConfig->getStoreConfig('themesettings/product_details/upsell_navigation');
+				$dots = $themeSettingConfig->getStoreConfig('themesettings/product_details/upsell_pagination');
+				$slideBy = $themeSettingConfig->getStoreConfig('themesettings/product_details/upsell_slide_by');
+			}
+			$perRowDefault = $themeSettingConfig->getStoreConfig('themesettings/product_details/upsell_per_row');
+			$perRowTablet = $themeSettingConfig->getStoreConfig('themesettings/product_details/upsell_per_row_tablet');
+			$perRowMobile = $themeSettingConfig->getStoreConfig('themesettings/product_details/upsell_per_row_mobile');
+            $classCol = ' row-' . $perRowDefault . ' row-tablet-' . $perRowTablet . ' row-mobile-' . $perRowMobile;
+
+            $image = 'upsell_products_list';
+			$titleConfig = $themeSettingConfig->getStoreConfig('themesettings/product_details/upsell_title');
+            $title = $titleConfig ? __($titleConfig) : __('Upsell Products');
+            $items = $block->getAllItems();
+            $limit = $block->getPositionLimit();
+            $shuffle = (int) $block->isShuffled();
+
+            $showAddTo = false;
+            $showCart = false;
+            $templateType = null;
+            $description = false;
+            $canItemsAddToCart = false;
+        }
+    break;
+
+    case 'upsell':
+        /** @var \Magento\Catalog\Block\Product\ProductList\Upsell $block */
+        if ($exist = count($block->getItemCollection()->getItems())) {
+            $type = 'upsell';
+            $class = $type;
+			$show = $themeSettingConfig->getStoreConfig('themesettings/product_details/upsell_products');
+			$useSlider = $themeSettingConfig->getStoreConfig('themesettings/product_details/upsell_slider');
+			if($useSlider){
+				$autoPlay = $themeSettingConfig->getStoreConfig('themesettings/product_details/upsell_autoplay');
+				$stopAutoPlayHover = $themeSettingConfig->getStoreConfig('themesettings/product_details/upsell_stop_auto');
+				$loop = $themeSettingConfig->getStoreConfig('themesettings/product_details/upsell_loop');
+				$nav = $themeSettingConfig->getStoreConfig('themesettings/product_details/upsell_navigation');
+				$dots = $themeSettingConfig->getStoreConfig('themesettings/product_details/upsell_pagination');
+				$slideBy = $themeSettingConfig->getStoreConfig('themesettings/product_details/upsell_slide_by');
+			}
+			$perRowDefault = $themeSettingConfig->getStoreConfig('themesettings/product_details/upsell_per_row');
+			$perRowTablet = $themeSettingConfig->getStoreConfig('themesettings/product_details/upsell_per_row_tablet');
+			$perRowMobile = $themeSettingConfig->getStoreConfig('themesettings/product_details/upsell_per_row_mobile');
+            $classCol = ' row-' . $perRowDefault . ' row-tablet-' . $perRowTablet . ' row-mobile-' . $perRowMobile;
+			
+            $image = 'upsell_products_list';
+			$titleConfig = $themeSettingConfig->getStoreConfig('themesettings/product_details/upsell_title');
+            $title = $titleConfig ? __($titleConfig) : __('Upsell Products');
+            $items = $block->getItemCollection()->getItems();
+            $limit = $block->getItemLimit('upsell');
+            $shuffle = 0;
+
+            $showAddTo = false;
+            $showCart = false;
+            $templateType = null;
+            $description = false;
+            $canItemsAddToCart = false;
+        }
+    break;
+
+    case 'crosssell-rule':
+        /** @var \Magento\Catalog\Block\Product\ProductList\Crosssell $block */
+        if ($exist = $block->hasItems()) {
+            $type = 'crosssell';
+            $class = $type;
+			$show = $themeSettingConfig->getStoreConfig('themesettings/shopping_cart/show_crosssell');
+			$useSlider = $themeSettingConfig->getStoreConfig('themesettings/product_details/crosssell_slider');
+			if($useSlider){
+				$autoPlay = $themeSettingConfig->getStoreConfig('themesettings/product_details/crosssell_autoplay');
+				$stopAutoPlayHover = $themeSettingConfig->getStoreConfig('themesettings/product_details/crosssell_stop_auto');
+				$loop = $themeSettingConfig->getStoreConfig('themesettings/product_details/crosssell_loop');
+				$nav = $themeSettingConfig->getStoreConfig('themesettings/product_details/crosssell_navigation');
+				$dots = $themeSettingConfig->getStoreConfig('themesettings/product_details/crosssell_pagination');
+				$slideBy = $themeSettingConfig->getStoreConfig('themesettings/product_details/crosssell_slide_by');
+			}
+			$perRowDefault = $themeSettingConfig->getStoreConfig('themesettings/product_details/crosssell_per_row');
+			$perRowTablet = $themeSettingConfig->getStoreConfig('themesettings/product_details/crosssell_per_row_tablet');
+			$perRowMobile = $themeSettingConfig->getStoreConfig('themesettings/product_details/crosssell_per_row_mobile');
+            $classCol = ' row-' . $perRowDefault . ' row-tablet-' . $perRowTablet . ' row-mobile-' . $perRowMobile;
+
+            $image = 'cart_cross_sell_products';
+			$titleConfig = $themeSettingConfig->getStoreConfig('themesettings/shopping_cart/crosssell_title');
+            $title = $titleConfig ? __($titleConfig) : __('More Choices:');
+            $title = __('');
+            $items = $block->getItemCollection();
+
+            $showAddTo = true;
+            $showCart = true;
+            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+            $description = false;
+            $canItemsAddToCart = false;
+        }
+    break;
+
+    case 'crosssell':
+        /** @var \Magento\Catalog\Block\Product\ProductList\Crosssell $block */
+        if ($exist = $block->getItemCount()) {
+            $type = 'crosssell';
+            $class = $type;
+			$show = $themeSettingConfig->getStoreConfig('themesettings/shopping_cart/show_crosssell');
+			$useSlider = $themeSettingConfig->getStoreConfig('themesettings/shopping_cart/crosssell_slider');
+			if($useSlider){
+				$autoPlay = $themeSettingConfig->getStoreConfig('themesettings/shopping_cart/crosssell_autoplay');
+				$stopAutoPlayHover = $themeSettingConfig->getStoreConfig('themesettings/shopping_cart/crosssell_stop_auto');
+				$loop = $themeSettingConfig->getStoreConfig('themesettings/shopping_cart/crosssell_loop');
+				$nav = $themeSettingConfig->getStoreConfig('themesettings/shopping_cart/crosssell_navigation');
+				$dots = $themeSettingConfig->getStoreConfig('themesettings/shopping_cart/crosssell_pagination');
+				$slideBy = $themeSettingConfig->getStoreConfig('themesettings/shopping_cart/crosssell_slide_by');
+			}
+			$perRowDefault = $themeSettingConfig->getStoreConfig('themesettings/shopping_cart/crosssell_per_row');
+			$perRowTablet = $themeSettingConfig->getStoreConfig('themesettings/shopping_cart/crosssell_per_row_tablet');
+			$perRowMobile = $themeSettingConfig->getStoreConfig('themesettings/shopping_cart/crosssell_per_row_mobile');
+            $classCol = ' row-' . $perRowDefault . ' row-tablet-' . $perRowTablet . ' row-mobile-' . $perRowMobile;
+			
+            $image = 'cart_cross_sell_products';
+			$titleConfig = $themeSettingConfig->getStoreConfig('themesettings/shopping_cart/crosssell_title');
+            $title = $titleConfig ? __($titleConfig) : __('More Choices:');
+            $items = $block->getItems();
+
+            $showAddTo = true;
+            $showCart = true;
+            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+            $description = false;
+            $canItemsAddToCart = false;
+        }
+    break;
+
+    case 'new':
+        if ($exist = $block->getProductCollection()) {
+            $type = 'new';
+            $mode = 'grid';
+            $type = $type . ' ' . $mode;
+
+			$useSlider = false;
+            $class = 'widget' . ' ' . $type;
+			$classCol = "";
+			
+            $image = 'new_products_content_widget_grid';
+            $title = __('New Products');
+            $items = $exist;
+
+            $showAddTo = true;
+            $showCart = true;
+            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+            $description = ($mode == 'list') ? true : false;
+            $canItemsAddToCart = false;
+        }
+    break;
+
+    case 'other':
+    break;
+}
+?>
+
+<?php if ($exist && $show):?>
+
+    <?php if ($type == 'related' || $type == 'upsell'): ?>
+        <?php if ($type == 'related'): ?>
+            <div class="block <?php /* @escapeNotVerified */ echo $class; ?>" data-mage-init='{"relatedProducts":{"relatedCheckbox":".related.checkbox"}}' data-limit="<?php /* @escapeNotVerified */ echo $limit; ?>" data-shuffle="<?php /* @escapeNotVerified */ echo $shuffle; ?>">
+        <?php else: ?>
+            <div class="block <?php /* @escapeNotVerified */ echo $class; ?>" data-mage-init='{"upsellProducts":{}}' data-limit="<?php /* @escapeNotVerified */ echo $limit; ?>" data-shuffle="<?php /* @escapeNotVerified */ echo $shuffle; ?>">
+        <?php endif; ?>
+    <?php else: ?>
+        <div class="block <?php /* @escapeNotVerified */ echo $class; ?>">
+    <?php endif; ?>
+    <div class="block-title title">
+        <strong id="block-<?php /* @escapeNotVerified */ echo $class?>-heading" role="heading" aria-level="2"><?php /* @escapeNotVerified */ echo $title; ?></strong>
+    </div>
+    <div class="block-content content <?php if(!$useSlider): ?><?= $classCol ?><?php endif ?>" aria-labelledby="block-<?php /* @escapeNotVerified */ echo $class?>-heading">
+        <?php if ($type == 'related' && $canItemsAddToCart): ?>
+        <div class="block-actions">
+            <?php /* @escapeNotVerified */ echo __('Check items to add to the cart or') ?>
+            <button type="button" class="action select" role="select-all"><span><?php /* @escapeNotVerified */ echo __('select all') ?></span></button>
+        </div>
+        <?php endif; ?>
+        <div class="products wrapper grid products-grid<?php if($useSlider): ?> active-slider carousel-related<?php endif ?> products-<?php /* @escapeNotVerified */ echo $type; ?>">
+            <ol id="product-slider-<?= $type ?>" class="products list items product-items<?php if($useSlider): ?> owl-carousel<?php endif ?>">
+                <?php $iterator = 1; ?>
+                <?php foreach ($items as $_item): ?>
+                <?php $available = ''; ?>
+                <?php if (!$_item->isComposite() && $_item->isSaleable() && $type == 'related'): ?>
+                    <?php if (!$_item->getRequiredOptions()): ?>
+                        <?php $available = 'related-available'; ?>
+                    <?php endif; ?>
+                <?php endif; ?>
+                <?php if ($type == 'related' || $type == 'upsell'): ?>
+                    <?php /* @escapeNotVerified */ echo($iterator++ == 1) ? '<li class="item product product-item" style="display: none;">' : '</li><li class="item product product-item" style="display: none;">' ?>
+                <?php else: ?>
+                    <?php /* @escapeNotVerified */ echo($iterator++ == 1) ? '<li class="item product product-item">' : '</li><li class="item product product-item">' ?>
+                <?php endif; ?>
+                <div class="product-item-info <?php /* @escapeNotVerified */ echo $available; ?>">
+					<div class="product-top">
+						<?php /* @escapeNotVerified */ echo '<!-- ' . $image . '-->' ?>
+						<a href="<?php /* @escapeNotVerified */ echo $block->getProductUrl($_item) ?>" class="product photo product-item-photo">
+							<?= $block->getImage($_item, $image)->toHtml(); ?>
+						</a>
+						<div class="product-item-inner">
+							<div class="product actions product-item-actions">
+								<div class="actions-primary">
+									<?php if($type == 'related'): ?>
+										<?php if (!$_item->isComposite() && $_item->isSaleable()): ?>
+											<?php if (!$_item->getRequiredOptions()): ?>
+												<div class="field choice related">
+													<input type="checkbox" class="checkbox related" id="related-checkbox<?php /* @escapeNotVerified */ echo $_item->getId() ?>" name="related_products[]" value="<?php /* @escapeNotVerified */ echo $_item->getId() ?>" />
+													<label class="label" for="related-checkbox<?php /* @escapeNotVerified */ echo $_item->getId() ?>"><span><?php /* @escapeNotVerified */ echo __('Add to Cart') ?></span></label>
+												</div>
+											<?php else: ?>
+												<?php if ($_item->getTypeInstance()->hasRequiredOptions($_item)): ?>
+													<button class="action tocart primary" data-mage-init='{"redirectUrl": {"url": "<?php /* @escapeNotVerified */ echo $block->getAddToCartUrl($_item) ?>"}}' type="button" title="<?php /* @escapeNotVerified */ echo __('Add to Cart') ?>">
+														<span><?php /* @escapeNotVerified */ echo __('Add to Cart') ?></span>
+													</button>
+												<?php else: ?>
+													<?php $postDataHelper = $this->helper('Magento\Framework\Data\Helper\PostHelper');
+													$postData = $postDataHelper->getPostData($block->getAddToCartUrl($_item), ['product' => $_item->getEntityId()])
+													?>
+													<button class="action tocart primary"
+															data-post='<?php /* @escapeNotVerified */ echo $postData; ?>'
+															type="button" title="<?php /* @escapeNotVerified */ echo __('Add to Cart') ?>">
+														<span><?php /* @escapeNotVerified */ echo __('Add to Cart') ?></span>
+													</button>
+												<?php endif; ?>
+											<?php endif; ?>
+										<?php endif; ?>
+										<?php if (!$_item->isAvailable()): ?>
+											<div class="stock unavailable"><span><?= /* @escapeNotVerified */ __('Out of stock') ?></span></div>
+										<?php endif; ?>
+									<?php else: ?>
+										<?php if ($_item->isSaleable()): ?>
+											<?php if ($_item->getTypeInstance()->hasRequiredOptions($_item)): ?>
+												<button class="action tocart primary" data-mage-init='{"redirectUrl": {"url": "<?php /* @escapeNotVerified */ echo $block->getAddToCartUrl($_item) ?>"}}' type="button" title="<?php /* @escapeNotVerified */ echo __('Add to Cart') ?>">
+													<span><?php /* @escapeNotVerified */ echo __('Add to Cart') ?></span>
+												</button>
+											<?php else: ?>
+												<?php $postDataHelper = $this->helper('Magento\Framework\Data\Helper\PostHelper');
+												$postData = $postDataHelper->getPostData($block->getAddToCartUrl($_item), ['product' => $_item->getEntityId()])
+												?>
+												<button class="action tocart primary"
+														data-post='<?php /* @escapeNotVerified */ echo $postData; ?>'
+														type="button" title="<?php /* @escapeNotVerified */ echo __('Add to Cart') ?>">
+													<span><?php /* @escapeNotVerified */ echo __('Add to Cart') ?></span>
+												</button>
+											<?php endif; ?>
+										<?php else: ?>
+											<?php if ($_item->isAvailable()): ?>
+												<div class="stock available"><span><?= /* @escapeNotVerified */ __('In stock') ?></span></div>
+											<?php else: ?>
+												<div class="stock unavailable"><span><?= /* @escapeNotVerified */ __('Out of stock') ?></span></div>
+											<?php endif; ?>
+										<?php endif; ?>
+									<?php endif; ?>
+								</div>
+								<div data-role="add-to-links" class="actions-secondary">
+									<?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow()): ?>
+										<a href="#" class="action towishlist" title="<?= __('Add to Wish List') ?>" aria-label="<?= __('Save') ?>" data-post='<?= /* @noEscape */ $block->getAddToWishlistParams($block->getProduct()) ?>' data-action="add-to-wishlist" role="button">
+											<span><?= $block->escapeHtml(__('Add to Wish List')) ?></span>
+										</a>
+									<?php endif; ?>
+									<?php $compareHelper = $this->helper('Magento\Catalog\Helper\Product\Compare'); ?>
+									<a href="#" class="action tocompare" title="<?= $block->escapeHtml(__('Add to Compare')) ?>" aria-label="<?= $block->escapeHtml(__('Compare')) ?>" data-post='<?= /* @escapeNotVerified */ $compareHelper->getPostDataParams($_item) ?>' role="button">
+										<span><?= /* @escapeNotVerified */ __('Add to Compare') ?></span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+                    <div class="product details product-item-details">
+                        <strong class="product name product-item-name"><a class="product-item-link" title="<?= $block->escapeHtml($_item->getName()) ?>" href="<?php /* @escapeNotVerified */ echo $block->getProductUrl($_item) ?>">
+                            <?= $block->escapeHtml($_item->getName()) ?></a>
+                        </strong>
+						<?php if ($templateType): ?>
+							<?= $block->getReviewsSummaryHtml($_item, $templateType) ?>
+						<?php endif; ?>
+
+                        <?php /* @escapeNotVerified */ echo $block->getProductPrice($_item); ?>
+						</div>
+                    </div>
+                    <?=($iterator == count($items)+1) ? '</li>' : '' ?>
+                <?php endforeach ?>
+            </ol>
+			<?php if($useSlider): ?>
+				<script type="text/javascript">
+					require([
+						'jquery',
+						'mgsowlcarousel'
+					], function ($) {
+						$('#product-slider-<?= $type ?>').owlCarousel({
+							items: <?= $perRowDefault; ?>,
+							autoplay: <?= $autoPlay ? 'true' : 'false' ?>,
+							autoplayHoverPause: <?= $stopAutoPlayHover ? 'true' : 'false' ?>,
+							margin:30,
+							nav: <?= $nav ? 'true' : 'false' ?>,
+							dots: <?= $dots ? 'true' : 'false' ?>,
+							loop: <?= $loop ? 'true' : 'false' ?>,
+							navText: ["<span></span>","<span></span>"],
+							<?php if($slideBy): ?>
+							slideBy: <?= $slideBy ?>,
+							<?php endif ?>
+							lazyLoad: true,
+							rtl: <?= $rtl ?>,
+							responsive:{
+								0:{
+									items: <?= $perRowMobile; ?>
+								},
+								768:{
+									items: <?= $perRowTablet; ?>
+								},
+								992:{
+									items: <?= $perRowDefault; ?>
+								}
+							}
+						});
+					});
+				</script>
+			<?php endif ?>
+        </div>
+    </div>
+</div>
+<?php endif;?>

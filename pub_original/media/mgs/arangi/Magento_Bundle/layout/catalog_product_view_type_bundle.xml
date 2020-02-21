@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+		<referenceBlock name="product.info.main">
+			<container name="bundle.options.container" htmlTag="div" htmlClass="bundle-options-container" after="product.info.media"/>
+		</referenceBlock>
+		
+		<referenceBlock name="product.info.bundle.options.top" remove="true"/>
+		<referenceBlock name="customize.button" remove="true"/>
+		<referenceBlock name="product.info.addto.bundle" remove="true"/>
+		<move element="product.price.render.bundle.customization" destination="bundle.summary" before="-" />
+		<move element="themesetting.sharethis" destination="product.info.main" after="bundle.options.container"/>
+    </body>
+</page>

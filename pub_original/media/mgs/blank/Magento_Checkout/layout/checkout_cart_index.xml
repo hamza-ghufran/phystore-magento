@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+			<referenceBlock name="checkout.cart">
+				<referenceContainer name="checkout.cart.items">
+					<referenceContainer name="checkout.cart.container" htmlTag="div" htmlClass="cart-container">
+						<container name="cart.bottom" after="checkout.cart.form" htmlTag="div" htmlClass="line shopping-cart-bottom">
+                            <container name="cart.bottom.col1" htmlTag="div" htmlClass="col-des-4 col-tb-12 col-mb-12"/>
+                            <container name="cart.bottom.col2" htmlTag="div" htmlClass="col-des-4 col-tb-6 col-mb-12"/>
+                            <container name="cart.bottom.col3" htmlTag="div" htmlClass="col-des-4 col-tb-6 col-mb-12"/>
+						</container>
+					</referenceContainer>
+				</referenceContainer>
+			</referenceBlock>
+        </referenceContainer>
+		<move element="checkout.cart.totals.container" before="-" destination="cart.bottom.col3"/>
+		<move element="cart.summary" destination="cart.bottom.col3" after="checkout.cart.totals.container"/>
+		<move element="checkout.cart.shipping" destination="cart.bottom.col2"/>
+		<move element="checkout.cart.coupon" destination="cart.bottom.col1"/>
+    </body>
+</page>

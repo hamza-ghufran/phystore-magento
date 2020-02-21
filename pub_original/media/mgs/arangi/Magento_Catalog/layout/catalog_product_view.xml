@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<body>
+		<referenceContainer name="product.info.main" >
+			<block class="Magento\Catalog\Block\Product\View" name="product.info.name" template="Magento_Catalog::product/view/name.phtml" before="-" />
+			<block class="Magento\Cms\Block\Block" name="custom.product.detail.static.block">
+				<arguments>
+					<argument name="block_id" xsi:type="string">product_detail_static_block</argument>
+				</arguments>
+			</block>
+		</referenceContainer>
+		<referenceContainer name="page.bottom.container">
+			<container name="related.container" htmlTag="div" htmlClass="product-related-container" before="-">
+			</container>
+		</referenceContainer>
+		<referenceContainer name="product.info.price" >
+			<block class="Magento\Catalog\Block\Product\View" name="product.info.price.save" template="Magento_Catalog::product/view/yousave.phtml" after="-" />
+		</referenceContainer>
+		<referenceContainer name="sidebar.additional"> 
+            <block class="Magento\Cms\Block\Block" name="block_identifier"> 
+                <arguments> 
+                    <argument name="block_id" xsi:type="string">topsale</argument> 
+                </arguments> 
+            </block> 
+        </referenceContainer>
+        <move element="catalog.compare.sidebar" destination="sidebar.additional" after="-" />
+		<move element="content.aside" destination="related.container" after="-"/>
+		<referenceBlock name="product.info.social" remove="true"/>
+		<move element="page.main.title" destination="page.top" before="-"/>
+		<move element="themesetting.sharethis" destination="product.info.main" after="product.info"/>
+		<move element="product.info.review" destination="product.info.main" after="product.info.name"/>
+		<move element="product.brand.name" destination="product.info.main" before="product.info" />
+		<move element="product.info.stock.sku" destination="product.info.main" before="product.info"/>
+		<move element="product.info.sku" destination="product.info.main" before="product.info" />
+		<move element="custom.product.detail.static.block" destination="product.info.main" before="product.info" />
+		<move element="product.info.overview.add" destination="product.info.main" after="product.info.price"/>
+	</body>
+</page>

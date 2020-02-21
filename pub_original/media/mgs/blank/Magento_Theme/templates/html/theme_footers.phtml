@@ -1,0 +1,147 @@
+<?php 
+/* 	
+* 	Block Guide
+*	Report Bug: $block->getChildHtml('report.bugs');
+*	Store Swicher: $block->getChildHtml('store_switcher');
+*	Footer Links: $block->getChildHtml('footer_links');
+*	Copyright: $block->getChildHtml('copyright');
+*	Form Subcribe: $block->getChildHtml('form.subscribe');
+*	Static block: 		     $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('your_block_identifier')->toHtml();
+*/
+?>
+
+<?php
+	$themeSettingConfig = $this->helper('MGS\ThemeSettings\Helper\Config');
+	$themeHelper = $this->helper('MGS\Fbuilder\Helper\Data');
+	$footerVer = $themeSettingConfig->getStoreConfig('themesettings/footer/footer_version');
+	$footerParallax = $themeSettingConfig->getStoreConfig('themesettings/footer/parallax');
+	if($footerVer == ''){ $footerVer = 'footer1'; }
+	if($themeSettingConfig->getStoreConfig('themesettings/footer/footer_bottom_custom_copyright')){
+		$copyright = $themeSettingConfig->getStoreConfig('themesettings/footer/footer_bottom_copyright');
+	}else {
+		$copyright = $block->getChildHtml('copyright');
+	}
+?>
+<div class="<?= $footerVer ?><?php if($footerParallax): ?> footer footer-parallax<?php endif ?>">
+	<?php if($footerVer == 'footer1'): ?>
+		<div class="middle-footer">
+			<div class="frame">
+				<div class="line">
+					<div class="footer-block col-des-4 col-tb-6 col-mb-12 col-mb-auto mg-bottom">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('supro_footer_1_top_block_1')->toHtml(); ?>
+					</div>
+					<div class="footer-block acc-block col-des-3 col-tb-6 col-mb-12 col-mb-auto">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('supro_footer_1_top_block_2')->toHtml(); ?>
+					</div>
+					<div class="footer-block acc-block col-des-3 col-tb-6 col-mb-12 col-mb-auto">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('supro_footer_1_top_block_3')->toHtml(); ?>
+					</div>
+					<div class="footer-block acc-block col-des-2 col-tb-6 col-mb-12 col-mb-auto">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('supro_footer_1_top_block_4')->toHtml(); ?>
+					</div>
+					<?php ?>	
+				</div>
+			</div>
+		</div>
+		<div class="bottom-footer">
+			<div class="frame">
+				<div class="content-bottom">
+					<div class="bottom-footer-copyright">
+						<?= $copyright ?>
+					</div>
+					<div class="bottom-footer-social">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('supro_footer_1_bottom_block_1')->toHtml(); ?>
+					</div>
+					<div class="bottom-footer-link">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('supro_footer_1_bottom_block_2')->toHtml(); ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	<?php elseif($footerVer == 'footer2'): ?>
+		<div class="middle-footer">
+			<div class="frame">
+				<div class="line">
+					<div class="col-des-5 col-tb-6 col-mb-12 col-mb-auto mg-bottom footer-contact">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('supro_footer_2_middle_block_left')->toHtml(); ?>
+					</div>
+					<div class="col-des-7 col-tb-6 col-mb-12 col-mb-auto mg-bottom text-right">
+                        <div class="footer-page">
+							<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('supro_footer_2_middle_block_right_1')->toHtml(); ?>
+						</div>
+                        <div class="footer-social">
+							<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('supro_footer_2_middle_block_right_2')->toHtml(); ?>
+						</div>
+                        <div class="footer-copyright">
+                            <?= $copyright ?>
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</div>
+	<?php elseif($footerVer == 'footer3'): ?>
+		<div class="middle-footer">
+			<div class="frame">
+				<div class="footer_content">
+					<div class="left-content">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('supro_footer_3_left_content')->toHtml(); ?>
+					</div>
+					<div class="right-content">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('supro_footer_3_right_content')->toHtml(); ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	<?php elseif($footerVer == 'footer4'): ?>
+		<div class="middle-footer">
+			<div class="frame">
+				<div class="line">
+					<div class="footer-block col-des-4 col-tb-6 col-mb-12 col-mb-auto mg-bottom">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('supro_footer_4_top_block_1')->toHtml(); ?>
+					</div>
+					<div class="footer-block acc-block col-des-3 col-tb-6 col-mb-12 col-mb-auto">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('supro_footer_4_top_block_2')->toHtml(); ?>
+					</div>
+					<div class="footer-block acc-block col-des-3 col-tb-6 col-mb-12 col-mb-auto">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('supro_footer_4_top_block_3')->toHtml(); ?>
+					</div>
+					<div class="footer-block acc-block col-des-2 col-tb-6 col-mb-12 col-mb-auto">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('supro_footer_4_top_block_4')->toHtml(); ?>
+					</div>
+					<?php ?>	
+				</div>
+			</div>
+		</div>
+		<div class="bottom-footer">
+			<div class="frame">
+				<div class="line content-bottom">
+					<div class="col-des-4 col-tb-12 col-mb-12 bottom-footer-copyright">
+						<?= $copyright ?>
+					</div>
+					<div class="col-des-4 col-tb-12 col-mb-12  bottom-footer-social">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('supro_footer_4_bottom_block_1')->toHtml(); ?>
+					</div>
+					<div class="col-des-4 col-tb-12 col-mb-12  bottom-footer-link">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('supro_footer_4_bottom_block_2')->toHtml(); ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	<?php elseif($footerVer == 'footer5'): ?>
+		<div class="bottom-footer">
+			<div class="frame">
+				<div class="content-bottom">
+					<div class="content-bottom--left">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('supro_footer_5_bottom_block_1')->toHtml(); ?>
+					</div>
+					<div class="content-bottom--center">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('supro_footer_5_bottom_block_2')->toHtml(); ?>
+					</div>
+					<div class="content-bottom--right">
+						<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('supro_footer_5_bottom_block_3')->toHtml(); ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	<?php endif ?>
+</div>

@@ -1,0 +1,213 @@
+<?php $helper = $this->getHelper() ?>
+<?php $params = $this->getParams() ?>
+<?php $exist = false ?>
+<?php $child = null ?>
+<div class="edit-static-form">
+	
+	<div class="line">
+		<div class="col-des-12 builder-title">
+			<h2><?= __('Special Deal Product Block') ?></h2>
+		</div>
+	</div>
+	<form id="section-form" enctype="multipart/form-data" method="POST" action="<?= $this->getUrl('fbuilder/element/save') ?>" data-hasrequired="<?= __('* Required Fields') ?>" data-mage-init='{"validation":{}}'>
+		<input type="hidden" name="page_id" value="<?= $this->getRequest()->getParam('page_id') ?>">
+		<input id="block_type" type="hidden" name="type" value="special_deal">
+		<input id="block_block_name" type="hidden" name="block_name" value="<?= $params['block'] ?>">
+		<?php if(isset($params['id'])): ?>
+			<?php 
+				$child =  $this->getModel('MGS\Fbuilder\Model\Child')->load($params['id']);
+				$exist = true;
+				$settings = json_decode($child->getSetting(), true);
+			?>
+			<input type="hidden" name="child_id" value="<?= $params['id'] ?>">
+		<?php endif ?>
+		
+		<div class="mgs-tab data items product" data-mage-init='{"tabs":{"openedState":"active"}}'>
+			
+			<?php 
+				echo $this->getLayout()->createBlock('Magento\Framework\View\Element\Template')
+					->setExist($exist)
+					->setBuilderChild($child)
+					->setDisableContent(1)
+					->setBuilderHelper($helper)
+					->setTemplate('MGS_Fbuilder::panel/create/element/widgets/general_tab.phtml')->toHtml() ;
+			?>
+			
+			<div class="data item title" aria-labeledby="tab-label-additional-title" data-role="collapsible" id="tab-label-additional">
+				<a class="data switch" tabindex="-1" data-toggle="switch" href="#additional" id="tab-label-additional-title">
+					<?= __('Product Config') ?>
+				</a>
+			</div>
+			
+			<div class="data item content" id="additional" data-role="content" style="display:none">
+				
+				<div class="form-group line" id="sub_title_item">
+					<label for="sub_title" class="col-tb-4 control-label"><?= __('Sub Title') ?></label>
+					<div class="col-tb-8">
+						<input type="text" class="input-text" id="sub_title" name="setting[sub_title]"<?php if($exist && isset($settings['sub_title'])): ?> value="<?= $settings['sub_title'] ?>"<?php endif ?>/>
+					</div>
+				</div>
+				
+				<div class="form-group line">
+					<label for="ratio" class="col-tb-4 control-label"><?= __('Product') ?></label>
+					<div class="col-tb-8">
+						<div class="fbuilder-search-product">
+							<input type="text" data-validate="{required:true}" data-mage-init='{"fbuilderSearch":{"formSelector":"#section-form", "url":"<?= $this->getUrl('suprotheme/index/search') ?>", "destinationSelector":"#product_autocomplete", "destinationText":"#product_temp", "destinationId":"#product"}}' autocomplete="off" aria-autocomplete="both" aria-haspopup="false" role="combobox" class="input-text" placeholder="<?= __('Enter product name to search.') ?>" id="product_temp" name="setting[product_name_temp]"<?php if($exist && isset($settings['product_name_temp'])): ?> value="<?= $settings['product_name_temp'] ?>"<?php endif ?>/>
+							<input type="hidden" name="setting[product_id]" <?php if($exist && isset($settings['product_id'])): ?> value="<?= $settings['product_id'] ?>"<?php endif ?>id="product">
+							<div id="product_autocomplete" class="search-autocomplete"></div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group line time-info">
+					<label class="col-tb-4 control-label"><?= __('Time Text') ?></label>
+					<div class="col-tb-8">
+						<div class="line">
+							<div class="col-tb-6" style="margin-bottom: 15px;">
+								<input type="text" id="days" class="input-text" name="setting[days]"<?php if($exist && isset($settings['days'])): ?> value="<?= $settings['days'] ?>"<?php else: ?>  value="Days"<?php endif ?> onchange="changeDay()" />
+							</div>
+							
+							<div class="col-tb-6" style="margin-bottom: 15px;">
+								<input type="text" id="hours" class="input-text" name="setting[hours]"<?php if($exist && isset($settings['hours'])): ?> value="<?= $settings['hours'] ?>"<?php else: ?>  value="Hours"<?php endif ?> onchange="changeDay()" />
+							</div>
+							
+							<div class="col-tb-6" style="margin-bottom: 15px;">
+								<input type="text" id="minutes" class="input-text" name="setting[minutes]"<?php if($exist && isset($settings['minutes'])): ?> value="<?= $settings['minutes'] ?>"<?php else: ?>  value="Mins"<?php endif ?> onchange="changeDay()" />
+							</div>
+							
+							<div class="col-tb-6" style="margin-bottom: 15px;">
+								<input type="text" id="seconds" class="input-text" name="setting[seconds]"<?php if($exist && isset($settings['seconds'])): ?> value="<?= $settings['seconds'] ?>"<?php else: ?>  value="Secs"<?php endif ?> onchange="changeDay()" />
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group line">
+					<label for="style-template" class="col-tb-4 control-label"><?= __('Template Style ') ?></label>
+					<select class="col-tb-8" name="setting[style-template]" id="style-template" >
+						<option value="1" <?php if($exist && ($settings['style-template']=='')): ?>selected="selected"<?php endif;?>><?= __('Template Style 1'); ?></option>
+						<option value="2" <?php if($exist && ($settings['style-template']=='2')): ?>selected="selected"<?php endif;?>><?= __('Template Style 2'); ?></option>
+						
+					</select>
+				</div>
+				
+				<div class="form-group line">
+					<label for="hide_name" class="col-tb-4 control-label"><?= __('Hide Product Name') ?></label>
+					<div class="col-tb-8">
+						<div class="admin__actions-switch" data-role="switcher">
+							<input type="checkbox"<?php if($exist && $settings['hide_name']): ?> checked="checked"<?php endif ?> value="1" name="setting[hide_name]" id="hide_name" class="admin__actions-switch-checkbox">
+							<label for="hide_name" class="admin__actions-switch-label">
+								<span data-text-off="<?= __('No') ?>" data-text-on="<?= __('Yes') ?>" class="admin__actions-switch-text"></span>
+							</label>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group line">
+					<label for="hide_review" class="col-tb-4 control-label"><?= __('Hide Review') ?></label>
+					<div class="col-tb-8">
+						<div class="admin__actions-switch" data-role="switcher">
+							<input type="checkbox"<?php if($exist && $settings['hide_review']): ?> checked="checked"<?php endif ?> value="1" name="setting[hide_review]" id="hide_review" class="admin__actions-switch-checkbox">
+							<label for="hide_review" class="admin__actions-switch-label">
+								<span data-text-off="<?= __('No') ?>" data-text-on="<?= __('Yes') ?>" class="admin__actions-switch-text"></span>
+							</label>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group line">
+					<label for="hide_price" class="col-tb-4 control-label"><?= __('Hide Price') ?></label>
+					<div class="col-tb-8">
+						<div class="admin__actions-switch" data-role="switcher">
+							<input type="checkbox"<?php if($exist && $settings['hide_price']): ?> checked="checked"<?php endif ?> value="1" name="setting[hide_price]" id="hide_price" class="admin__actions-switch-checkbox">
+							<label for="hide_price" class="admin__actions-switch-label">
+								<span data-text-off="<?= __('No') ?>" data-text-on="<?= __('Yes') ?>" class="admin__actions-switch-text"></span>
+							</label>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group line">
+					<label for="hide_addcart" class="col-tb-4 control-label"><?= __('Hide Add to Cart') ?></label>
+					<div class="col-tb-8">
+						<div class="admin__actions-switch" data-role="switcher">
+							<input type="checkbox"<?php if($exist && $settings['hide_addcart']): ?> checked="checked"<?php endif ?> value="1" name="setting[hide_addcart]" id="hide_addcart" class="admin__actions-switch-checkbox">
+							<label for="hide_addcart" class="admin__actions-switch-label">
+								<span data-text-off="<?= __('No') ?>" data-text-on="<?= __('Yes') ?>" class="admin__actions-switch-text"></span>
+							</label>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group line">
+					<label for="hide_description" class="col-tb-4 control-label"><?= __('Hide short description') ?></label>
+					<div class="col-tb-8">
+						<div class="admin__actions-switch" data-role="switcher">
+							<input type="checkbox"<?php if($exist && $settings['hide_description']): ?> checked="checked"<?php endif ?> value="1" name="setting[hide_description]" id="hide_description" class="admin__actions-switch-checkbox" onclick="useShortDescription()">
+							<label for="hide_description" class="admin__actions-switch-label">
+								<span data-text-off="<?= __('No') ?>" data-text-on="<?= __('Yes') ?>" class="admin__actions-switch-text"></span>
+							</label>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group line" id="truncate_description">
+					<label for="truncate" class="col-tb-4 control-label"><?= __('Truncate short description') ?></label>
+					<div class="col-tb-8">
+						<input type="text" class="input-text validate-number" id="truncate" name="setting[truncate]"<?php if($exist && isset($settings['truncate'])): ?> value="<?= $settings['truncate'] ?>"<?php endif ?>/>
+					</div>
+				</div>
+			</div>
+			
+			<?php if($exist): ?>
+				<?php 
+					echo $this->getLayout()->createBlock('Magento\Framework\View\Element\Template')
+						->setExist($exist)
+						->setBuilderChild($child)
+						->setBuilderHelper($helper)
+						->setTemplate('MGS_Fbuilder::panel/create/element/widgets/code_tab.phtml')->toHtml() ;
+				?>
+				
+			<?php endif ?>
+		</div>
+		
+		
+		<div class="line">
+			<div class="form-group">
+				<div class="col-des-12 builder-action">
+					<div class="buttons">
+						<?php if(!$exist): ?>
+							<button type="button" class="action" onclick="history.go(-1)"><span><?= __('Back') ?></span></button>
+						<?php endif ?>
+						<button type="submit" class="action primary"><span><?= __('Submit') ?></span></button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	require([
+		'jquery',
+	], function(jQuery){
+		(function($) {
+			$(document).ready(function(){
+				useShortDescription();
+			});
+		})(jQuery);
+	});
+	
+	function useShortDescription(){
+		require([
+			'jquery',
+		], function(jQuery){
+			(function($) {
+				if($('#hide_description').prop("checked") == true){
+					$('#truncate_description').hide();
+				}else{
+					$('#truncate_description').show();
+				}
+			})(jQuery);
+		});
+	}
+</script>
